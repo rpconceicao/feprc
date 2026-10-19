@@ -1,14 +1,14 @@
 <!doctype html>
-<html lang="pt-PT">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>FEP Research Center — Wireframe</title>
-<meta name="description" content="FEP Research Center — investigação em Economia, Gestão e domínios interdisciplinares da Faculdade de Economia da Universidade do Porto.">
+<meta name="description" content="FEP Research Center — research in Economics, Management and related fields at the School of Economics and Management, University of Porto.">
 <!--
   FEP RESEARCH CENTER — WIREFRAMES (website institucional + Área Privada + Backoffice)
   Base: "V7 Content Oriented — Caderno de Encargos — Website FEP RC". As referências "CE x.x" remetem para as secções do documento.
-  Bilingue PT / EN (PT por omissão). Os metadados das publicações (ORCID) aparecem no idioma de origem, sem tradução (CE 2.2).
+  Bilingue EN / PT: EN é a versão mãe (por omissão); PT é a versão traduzida. Os metadados das publicações (ORCID) aparecem no idioma de origem, sem tradução (CE 2.2).
   Conteúdo ilustrativo: pessoas, publicações, projetos, eventos, números e DOI são fictícios, apenas para dar corpo aos layouts.
   Conteúdo entre [parênteses retos] é placeholder, a fornecer ou validar pela FEP RC.
   Escala de cinzentos e placeholders de imagem: o Look & Feel é definido numa fase posterior (CE 4.9 e 4.10).
@@ -543,7 +543,7 @@ body.bo .site-header,body.bo .site-footer,body.bo .cookie{display:none}
   <div class="ph" aria-hidden="true" data-label=""></div>
   <form id="gateForm" novalidate aria-labelledby="gateTitle">
     <div class="lang" role="group" aria-label="Idioma / Language" data-langgroup></div>
-    <h1 id="gateTitle" class="lockup" aria-label="FEP Research Center"><b>FEP</b><span>Research Center_ fep-rc</span></h1>
+    <h1 id="gateTitle" class="lockup" aria-label="FEP Research Center"><b>FEP</b><span>Research Center</span></h1>
     <p class="note" data-i18n="gate_note"></p>
     <div class="field">
       <label for="gatePw" data-i18n="gate_pw"></label>
@@ -570,8 +570,8 @@ body.bo .site-header,body.bo .site-footer,body.bo .cookie{display:none}
 (function(){
 "use strict";
 /* ================= language ================= */
-let lang = "pt";
-try { const s = localStorage.getItem("feprc-lang"); if (s === "en" || s === "pt") lang = s; } catch(e){}
+let lang = "en";
+try { const s = localStorage.getItem("feprc-lang-v2"); if (s === "en" || s === "pt") lang = s; } catch(e){}
 const P = (en, pt) => ({ en, pt });
 const L = o => (o && typeof o === "object" && !Array.isArray(o) && ("en" in o || "pt" in o)) ? (o[lang] !== undefined ? o[lang] : o.en) : o;
 const TODAY = new Date("2026-10-19T09:00:00");
@@ -2010,7 +2010,7 @@ const NAV = () => [
   { k:"phd", l:t("nav_phd"), c:[[t("nav_phdeco"),"#/phd/economics"],[t("nav_phdmgt"),"#/phd/management"],[t("nav_alumni"),"#/phd/alumni"]] },
   { k:"news", l:t("nav_news"), h:"#/news" }
 ];
-const langBtns = () => `<button type="button" data-lang="pt" lang="pt-PT" aria-label="Português" aria-pressed="${lang === "pt"}">PT</button><span class="sep" aria-hidden="true">|</span><button type="button" data-lang="en" lang="en" aria-label="English" aria-pressed="${lang === "en"}">EN</button>`;
+const langBtns = () => `<button type="button" data-lang="en" lang="en" aria-label="English" aria-pressed="${lang === "en"}">EN</button><span class="sep" aria-hidden="true">|</span><button type="button" data-lang="pt" lang="pt-PT" aria-label="Português" aria-pressed="${lang === "pt"}">PT</button>`;
 const gsearch = id => `<form class="hsearch" role="search" data-gsearch><label class="sr-only" for="${id}">${t("search")}</label><input id="${id}" type="search" placeholder="${esc(t("search_ph"))}" autocomplete="off"><button type="submit" aria-label="${esc(t("search"))}">${I.search}</button></form>`;
 const aiBtn = () => `<button type="button" class="aitoggle" data-aitoggle aria-pressed="${aiMode}">${I.spark}<span class="lbl">${t("ai_mode")}</span><span class="sw" aria-hidden="true"></span></button>`;
 function renderChrome(){
@@ -2108,7 +2108,7 @@ window.addEventListener("hashchange", route);
 const reroute = () => { route.keep = { id: document.activeElement && document.activeElement.id, y: window.scrollY }; route(); };
 
 /* ================= interactions ================= */
-function setLang(l){ if (l === lang) return; lang = l; try { localStorage.setItem("feprc-lang", l); } catch(e){} INDEX = null; renderChrome(); if (unlocked) reroute(); }
+function setLang(l){ if (l === lang) return; lang = l; try { localStorage.setItem("feprc-lang-v2", l); } catch(e){} INDEX = null; renderChrome(); if (unlocked) reroute(); }
 function setAi(on){ aiMode = on; try { sessionStorage.setItem("feprc-ai", on ? "1" : "0"); } catch(e){} renderChrome(); reroute(); toast(t("ai_mode"), on ? t("ai_on") : t("ai_off")); }
 function closeDD(except){ $$(".mainnav .top[aria-expanded]").forEach(b => { if (b !== except){ b.setAttribute("aria-expanded", "false"); const d = document.getElementById(b.getAttribute("aria-controls")); if (d) d.classList.remove("open"); } }); }
 function openMenu(){ const m = $("#menuPanel"); m.hidden = false; document.body.style.overflow = "hidden"; $("#menuOpen") && $("#menuOpen").setAttribute("aria-expanded", "true"); $("#menuClose") && $("#menuClose").focus(); }
