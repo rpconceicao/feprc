@@ -11,6 +11,8 @@
   Bilingue EN / PT: EN é a versão mãe (por omissão); PT é a versão traduzida. Os metadados das publicações (ORCID) aparecem no idioma de origem, sem tradução (CE 2.2).
   Conteúdo ilustrativo: pessoas, publicações, projetos, eventos, números e DOI são fictícios, apenas para dar corpo aos layouts.
   Conteúdo entre [parênteses retos] é placeholder, a fornecer ou validar pela FEP RC.
+  Terminologia: a sigla PAD mantém-se em EN ("My PADs", "New PAD", "Group PADs", "PADs for Decision"), com a expansão "Expense Authorisation Request".
+  A validar pela FEP RC: rótulos EN dos estados do PAD (o CE 3.4 só os define em PT) e versão EN da mensagem principal (mantida em PT até ser fornecida pela estratégia de marca FEP).
   Escala de cinzentos e placeholders de imagem: o Look & Feel é definido numa fase posterior (CE 4.9 e 4.10).
   AI Mode e Área Privada são simulados no browser (sem servidor): as respostas, notificações e estados são de demonstração.
 -->
@@ -99,7 +101,7 @@ ul,ol{margin:0;padding:0}
 .logo-ph{display:flex;align-items:center;justify-content:center;min-height:56px;padding:0 16px;border:1px dashed var(--ph-border);border-radius:8px;font-size:12px;font-weight:600;color:var(--faint);background:var(--ph-fill);text-align:center}
 
 /* CE annotations (wireframe notes) */
-.ce{display:none;align-items:center;gap:6px;margin:0 0 10px;width:max-content;max-width:100%;padding:3px 8px;border:1px dashed var(--border-2);border-radius:6px;font-size:11px;font-weight:600;color:var(--faint);background:var(--surface);line-height:1.4}
+.ce{display:none;align-items:center;gap:6px;margin:0 0 10px;width:fit-content;max-width:100%;padding:3px 8px;border:1px dashed var(--border-2);border-radius:6px;font-size:11px;font-weight:600;color:var(--faint);background:var(--surface);line-height:1.4}
 .ce::before{content:"";width:6px;height:6px;border-radius:2px;background:var(--faint)}
 body.notes .ce{display:inline-flex}
 .util .ce{margin:0}
@@ -504,7 +506,7 @@ mark{background:var(--surface-2);color:var(--fg);border-radius:3px;padding:0 2px
 .radios label:has(input:checked){border-color:var(--fg);box-shadow:inset 0 0 0 1px var(--fg)}
 .radios input{accent-color:var(--fg)}
 
-/* ================= backoffice (Statamic CP, wireframe) ================= */
+/* ================= backoffice (wireframe) ================= */
 body.bo .site-header,body.bo .site-footer,body.bo .cookie{display:none}
 .cp{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:100svh}
 @media (max-width:860px){ .cp{grid-template-columns:1fr} }
@@ -526,6 +528,8 @@ body.bo .site-header,body.bo .site-footer,body.bo .cookie{display:none}
 .lock{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--fg);border:1px solid var(--fg);border-radius:999px;padding:2px 8px}
 .toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .toolbar .field{flex:1 1 220px}
+.ilus{display:inline-block;margin-left:6px;padding:0 6px;border:1px dashed var(--border-2);border-radius:4px;font-size:10px;font-weight:600;color:var(--faint);text-transform:uppercase;letter-spacing:.04em;vertical-align:middle}
+.ilus-note{border-style:dashed;font-size:13px}
 .qbadge{font-size:11px;font-weight:700;border:1.5px dashed currentColor;border-radius:6px;padding:1px 6px}
 .nf{padding:clamp(64px,10vw,140px) 0;display:flex;flex-direction:column;gap:16px;align-items:flex-start}
 .nf h1{font-size:clamp(32px,4vw,48px)}
@@ -536,6 +540,32 @@ body.bo .site-header,body.bo .site-footer,body.bo .cookie{display:none}
 .smap a{font-size:14px;text-decoration:none;padding:3px 0;display:inline-block}
 .smap a:hover{text-decoration:underline}
 .smap .lv2{padding-left:14px}
+
+/* home: destaque fixo (CE 6.1) */
+.lead-grid{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:clamp(24px,3vw,40px);align-items:start}
+.lead-main{display:flex;flex-direction:column;gap:14px}
+.lead-main h1{font-size:clamp(28px,3.4vw,44px);line-height:1.08;letter-spacing:-.03em}
+.lead-main h1 a,.lead-sec h2 a{text-decoration:none}
+.lead-main h1 a:hover,.lead-sec h2 a:hover{text-decoration:underline}
+.lead-main .sum{font-size:17px;color:var(--fg2);line-height:1.6;max-width:44rem}
+.lead-side{display:flex;flex-direction:column;gap:20px}
+.lead-sec{display:flex;flex-direction:column;gap:10px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.lead-sec:last-child{border-bottom:0;padding-bottom:0}
+.lead-sec h2{font-size:19px;line-height:1.3}
+@media (max-width:860px){ .lead-grid{grid-template-columns:1fr} }
+.agenda{list-style:none;border-top:1px solid var(--border)}
+.agenda li{display:grid;grid-template-columns:210px minmax(0,1fr) auto;gap:6px 24px;align-items:center;padding:14px 0;border-bottom:1px solid var(--border)}
+.ag-d{display:flex;flex-direction:column;gap:2px;font-size:13px;color:var(--muted)} .ag-d b{color:var(--fg);font-size:14px}
+.ag-t{display:flex;flex-direction:column;gap:3px;min-width:0} .ag-t .c-title{text-decoration:none} .ag-t .c-title:hover{text-decoration:underline}
+@media (max-width:700px){ .agenda li{grid-template-columns:1fr} }
+.nrow.sm{grid-template-columns:96px minmax(0,1fr);gap:16px;padding:12px 0}
+.nrow.sm .ph{aspect-ratio:4/3}
+.glance.compact .nums li{padding:14px 16px} .glance.compact .nums b{font-size:clamp(26px,3vw,34px)}
+.glance.compact .ods{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:6px}
+.tygroup{font-size:12px;font-weight:600;color:var(--muted);margin:12px 0 2px}
+.mcard{display:grid;grid-template-columns:48px minmax(0,1fr);gap:12px;align-items:center;padding:10px;border:1px solid var(--border);border-radius:12px;background:var(--surface);text-decoration:none;color:var(--fg)}
+a.mcard:hover{border-color:var(--border-2);color:var(--fg)} .mcard .ph{width:48px;height:48px}
+.mcard b{font-size:14px;font-weight:600}
 </style>
 </head>
 <body class="locked notes">
@@ -644,17 +674,17 @@ const PEOPLE = [
   { s:"tomas-oliveira", n:"Tomás Oliveira", t:"phd", g:"sustainability", r:P("PhD Student, PhD in Economics","Doutorando, Doutoramento em Economia"), fn:[], o:"0009-0007-3318-6642", k:["Energy transition","Regional economics"], orcidSt:"ok" },
   { s:"andre-martins", n:"André Martins", t:"phd", g:"management", r:P("PhD Student, PhD in Management","Doutorando, Doutoramento em Gestão"), fn:[], o:"", k:["SMEs","Digital capabilities"], orcidSt:"none" },
   { s:"leonor-rocha", n:"Leonor Rocha", t:"phd", g:"macro", r:P("PhD Student, PhD in Economics","Doutoranda, Doutoramento em Economia"), fn:[], o:"0009-0002-8840-1133", k:["Inflation expectations","Monetary policy"], orcidSt:"ok" },
-  { s:"elena-marchetti", n:"Elena Marchetti", t:"visit", g:"finance", inst:"University of Bologna", from:"2026-09-01", to:"2026-12-18",
+  { s:"elena-marchetti", n:"Elena Marchetti", t:"visit", g:"finance", k:["Banking","Climate risk","Financial regulation"],  inst:"University of Bologna", from:"2026-09-01", to:"2026-12-18",
     b:P("Associate Professor of Finance working on bank regulation and climate stress tests. At the FEP RC she collaborates with the GREENFIN team.","Professora Associada de Finanças, trabalha em regulação bancária e testes de stress climáticos. No FEP RC colabora com a equipa do GREENFIN.") },
-  { s:"jonas-weber", n:"Jonas Weber", t:"visit", g:"macro", inst:"University of Mannheim", from:"2026-10-01", to:"2027-01-31",
+  { s:"jonas-weber", n:"Jonas Weber", t:"visit", g:"macro", k:["Fiscal policy","Regional economics"],  inst:"University of Mannheim", from:"2026-10-01", to:"2027-01-31",
     b:P("PhD candidate in macroeconomics studying fiscal multipliers with regional data. Hosted by the Macroeconomics & Public Policy group.","Doutorando em macroeconomia que estuda multiplicadores orçamentais com dados regionais. Acolhido pelo grupo de Macroeconomia e Políticas Públicas.") },
-  { s:"aisha-rahman", n:"Aisha Rahman", t:"visit", g:"sustainability", inst:"University of Sussex", from:"2026-05-04", to:"2026-07-31",
+  { s:"aisha-rahman", n:"Aisha Rahman", t:"visit", g:"sustainability", k:["Energy policy","Energy communities"],  inst:"University of Sussex", from:"2026-05-04", to:"2026-07-31",
     b:P("Research Fellow in energy policy. During her stay she worked on community energy schemes in Northern Portugal.","Research Fellow em política energética. Durante a estadia trabalhou em comunidades de energia no Norte de Portugal.") },
-  { s:"rita-lopes", n:"Rita Lopes", t:"staff", r:P("Research Support Manager","Gestora de Apoio à Investigação"), dep:P("Research Support Office","Gabinete de Apoio à Investigação"), ext:"1234", email:"[rlopes]@fep.up.pt" },
-  { s:"nuno-barros", n:"Nuno Barros", t:"staff", r:P("Funding and Projects Officer","Técnico de Projetos e Financiamento"), dep:P("Research Support Office","Gabinete de Apoio à Investigação"), ext:"1235", email:"[nbarros]@fep.up.pt" },
-  { s:"filipa-moura", n:"Filipa Moura", t:"staff", r:P("Science Communication Officer","Técnica de Comunicação de Ciência"), dep:P("Communication","Comunicação"), ext:"1238", email:"[fmoura]@fep.up.pt" },
-  { s:"sergio-dias", n:"Sérgio Dias", t:"staff", r:P("Data Center Officer","Técnico do Data Center"), dep:P("Data Center","Data Center"), ext:"1241", email:"[sdias]@fep.up.pt" },
-  { s:"claudia-reis", n:"Cláudia Reis", t:"staff", r:P("Administrative Assistant","Assistente Administrativa"), dep:P("Secretariat","Secretariado"), ext:"1230", email:"[creis]@fep.up.pt" },
+  { s:"rita-lopes", n:"Rita Lopes", t:"staff", g:null, k:["Research management","Expense requests"],  r:P("Research Support Manager","Gestora de Apoio à Investigação"), dep:P("Research Support Office","Gabinete de Apoio à Investigação"), ext:"1234", email:"[rlopes]@fep.up.pt" },
+  { s:"nuno-barros", n:"Nuno Barros", t:"staff", g:"finance", k:["Research funding","Project management"],  r:P("Funding and Projects Officer","Técnico de Projetos e Financiamento"), dep:P("Research Support Office","Gabinete de Apoio à Investigação"), ext:"1235", email:"[nbarros]@fep.up.pt" },
+  { s:"filipa-moura", n:"Filipa Moura", t:"staff", g:null, k:["Science communication"],  r:P("Science Communication Officer","Técnica de Comunicação de Ciência"), dep:P("Communication","Comunicação"), ext:"1238", email:"[fmoura]@fep.up.pt" },
+  { s:"sergio-dias", n:"Sérgio Dias", t:"staff", g:"labour", k:["Data management","Microdata"],  r:P("Data Center Officer","Técnico do Data Center"), dep:P("Data Center","Data Center"), ext:"1241", email:"[sdias]@fep.up.pt" },
+  { s:"claudia-reis", n:"Cláudia Reis", t:"staff", g:null, k:["Administrative support"],  r:P("Administrative Assistant","Assistente Administrativa"), dep:P("Secretariat","Secretariado"), ext:"1230", email:"[creis]@fep.up.pt" },
   { s:"hugo-ferreira", n:"Hugo Ferreira", t:"alumni", prog:"economics", year:2024, now:P("Economist at a European central bank","Economista num banco central europeu"), b:P("Thesis on fiscal consolidations and public investment in the euro area.","Tese sobre consolidações orçamentais e investimento público na área do euro.") },
   { s:"sara-almeida", n:"Sara Almeida", t:"alumni", prog:"management", year:2025, now:P("Assistant Professor, [university]","Professora Auxiliar, [universidade]"), b:P("Thesis on export dynamics of family firms.","Tese sobre a dinâmica exportadora das empresas familiares.") },
   { s:"diogo-campos", n:"Diogo Campos", t:"alumni", prog:"economics", year:2023, now:P("Senior Economist, [consultancy]","Economista Sénior, [consultora]"), b:P("Thesis on energy prices and household consumption.","Tese sobre preços da energia e consumo das famílias.") },
@@ -668,10 +698,13 @@ const AREAS = { eco:P("Economics","Economia"), fin:P("Finance","Finanças"), mgt
 
 const PUBS = [
   { id:"green-bonds-cost-of-capital", ti:"Do green bonds lower the cost of capital? Evidence from European listed firms", ty:"art", y:2026, j:"Journal of Corporate Finance", au:["@miguel-sousa","@catarina-gomes","L. Brandt"], ar:"fin", ods:[7,13], pr:"greenfin", feat:true, img:true,
+    desc:P("Credible green bonds make capital cheaper for European firms; the advantage disappears with greenwashing.","Obrigações verdes credíveis tornam o capital mais barato para as empresas europeias; a vantagem desaparece com o greenwashing."),
     ab:"Using 1,140 green bond issues by European listed firms between 2014 and 2024, we find that issuers see a modest but persistent fall in their cost of equity, concentrated in firms with credible third-party verification. The effect disappears for issuers later linked to greenwashing controversies." },
   { id:"automation-wage-inequality", ti:"Automation exposure and wage inequality in Southern Europe", ty:"art", y:2025, j:"Labour Economics", au:["@ana-ribeiro","@joao-pereira","@beatriz-nunes"], ar:"eco", ods:[8,10], pr:"ineqwork", feat:true, img:true,
+    desc:P("Automation explains a fifth of the rise in wage inequality in Southern Europe, and retraining absorbs most of it.","A automação explica um quinto do aumento da desigualdade salarial no Sul da Europa, e a requalificação absorve a maior parte."),
     ab:"Linking occupational automation scores to matched employer-employee data for Portugal, Spain and Italy, we show that automation exposure explains about a fifth of the rise in the 90/10 wage gap since 2010. Firms that retrain workers absorb most of the shock." },
   { id:"fiscal-rules-public-investment", ti:"Fiscal rules and the composition of public investment", ty:"art", y:2025, j:"European Journal of Political Economy", au:["@tiago-meireles","@marta-lobo"], ar:"eco", ods:[9,16], pr:"fiscalrules", feat:true, img:true,
+    desc:P("Tighter fiscal rules push governments from long-lived infrastructure towards smaller projects.","Regras orçamentais mais apertadas afastam os governos das grandes infraestruturas e aproximam-nos de projetos menores."),
     ab:"We study how expenditure and balanced-budget rules change what governments invest in. Tighter rules shift spending from long-lived infrastructure towards maintenance and smaller projects, with measurable effects on regional growth." },
   { id:"just-transition-pathways", ti:"Just transition pathways for coal and refinery regions", ty:"rep", y:2026, j:"JUSTRANS Policy Report No. 3", au:["@ricardo-antunes","@rui-fonseca","@tomas-oliveira"], ar:"eco", ods:[7,8,13], pr:"justrans", img:true,
     ab:"This report compares six European regions that closed coal plants or refineries and identifies which combinations of retraining, local investment and social protection kept employment and incomes stable." },
@@ -822,7 +855,7 @@ const PADS = [
     desc:"Licença de acesso a uma base de dados internacional de anúncios de emprego.", files:[["Proposta_comercial.pdf","302 KB"]],
     piOp:{ pos:true, txt:"Despesa relevante para o projeto, mas de valor elevado. Remeto ao Board." }, bd:{ pos:false, txt:"Valor fora do previsto em orçamento para 2026. Não aprovado nesta fase." },
     piJust:"A despesa não cabe no orçamento do projeto INEQWORK para 2026. Sugerimos submeter novo pedido no concurso interno de apoio à aquisição de dados (janeiro de 2027).",
-    log:[["2026-05-28 15:44","ana-ribeiro","submit","—","analise"],["2026-06-01 10:03","sofia-pinheiro","opinion","analise","board"],["2026-06-04 18:20","helena-costa","decision","board","board"],["2026-06-05 09:10","sofia-pinheiro","justify","board","indeferido"]] },
+    log:[["2026-05-28 15:44","ana-ribeiro","submit","—","analise"],["2026-06-01 10:03","sofia-pinheiro","opinion","analise","board"],["2026-06-04 18:20","helena-costa","decision","board","board"],["2026-06-05 09:10","sofia-pinheiro","state","board","indeferido"]] },
   { id:"PAD-2026-0150", by:"joao-pereira", g:"labour", ty:0, ti:"Deslocação — workshop doutoral em Lyon", amt:520, d:"2026-10-14", pr:"ineqwork", sup:"[Transportadora]", st:"analise",
     desc:"Apresentação do primeiro capítulo da tese.", files:[["Programa_workshop.pdf","210 KB"],["Orcamento_voo.pdf","72 KB"]], log:[["2026-10-14 18:02","joao-pereira","submit","—","analise"]] },
   { id:"PAD-2026-0144", by:"beatriz-nunes", g:"labour", ty:3, ti:"Revisão linguística de artigo", amt:380, d:"2026-09-30", pr:"ineqwork", sup:"[Serviço de revisão]", st:"board", board:"rui-fonseca",
@@ -856,7 +889,7 @@ const MANUAL_PUBS = { "ana-ribeiro":[{ id:"m-notas-salario-minimo", ti:"Notas so
 /* ================= interface copy (PT / EN) — CE 1.3.4: microcopy assegurado pela LOBA ================= */
 const T = {
   skip:["Saltar para o conteúdo","Skip to content"],
-  gate_note:["Pré-visualização privada dos wireframes do novo website do FEP Research Center. Introduza a password para continuar.","Private preview of the new FEP Research Center website wireframes. Enter the password to continue."],
+  gate_note:["Pré-visualização privada dos wireframes do novo website do FEP Research Center. Introduza a password para continuar. fep-rc","Private preview of the new FEP Research Center website wireframes. Enter the password to continue."],
   gate_pw:["Password","Password"], gate_show:["Mostrar","Show"], gate_hide:["Ocultar","Hide"], gate_enter:["Entrar","Enter"],
   gate_err:["A password não está correta. Verifique e tente novamente.","The password is not correct. Check it and try again."],
   home:["Página inicial do FEP Research Center","FEP Research Center home"],
@@ -879,7 +912,7 @@ const T = {
   nl_ok:["Falta um passo: confirme a subscrição no e-mail que acabámos de enviar.","One more step: confirm your subscription in the email we just sent."],
   e_email:["Indique um e-mail válido, por exemplo nome@dominio.pt.","Enter a valid email, for example name@domain.com."], e_consent:["Para subscrever, aceite o consentimento.","To subscribe, accept the consent."],
   f_about:["O território científico da FEP: investigação em Economia, Gestão e domínios interdisciplinares, com impacto na academia, nas políticas públicas e na sociedade.","FEP’s scientific dimension: research in Economics, Management and related fields, with impact on academia, public policy and society."],
-  f_msg:["O rigor faz o conhecimento avançar.","Rigour moves knowledge forward."],
+  f_msg:["O rigor faz o conhecimento avançar.","O rigor faz o conhecimento avançar."],
   f_explore:["Explorar","Explore"], f_contact:["Contactos","Contacts"], f_follow:["FEP nas redes sociais","FEP on social media"], f_funders:["Apoios e financiamento","Support and funding"],
   d_address:["Morada","Address"], d_email:["E-mail","Email"], d_phone:["Telefone","Phone"],
   f_copy:["© 2026 FEP Research Center, Faculdade de Economia da Universidade do Porto. Todos os direitos reservados.","© 2026 FEP Research Center, School of Economics and Management, University of Porto. All rights reserved."],
@@ -941,8 +974,9 @@ const T = {
   forthcoming:["Próximos","Forthcoming"], previous:["Anteriores","Previous"], subtype:["Tipo de seminário","Seminar series"], search_event:["Pesquisar por nome","Search by name"],
   conf_intro:["Conferências e workshops científicos organizados pelo FEP RC.","Scientific conferences and workshops organised by the FEP RC."], course_intro:["Formação avançada para investigadores e doutorandos.","Advanced training for researchers and PhD students."],
   sem_intro:["Séries regulares de seminários: ECO, FIN, MAR e WiP (Work in Progress).","Regular seminar series: ECO, FIN, MAR and WiP (Work in Progress)."], sem_sub_intro:["Seminários da série {s}.","Seminars in the {s} series."],
-  programme:["Programa","Programme"], add_cal:["Adicionar ao calendário","Add to calendar"], register:["Inscrição","Registration"],
+  programme:["Programa","Programme"], register:["Inscrição","Registration"],
   /* initiatives */
+  init_type:["Tipo de iniciativa","Initiative type"],
   bulletin_intro:["O que os nossos investigadores estão a descobrir, num formato curto. Um estudo de cada vez.","What our researchers are finding, in a short format. One study at a time."], read_paper:["Ler o artigo","Read the paper"], interviewee:["Entrevistado/a","Interviewee"],
   /* phd */
   facts:["Ficha do programa","Programme facts"], assoc_events:["Iniciativas e eventos associados","Related initiatives and events"], prog_gallery:["Galeria de iniciativas","Initiatives gallery"], prog_alumni:["Alumni do programa","Programme alumni"], apply:["Candidaturas","Applications"],
@@ -966,56 +1000,63 @@ const T = {
   pa_recover_t:["Recuperar palavra-passe","Reset your password"], pa_recover_p:["Indique o seu e-mail institucional. Enviamos uma ligação para definir uma nova palavra-passe.","Enter your institutional email. We will send you a link to set a new password."],
   pa_recover_btn:["Enviar ligação","Send link"], pa_recover_ok:["Se o e-mail estiver registado, vai receber uma ligação válida durante 60 minutos.","If the email is registered, you will receive a link valid for 60 minutes."], pa_back_login:["Voltar ao login","Back to sign in"],
   role_researcher:["Investigador/a","Researcher"], role_pi:["PI / Investigador/a Principal","PI / Principal Investigator"], role_board:["Membro do Board","Board Member"], role_admin:["Administrador/a","Administrator"],
-  pa_profile:["O Meu Perfil","My Profile"], pa_mypads:["Os Meus PAD","My Expense Requests"], pa_mypubs:["As Minhas Publicações","My Publications"], pa_docs:["Documentos Internos","Internal Documents"], pa_newpad:["Novo PAD","New Request"],
+  pa_profile:["O Meu Perfil","My Profile"], pa_mypads:["Os Meus PAD","My PADs"], pa_mypubs:["As Minhas Publicações","My Publications"], pa_docs:["Documentos Internos","Internal Documents"], pa_newpad:["Novo PAD","New PAD"],
   pa_signout:["Sair","Sign out"], pa_backoffice:["Backoffice","Backoffice"], pa_public:["Ver perfil público","View public profile"], pa_area:["Área Privada","Private Area"],
   pa_profile_p:["Estes dados alimentam a sua página pública de investigador.","This information feeds your public researcher page."], pa_save:["Guardar alterações","Save changes"], pa_saved:["Alterações guardadas. A página pública foi atualizada.","Changes saved. Your public page has been updated."],
   pa_orcid_ro:["Apenas leitura. Para alterar o ORCID iD, peça ao Administrador: este dado define as publicações importadas.","Read only. To change your ORCID iD, ask the Administrator: it determines which publications are imported."],
   pa_photo:["Fotografia","Photo"], pa_change_photo:["Alterar fotografia","Change photo"], pa_bio:["Biografia","Biography"], pa_contacts:["Contactos","Contacts"], pa_inst_links:["Ligações institucionais","Institutional links"],
-  pa_pads_p:["Acompanhe o estado dos seus pedidos. Recebe um e-mail sempre que o estado muda.","Track the status of your requests. You get an email every time the status changes."],
-  pa_status:["Estado","Status"], pa_submitted:["Submetido em","Submitted on"], pa_amount:["Valor","Amount"], pa_request:["Pedido","Request"], pa_all_status:["Todos os estados","All statuses"],
+  pa_pads_p:["Acompanhe o estado dos seus Pedidos de Autorização de Despesa (PAD). Recebe um e-mail sempre que o estado muda.","Track the status of your PADs (Expense Authorisation Requests). You get an email every time the status changes."],
+  pa_status:["Estado","Status"], pa_submitted:["Submetido em","Submitted on"], pa_amount:["Valor","Amount"], pa_request:["PAD","PAD"], pa_all_status:["Todos os estados","All statuses"],
   st_analise:["Em Análise","Under Review"], st_correcao:["Aguardando Correção","Awaiting Correction"], st_deferido:["Deferido","Approved"], st_indeferido:["Indeferido","Rejected"],
-  sti_analise:["Em análise (PI)","Under review (PI)"], sti_correcao:["Reaberto / necessita informação","Reopened / needs information"], sti_board:["Em apreciação pelo Board","Under Board review"], sti_deferido:["Deferido","Approved"], sti_indeferido:["Indeferido","Rejected"],
+  sti_analise:["Em Análise","Under Review"], sti_correcao:["Reaberto / Necessita Informação","Reopened / Needs Information"], sti_board:["Em Apreciação pelo Board","Under Board Review"], sti_deferido:["Deferido","Approved"], sti_indeferido:["Indeferido","Rejected"],
   pa_mypubs_p:["Publicações associadas ao seu perfil. As importadas do ORCID são corrigidas pelo Administrador; as manuais pode editar aqui.","Publications linked to your profile. ORCID imports are corrected by the Administrator; you can edit manual ones here."],
   pa_add_pub:["Adicionar publicação","Add publication"], pa_origin:["Origem","Source"], src_orcid:["ORCID","ORCID"], src_manual:["Manual","Manual"], pa_edit:["Editar","Edit"], pa_locked:["Corrigida pelo Administrador","Corrected by the Administrator"],
   pa_pubform_t:["Ficha de publicação","Publication record"], pa_pubform_new:["Nova publicação (origem manual)","New publication (manual)"], pa_pubform_p:["Use esta ficha para publicações que não estão no ORCID. Fica publicada no seu perfil depois de guardar.","Use this form for publications that are not in ORCID. It appears on your profile once saved."],
   pa_title:["Título","Title"], pa_link:["Ligação externa","External link"], pa_coauthors:["Autores (por ordem)","Authors (in order)"], pa_pub_saved:["Publicação guardada e associada ao seu perfil.","Publication saved and linked to your profile."], pa_cancel:["Cancelar","Cancel"],
   pa_docs_p:["Regulamentos, estatutos, atas e documentação de apoio. Os documentos são carregados pelo Administrador.","Regulations, statutes, minutes and support documents. Files are uploaded by the Administrator."],
   pa_files_n:["{n} documentos","{n} files"], pa_download:["Descarregar","Download"], pa_updated:["Atualizado","Updated"], pa_size:["Tamanho","Size"], pa_format:["Formato","Format"], pa_name:["Nome","Name"],
-  pa_newpad_p:["Preencha o pedido e anexe os documentos. Ao submeter, o PI do Grupo é notificado por e-mail.","Fill in the request and attach the documents. When you submit, the Group PI is notified by email."],
+  pa_newpad_p:["Preencha o Pedido de Autorização de Despesa (PAD) e anexe os documentos. Ao submeter, o PI do Grupo é notificado por e-mail.","Fill in the PAD (Expense Authorisation Request) and attach the documents. When you submit, the Group PI is notified by email."],
   pa_faq:["FAQ sobre o processo PAD (PDF)","PAD process FAQ (PDF)"], pa_faq_p:["Que despesas são elegíveis, prazos e documentos necessários.","Which expenses are eligible, deadlines and required documents."],
-  pad_group:["Grupo de Investigação","Research group"], pad_group_hint:["Define o PI que recebe e analisa o pedido.","Determines which PI receives and reviews the request."], pad_type:["Tipo de despesa","Expense type"], pad_title:["Descrição curta","Short description"],
+  pad_group:["Grupo de Investigação","Research group"], pad_group_hint:["Define o PI que recebe e analisa o PAD.","Determines which PI receives and reviews the PAD."], pad_type:["Tipo de despesa","Expense type"], pad_title:["Descrição curta","Short description"],
   pad_desc:["Justificação","Justification"], pad_amount:["Valor estimado (€, IVA incluído)","Estimated amount (€, VAT included)"], pad_project:["Projeto / fonte de financiamento","Project / funding source"], pad_date:["Data prevista da despesa","Expected date of expense"], pad_supplier:["Fornecedor","Supplier"],
   pad_files:["Documentos anexos","Attachments"], pad_files_hint:["Orçamentos, faturas pró-forma, programa do evento. PDF, JPG ou DOCX até 10 MB cada.","Quotes, pro-forma invoices, event programme. PDF, JPG or DOCX up to 10 MB each."], pad_drop:["Arraste ficheiros para aqui ou","Drag files here or"], pad_choose:["escolha no computador","choose from your computer"],
   pad_decl:["Confirmo que a informação está correta e que a despesa se destina à atividade científica do Centro.","I confirm the information is correct and the expense is for the Centre’s scientific activity."],
-  pad_submit:["Submeter pedido","Submit request"], pad_resubmit:["Ressubmeter pedido","Resubmit request"], pad_draft:["Guardar rascunho","Save draft"],
-  pad_sent:["Pedido {id} submetido. Estado: Em Análise.","Request {id} submitted. Status: Under Review."], pad_mail_pi:["E-mail enviado ao PI do Grupo ({n}) a partir de noreply-research@fep.up.pt.","Email sent to the Group PI ({n}) from noreply-research@fep.up.pt."],
+  pad_ilus:["ilustrativo","illustrative"],
+  pad_ilus_note:["Campos ilustrativos. O CE só define o seletor de Grupo e o upload de anexos; os restantes campos são definidos na fase Define, a partir do formulário atual fornecido pela FEP RC.","Illustrative fields. The spec only defines the Group selector and the attachments upload; the other fields are defined in the Define phase, based on the current form supplied by FEP RC."],
+  pad_ilus_info:["Exceto Grupo e anexos, os campos apresentados são ilustrativos.","Except for Group and attachments, the fields shown are illustrative."],
+  pad_submit:["Submeter PAD","Submit PAD"], pad_resubmit:["Ressubmeter PAD","Resubmit PAD"],
+  pad_sent:["PAD {id} submetido. Estado: Em Análise.","PAD {id} submitted. Status: Under Review."], pad_mail_pi:["E-mail enviado ao PI do Grupo ({n}) a partir de noreply-research@fep.up.pt.","Email sent to the Group PI ({n}) from noreply-research@fep.up.pt."],
   pad_none_selected:["Nenhum projeto (orçamento do Centro)","No project (Centre budget)"], pad_choose_opt:["Escolha uma opção","Choose an option"],
-  pad_info:["Informação do pedido","Request details"], pad_docs:["Documentos submetidos","Submitted documents"], pad_history:["Histórico de estados","Status history"], pad_pi_msg:["Mensagem do PI","Message from the PI"], pad_pi_just:["Fundamentação do PI","PI’s justification"],
+  pad_info:["Informação do PAD","PAD details"], pad_docs:["Documentos submetidos","Submitted documents"], pad_history:["Histórico de estados","Status history"], pad_pi_msg:["Mensagem do PI","Message from the PI"], pad_pi_just:["Fundamentação do PI","PI’s justification"],
   pad_conf_note:["O parecer do PI e a deliberação do Board são confidenciais e não aparecem nesta página.","The PI’s opinion and the Board’s decision are confidential and are not shown on this page."],
-  pad_fix:["Corrija e ressubmeta","Correct and resubmit"], pad_resent:["Pedido ressubmetido. Voltou ao estado Em Análise e o PI foi notificado.","Request resubmitted. It is back to Under Review and the PI has been notified."],
-  pad_flow:["Fluxo do pedido","Request flow"], fl1:["Submissão","Submission"], fl2:["Verificação formal (PI)","Formal check (PI)"], fl3:["Parecer do PI","PI opinion"], fl4:["Deliberação do Board","Board decision"], fl5:["Execução","Execution"], fl6:["Fecho e arquivo","Closure and archive"],
-  act_submit:["Submissão","Submission"], act_reopen:["Reabertura para correção","Reopened for correction"], act_resubmit:["Ressubmissão","Resubmission"], act_opinion:["Parecer do PI","PI opinion"], act_decision:["Deliberação do Board","Board decision"], act_justify:["Justificação de indeferimento","Rejection justification"], act_state:["Alteração de estado (Admin)","Status change (Admin)"],
+  pad_fix:["Corrija e ressubmeta","Correct and resubmit"], pad_resent:["PAD ressubmetido. Voltou ao estado Em Análise e o PI foi notificado.","PAD resubmitted. It is back to Under Review and the PI has been notified."],
+  pad_flow:["Fluxo do PAD","PAD flow"], fl1:["Submissão","Submission"], fl2:["Verificação formal (PI)","Formal check (PI)"], fl3:["Parecer do PI","PI opinion"], fl4:["Deliberação do Board","Board decision"], fl5:["Execução","Execution"], fl6:["Fecho e arquivo","Closure and archive"],
+  act_submit:["Submissão","Submission"], act_reopen:["Reabertura","Reopening"], act_resubmit:["Ressubmissão","Resubmission"], act_opinion:["Parecer PI","PI Opinion"], act_decision:["Deliberação Board","Board Decision"], act_state:["Alteração de Estado","Status Change"],
   /* backoffice */
-  bo_title:["Backoffice","Backoffice"], bo_cp:["Statamic CP · wireframe","Statamic CP · wireframe"], bo_back_site:["Voltar à Área Privada","Back to Private Area"],
-  bo_pi_list:["PAD do Grupo","Group requests"], bo_pi_list_p:["Pedidos submetidos pelos membros do seu Grupo, incluindo os concluídos.","Requests submitted by members of your Group, including completed ones."],
-  bo_board_list:["PAD para Deliberação","Requests for decision"], bo_board_list_p:["Pedidos que lhe foram atribuídos pelos PI, com o respetivo parecer.","Requests assigned to you by PIs, with their opinion."],
-  bo_requester:["Requerente","Requester"], bo_assigned:["Membro do Board","Board member"], bo_open:["Abrir","Open"], bo_analyse:["Análise do PAD","Request review"],
-  bo_reopen:["Reabrir para correção","Reopen for correction"], bo_reopen_p:["Devolve o pedido ao investigador. O estado passa a Aguardando Correção e o investigador recebe a mensagem por e-mail.","Returns the request to the researcher. Status becomes Awaiting Correction and the researcher receives the message by email."],
+  bo_title:["Backoffice","Backoffice"], bo_cp:["Backoffice · wireframe","Backoffice · wireframe"], bo_back_site:["Voltar à Área Privada","Back to Private Area"],
+  bo_pi_list:["PAD do Grupo","Group PADs"], bo_pi_list_p:["Pedidos de Autorização de Despesa (PAD) submetidos pelos membros do seu Grupo, incluindo os concluídos.","PADs (Expense Authorisation Requests) submitted by members of your Group, including completed ones."],
+  bo_board_list:["PAD para Deliberação","PADs for Decision"], bo_board_list_p:["PAD que lhe foram atribuídos pelos PI, com o respetivo parecer.","PADs assigned to you by PIs, with their opinion."],
+  bo_requester:["Requerente","Requester"], bo_assigned:["Membro do Board","Board member"], bo_open:["Abrir","Open"], bo_analyse:["Análise do PAD","PAD review"],
+  bo_reopen:["Reabrir para correção","Reopen for correction"], bo_reopen_p:["Devolve o PAD ao investigador. O estado passa a Aguardando Correção e o investigador recebe a mensagem por e-mail.","Returns the PAD to the researcher. Status becomes Awaiting Correction and the researcher receives the message by email."],
   bo_reopen_msg:["Correções necessárias","Corrections needed"], bo_reopen_btn:["Devolver ao investigador","Return to researcher"],
   bo_opinion:["Parecer do PI","PI opinion"], bo_opinion_p:["Visível apenas para Administradores. O Membro do Board selecionado é notificado por e-mail.","Visible to Administrators only. The selected Board member is notified by email."],
   bo_positive:["Favorável","Favourable"], bo_negative:["Desfavorável","Unfavourable"], bo_text:["Texto do parecer","Opinion text"], bo_board_sel:["Membro do Board a notificar","Board member to notify"], bo_opinion_btn:["Emitir parecer e notificar","Issue opinion and notify"],
   bo_decision:["Deliberação","Decision"], bo_decision_p:["Visível apenas para Administradores. O PI e a equipa de Staff de apoio são notificados por e-mail.","Visible to Administrators only. The PI and the support Staff team are notified by email."],
   bo_approve:["Aprovar","Approve"], bo_reject:["Rejeitar","Reject"], bo_reason:["Fundamentação","Rationale"], bo_decide_btn:["Submeter deliberação","Submit decision"],
-  bo_justify:["Justificação de indeferimento","Rejection justification"], bo_justify_p:["O Board rejeitou o pedido. Escreva a justificação que o investigador vai ver na Área Privada.","The Board rejected the request. Write the justification the researcher will see in the Private Area."], bo_justify_btn:["Submeter e indeferir","Submit and reject"],
+  bo_justify:["Justificação de indeferimento","Rejection justification"], bo_justify_p:["O Board rejeitou o PAD. Escreva a justificação que o investigador vai ver na Área Privada.","The Board rejected the PAD. Write the justification the researcher will see in the Private Area."], bo_justify_btn:["Submeter e indeferir","Submit and reject"],
   bo_pi_op_view:["Parecer do PI","PI opinion"], bo_bd_view:["Deliberação do Board","Board decision"], bo_admin_only:["Só Admin","Admin only"], bo_waiting_board:["A aguardar deliberação do Board.","Waiting for the Board’s decision."], bo_waiting_pi:["A aguardar análise do PI.","Waiting for the PI’s review."], bo_waiting_fix:["A aguardar correção do investigador.","Waiting for the researcher’s correction."], bo_closed:["Processo concluído e arquivado.","Process completed and archived."],
-  bo_dash:["Dashboard","Dashboard"], bo_users:["Utilizadores","Users"], bo_groups:["Grupos de Investigação","Research groups"], bo_people:["People e Publicações","People & Publications"], bo_pads:["Gestão de PAD","Request management"], bo_docs:["Documentos Internos","Internal documents"], bo_audit:["Auditoria e Logs","Audit & logs"],
-  bo_inprogress:["PAD em curso","Requests in progress"], bo_needs_pi:["Aguardam PI","Awaiting PI"], bo_needs_board:["Aguardam Board","Awaiting Board"], bo_quar:["Em Quarentena","In Quarantine"], bo_latest:["Últimas alterações","Latest changes"],
+  bo_dash:["Dashboard","Dashboard"], bo_users:["Utilizadores","Users"], bo_groups:["Grupos de Investigação","Research groups"], bo_people:["People e Publicações","People & Publications"], bo_pads:["Gestão de PAD","PAD management"], bo_docs:["Documentos Internos","Internal documents"], bo_audit:["Auditoria e Logs","Audit & logs"],
+  bo_inprogress:["PAD em curso","PADs in progress"], bo_needs_pi:["Aguardam PI","Awaiting PI"], bo_needs_board:["Aguardam Board","Awaiting Board"], bo_quar:["Em Quarentena","In Quarantine"], bo_latest:["Últimas alterações","Latest changes"],
   bo_new_user:["Novo utilizador","New user"], bo_role:["Perfil","Role"], bo_last:["Último acesso","Last sign-in"], bo_new_group:["Novo grupo","New group"], bo_pi:["PI responsável","Responsible PI"],
   bo_orcid_st:["Importação ORCID","ORCID import"], or_ok:["Importado","Imported"], or_pend:["Pendente","Pending"], or_err:["Erro","Error"], or_none:["Sem ORCID","No ORCID"],
   bo_quar_t:["Quarentena","Quarantine"], bo_quar_p:["Publicações importadas do ORCID com coincidência de Título + Ano. Só são publicadas depois de revistas.","ORCID imports with a Title + Year match. They are published only after review."],
   bo_merge:["Fundir com existente","Merge with existing"], bo_publish:["Publicar como nova","Publish as new"], bo_discard:["Descartar","Discard"],
   bo_change_state:["Alterar estado","Change status"], bo_all_ops:["Pareceres e deliberações","Opinions and decisions"], bo_upload:["Carregar documento","Upload document"], bo_new_folder:["Nova pasta","New folder"],
-  bo_when:["Data e hora","Date and time"], bo_who:["Utilizador","User"], bo_action:["Ação","Action"], bo_change:["Alteração","Change"], bo_ip:["IP","IP"], bo_export:["Exportar CSV","Export CSV"],
+  bo_when:["Data e hora","Date and time"], bo_who:["Utilizador","User"], bo_action:["Ação","Action"], bo_change:["Alteração","Change"], bo_ip:["IP","IP"],
+  bo_delete:["Eliminar","Delete"], bo_members:["Associar investigadores","Assign researchers"], bo_members_p:["Selecione os investigadores, doutorandos e investigadores externos que pertencem ao Grupo.","Select the researchers, PhD students and external researchers who belong to the Group."],
+  bo_audit_pad:["Alterações de estado dos PAD","PAD status changes"], bo_audit_users:["Histórico de utilizadores","User history"], bo_target:["Utilizador afetado","Affected user"],
+  act_u_create:["Criação de utilizador","User created"], act_u_role:["Atribuição de perfil","Role assigned"], act_u_group:["Associação a Grupo","Group assigned"], act_u_orcid:["Alteração de ORCID iD","ORCID iD changed"], act_u_delete:["Eliminação de utilizador","User deleted"], act_u_login:["Autenticação","Sign-in"],
+  bo_deleted:["Utilizador eliminado. A ação ficou registada na auditoria.","User deleted. The action was recorded in the audit log."], bo_confirm_del:["Eliminar este utilizador? A ação fica registada na auditoria.","Delete this user? The action is recorded in the audit log."],
   mail_board:["E-mail enviado a {n} (Membro do Board) com ligação para deliberação.","Email sent to {n} (Board member) with a link to decide."], mail_staff:["E-mail enviado ao PI e à equipa de Staff de apoio ([apoio-research]@fep.up.pt).","Email sent to the PI and the support Staff team ([apoio-research]@fep.up.pt)."],
   mail_researcher:["E-mail enviado ao investigador requerente ({n}).","Email sent to the requesting researcher ({n})."], notif:["Notificação SMTP","SMTP notification"],
   no_access:["Esta página é do Backoffice e o seu perfil não tem acesso.","This is a Backoffice page and your role does not have access."]
@@ -1027,6 +1068,8 @@ const $ = (s, r) => (r || document).querySelector(s);
 const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
 const pBy = s => PEOPLE.find(x => x.s === s);
 const gBy = s => GROUPS.find(x => x.s === s);
+const NOGROUP = { s:"", n:P("—","—"), d:P("",""), lines:P([],[]) };
+const gOf = s => gBy(s) || NOGROUP;
 const pubBy = id => PUBS.find(x => x.id === id) || Object.values(MANUAL_PUBS).flat().find(x => x.id === id);
 const prBy = s => PROJECTS.find(x => x.s === s);
 const loc = () => lang === "pt" ? "pt-PT" : "en-GB";
@@ -1086,7 +1129,7 @@ const more = (href, label) => `<a class="more" href="${href}">${esc(label)} ${I.
 const pubRow = (p, opt) => `<li><article class="prow">
   <div class="y"><span>${p.y}</span><span>${esc(typeLabel(p))}</span></div>
   <div><a class="t" href="${URL_.pub(p.id)}">${esc(p.ti)}</a><p class="j">${esc(p.j)}</p><p class="authors">${authorsHtml(p.au)}</p></div>
-  <div class="side">${p.ar ? `<span class="chip">${esc(L(AREAS[p.ar]))}</span>` : ""}${opt && opt.src ? `<span class="chip">${p.src === "manual" ? t("src_manual") : "ORCID"}</span>` : ""}</div>
+  <div class="side">${opt && opt.src ? `<span class="chip">${p.src === "manual" ? t("src_manual") : "ORCID"}</span>` : ""}</div>
 </article></li>`;
 const pubCard = p => `<article class="card">
   <p class="meta">${esc(typeLabel(p))}, ${p.y}</p>
@@ -1097,7 +1140,7 @@ const pubCard = p => `<article class="card">
 const personCard = p => {
   const g = gBy(p.g);
   if (p.t === "visit") return `<li><article class="pcard">${ph(t("photo"), "person round sm")}<div><h3 class="n">${esc(p.n)}</h3><p class="r">${esc(t("origin"))}: ${esc(p.inst)}</p>${g ? `<p class="g"><a href="${URL_.group(g.s)}">${esc(L(g.n))}</a></p>` : ""}<p class="o">${esc(t("stay"))}: ${fds(p.from)} – ${fds(p.to)}</p></div><p class="x">${esc(L(p.b))}</p></article></li>`;
-  if (p.t === "staff") return `<li><article class="pcard">${ph(t("photo"), "person round sm")}<div><h3 class="n">${esc(p.n)}</h3><p class="r">${esc(L(p.r))}</p><p class="g">${esc(L(p.dep))}</p><p class="o"><a href="mailto:${esc(p.email)}">${esc(p.email)}</a></p><p class="o">${esc(t("ext"))} ${esc(p.ext)}</p></div></article></li>`;
+  if (p.t === "staff") return `<li><article class="pcard">${ph(t("photo"), "person round sm")}<div><h3 class="n">${esc(p.n)}</h3><p class="r">${esc(L(p.r))}</p>${g ? `<p class="g">${esc(L(g.n))}</p>` : ""}<p class="o"><a href="mailto:${esc(p.email)}">${esc(p.email)}</a></p><p class="o">${esc(t("ext"))} ${esc(p.ext)}</p></div></article></li>`;
   return `<li><a class="pcard" href="${URL_.person(p.s)}">${ph(t("photo"), "person round sm")}<div><h3 class="n">${esc(p.n)}</h3><p class="r">${esc(L(p.r))}</p>${g ? `<p class="g">${esc(L(g.n))}</p>` : ""}${orcidTag(p.o)}</div></a></li>`;
 };
 const evCard = e => {
@@ -1108,9 +1151,8 @@ const evCard = e => {
   <a class="btn btn-line btn-sm" href="${URL_.event(e.id)}">${t("see_event")}</a></div></article>`;
 };
 const newsRow = n => `<li><a class="nrow" href="${URL_.news(n.s)}">${ph(t("img_cover"))}<div style="display:flex;flex-direction:column;gap:6px"><p class="meta">${fd(n.d)}, ${esc(L(NEWSTYPES[n.ty]))}</p><h3 class="c-title">${esc(L(n.ti))}</h3><p class="c-sum">${esc(L(n.lead))}</p></div></a></li>`;
-const projCard = p => `<li><a class="card" href="${URL_.project(p.s)}"><p class="meta">${esc(p.acr)}</p><h3 class="c-title">${esc(L(p.ti))}</h3>
-  <dl class="kv" style="font-size:13px"><dt>${t("funder")}</dt><dd>${esc(p.f)}</dd><dt>${t("start")}</dt><dd>${fds(p.a)}</dd><dt>${t("end")}</dt><dd>${fds(p.e)}</dd></dl>
-  <span class="c-foot">${esc(L(gBy(p.g).n))}</span></a></li>`;
+const projCard = p => `<li><a class="card" href="${URL_.project(p.s)}"><h3 class="c-title">${esc(L(p.ti))}</h3>
+  <dl class="kv" style="font-size:13px"><dt>${t("funder")}</dt><dd>${esc(p.f)}</dd><dt>${t("start")}</dt><dd>${fds(p.a)}</dd><dt>${t("end")}</dt><dd>${fds(p.e)}</dd></dl></a></li>`;
 
 /* pagination (visual) */
 const pager = (cur, total, base) => total <= 1 ? "" : `<nav class="pager" aria-label="Paginação"><span>${t("page_of", { a:cur, b:total })}</span><ol>${Array.from({ length: total }, (_, i) => i + 1 === cur ? `<li><span class="cur" aria-current="page">${i + 1}</span></li>` : `<li><a href="${base}${base.includes("?") ? "&" : "?"}page=${i + 1}">${i + 1}</a></li>`).join("")}</ol></nav>`;
@@ -1143,14 +1185,14 @@ const INTENTS = { pub:["publicacoes","publicacao","artigos","artigo","papers","p
 let INDEX = null;
 function buildIndex(){
   const ix = [];
-  PEOPLE.filter(p => p.t !== "staff").forEach(p => ix.push({ k:"person", id:p.s, url:URL_.person(p.s), title:p.n, sub:()=>L(p.r || P("Alumni","Alumni")) + (p.g ? ", " + L(gBy(p.g).n) : ""), txt:norm([p.n, (p.k||[]).join(" "), p.g ? gBy(p.g).n.en : "", p.b ? p.b.en : "", projectsOf(p.s).map(x => x.acr + " " + x.ti.en).join(" "), pubsOf(p.s).map(x => x.ti).join(" ")].join(" ")) }));
-  PUBS.forEach(p => ix.push({ k:"pub", id:p.id, url:URL_.pub(p.id), title:p.ti, sub:()=>`${typeLabel(p)}, ${p.y}. ${authorsText(p.au)}`, y:p.y, txt:norm([p.ti, p.ab, p.j, authorsText(p.au), AREAS[p.ar].en, p.ods.map(n => ODS[n].en).join(" "), p.pr ? prBy(p.pr).acr : "", p.ty === "art" ? "journal article" : ""].join(" ")) }));
-  PROJECTS.forEach(p => ix.push({ k:"project", id:p.s, url:URL_.project(p.s), title:`${p.acr}: ${L(p.ti)}`, sub:()=>`${p.f}, ${fds(p.a)} – ${fds(p.e)}`, cur:isCurrentProject(p), txt:norm([p.acr, p.ti.en, p.d.en, p.f, gBy(p.g).n.en, p.team.map(s => pBy(s).n).join(" "), p.ods.map(n => ODS[n].en).join(" ")].join(" ")) }));
-  THESES.forEach(x => ix.push({ k:"thesis", id:x.id, url:URL_.thesis(x.id), title:x.ti, sub:()=>`${pBy(x.st).n}, ${x.a}${x.def ? "–" + x.def : "–"}`, txt:norm([x.ti, x.ab, pBy(x.st).n, x.sup].join(" ")) }));
-  EVENTS.forEach(e => ix.push({ k:"event", id:e.id, up:isUpcoming(e), d:e.d, url:URL_.event(e.id), title:e.ti, sub:()=>`${L(EVTYPES[e.ty])}${e.sub ? " " + e.sub : ""}, ${fd(e.d)}`, txt:norm([e.ti, e.sp, e.sub, EVTYPES[e.ty].en, e.g ? gBy(e.g).n.en : ""].join(" ")) }));
-  NEWS.forEach(n => ix.push({ k:"news", id:n.s, url:URL_.news(n.s), title:L(n.ti), sub:()=>fd(n.d), txt:norm([n.ti.en, n.ti.pt, n.lead.en, n.lead.pt].join(" ")) }));
-  BULLETIN.forEach(b => ix.push({ k:"bulletin", id:b.id, url:URL_.bulletin(b.id), title:`Research Bulletin n.º ${b.id}: ${pBy(b.p).n}`, sub:()=>fd(b.d), txt:norm([b.tw.en, b.tw.pt, pBy(b.p).n].join(" ")) }));
-  GROUPS.forEach(g => ix.push({ k:"group", id:g.s, url:URL_.group(g.s), title:L(g.n), sub:()=>"PI: " + pBy(g.pi).n, txt:norm([g.n.en, g.n.pt, g.d.en, g.lines.en.join(" ")].join(" ")) }));
+  PEOPLE.forEach(p => ix.push({ k:"person", id:p.s, srch:["int","ext","phd"].includes(p.t), ex:() => L(p.b) || L(p.r) || "", url:URL_.person(p.s), title:p.n, sub:()=>L(p.r || P("Alumni","Alumni")) + (gBy(p.g) ? ", " + L(gBy(p.g).n) : ""), txt:norm([p.n, p.r ? p.r.en + " " + p.r.pt : "", (p.k||[]).join(" "), gBy(p.g) ? gBy(p.g).n.en : "", p.b ? p.b.en : "", projectsOf(p.s).map(x => x.acr + " " + x.ti.en).join(" "), pubsOf(p.s).map(x => x.ti).join(" ")].join(" ")) }));
+  PUBS.forEach(p => ix.push({ k:"pub", id:p.id, srch:true, ex:() => p.ab, url:URL_.pub(p.id), title:p.ti, sub:()=>`${typeLabel(p)}, ${p.y}. ${authorsText(p.au)}`, y:p.y, txt:norm([p.ti, p.ab, p.j, authorsText(p.au), AREAS[p.ar].en, p.ods.map(n => ODS[n].en).join(" "), p.pr ? prBy(p.pr).acr : "", p.ty === "art" ? "journal article" : ""].join(" ")) }));
+  PROJECTS.forEach(p => ix.push({ k:"project", id:p.s, srch:true, ex:() => L(p.d), url:URL_.project(p.s), title:`${p.acr}: ${L(p.ti)}`, sub:()=>`${p.f}, ${fds(p.a)} – ${fds(p.e)}`, cur:isCurrentProject(p), txt:norm([p.acr, p.ti.en, p.d.en, p.f, gBy(p.g).n.en, p.team.map(s => pBy(s).n).join(" "), p.ods.map(n => ODS[n].en).join(" ")].join(" ")) }));
+  THESES.forEach(x => ix.push({ k:"thesis", id:x.id, srch:true, ex:() => x.ab, url:URL_.thesis(x.id), title:x.ti, sub:()=>`${pBy(x.st).n}, ${x.a}${x.def ? "–" + x.def : "–"}`, txt:norm([x.ti, x.ab, pBy(x.st).n, x.sup].join(" ")) }));
+  EVENTS.forEach(e => ix.push({ k:"event", id:e.id, srch:true, ex:() => `${e.sp}. ${L(e.loc)}, ${fd(e.d)}.`, up:isUpcoming(e), d:e.d, url:URL_.event(e.id), title:e.ti, sub:()=>`${L(EVTYPES[e.ty])}${e.sub ? " " + e.sub : ""}, ${fd(e.d)}`, txt:norm([e.ti, e.sp, e.sub, EVTYPES[e.ty].en, e.g ? gBy(e.g).n.en : ""].join(" ")) }));
+  NEWS.forEach(n => ix.push({ k:"news", id:n.s, srch:true, ex:() => L(n.lead), url:URL_.news(n.s), title:L(n.ti), sub:()=>fd(n.d), txt:norm([n.ti.en, n.ti.pt, n.lead.en, n.lead.pt].join(" ")) }));
+  BULLETIN.forEach(b => ix.push({ k:"bulletin", id:b.id, srch:true, ex:() => L(b.tw), url:URL_.bulletin(b.id), title:`Research Bulletin n.º ${b.id}: ${pBy(b.p).n}`, sub:()=>fd(b.d), txt:norm([b.tw.en, b.tw.pt, pBy(b.p).n].join(" ")) }));
+  GROUPS.forEach(g => ix.push({ k:"group", id:g.s, srch:true, ex:() => L(g.d), url:URL_.group(g.s), title:L(g.n), sub:()=>"PI: " + pBy(g.pi).n, txt:norm([g.n.en, g.n.pt, g.d.en, g.lines.en.join(" ")].join(" ")) }));
   INDEX = ix;
 }
 function parseQ(q){
@@ -1287,59 +1329,67 @@ function aiBlock(o){
 /* ================= public views ================= */
 const V = {};
 const OTHER = [
-  { s:"economics-in-10-charts", ti:P("Exhibition: The Portuguese economy in 10 charts","Exposição: A economia portuguesa em 10 gráficos"), d:"2026-09-21",
+  { s:"economics-in-10-charts", ty:P("Exhibition","Exposição"), ti:P("Exhibition: The Portuguese economy in 10 charts","Exposição: A economia portuguesa em 10 gráficos"), d:"2026-09-21",
     lead:P("A small exhibition in the FEP atrium that turns ten FEP RC studies into ten charts anyone can read in a minute.","Uma pequena exposição no átrio da FEP que transforma dez estudos do FEP RC em dez gráficos que qualquer pessoa lê num minuto.") },
-  { s:"policy-lab-2026", ti:P("Policy Lab 2026: research meets public administration","Policy Lab 2026: a investigação encontra a administração pública"), d:"2026-06-05",
+  { s:"policy-lab-2026", ty:P("Knowledge-transfer workshop","Workshop de transferência de conhecimento"), ti:P("Policy Lab 2026: research meets public administration","Policy Lab 2026: a investigação encontra a administração pública"), d:"2026-06-05",
     lead:P("Knowledge-transfer workshops where researchers and public managers work on one policy question at a time.","Workshops de transferência de conhecimento em que investigadores e dirigentes públicos trabalham uma questão de política de cada vez.") },
-  { s:"research-open-day", ti:P("Research Open Day for secondary schools","Dia Aberto da Investigação para escolas secundárias"), d:"2026-03-18",
+  { s:"research-open-day", ty:P("Outreach","Divulgação"), ti:P("Research Open Day for secondary schools","Dia Aberto da Investigação para escolas secundárias"), d:"2026-03-18",
     lead:P("Secondary school students spent a morning with FEP RC researchers and data.","Alunos do secundário passaram uma manhã com investigadores e dados do FEP RC.") }
 ];
 
 /* ---------- Home (CE 6.1) ---------- */
+const pubOrd = (a, b) => b.y - a.y || PUBS.indexOf(a) - PUBS.indexOf(b); /* ano mais recente; desempate: mais recentemente publicada no website (ordem de entrada) */
 V.home = () => {
-  const feat = PUBS.filter(p => p.feat);
-  const latest = PUBS.filter(p => !p.feat).sort((a, b) => b.y - a.y).slice(0, 4);
+  const feat = PUBS.filter(p => p.feat).sort(pubOrd).slice(0, 3);
+  const latest = PUBS.filter(p => !p.feat).sort(pubOrd).slice(0, 4);
   const up = EVENTS.filter(isUpcoming).sort((a, b) => a.d.localeCompare(b.d));
-  const picks = [up.find(e => e.ty === "conf"), up.find(e => e.ty === "course"), ...["ECO","FIN","MAR","WiP"].map(s => up.find(e => e.sub === s))].filter(Boolean);
+  const picks = [up.find(e => e.ty === "conf"), up.find(e => e.ty === "course"), ...["ECO","FIN","MAR","WiP"].map(s => up.find(e => e.sub === s))].filter(Boolean).sort((a, b) => a.d.localeCompare(b.d));
   const cnt = ty => PEOPLE.filter(p => p.t === ty).length;
   const odsCount = n => PUBS.filter(p => p.ods.includes(n)).length + PROJECTS.filter(p => p.ods.includes(n)).length + THESES.filter(x => x.ods.includes(n)).length;
-  const cover = `<section class="cover" aria-roledescription="carousel" aria-label="${esc(t("cover_label"))}"><div class="wrap">
-    ${ce("6.1", "Cover Story / Spotlight Research (bloco Slider)")}
-    <div class="slides">${feat.map((p, i) => `<article class="slide" id="slide-${i}" ${i ? "hidden" : ""} aria-roledescription="slide" aria-label="${esc(t("slide_n", { n:i + 1 }))}">
-      ${ph(t("img_visual"))}
-      <div class="txt"><p><span class="chip solid">${esc(L(AREAS[p.ar]))}</span></p>
-        ${i === 0 ? `<h1 data-focus><a href="${URL_.pub(p.id)}" style="text-decoration:none">${esc(p.ti)}</a></h1>` : `<h2><a href="${URL_.pub(p.id)}">${esc(p.ti)}</a></h2>`}
-        <p class="sum">${esc(p.ab.length > 280 ? p.ab.slice(0, 277).replace(/\s+\S*$/, "") + "…" : p.ab)}</p>
-        <p class="authors">${authorsHtml(p.au.filter(a => a[0] === "@"))}<br><span class="meta">${p.y}, ${esc(typeLabel(p))}</span></p>
-        <p><a class="btn" href="${URL_.pub(p.id)}">${t("read_pub")}</a></p></div>
-    </article>`).join("")}</div>
-    <div class="cover-ctl"><div class="dots">${feat.map((_, i) => `<button type="button" data-slide="${i}" aria-label="${esc(t("slide_n", { n:i + 1 }))}" ${i ? "" : 'aria-current="true"'}></button>`).join("")}</div>
-      <button class="icon-btn" type="button" data-slide-step="-1" aria-label="${esc(t("slide_prev"))}">${I.prev}</button><button class="icon-btn" type="button" data-slide-step="1" aria-label="${esc(t("slide_next"))}">${I.next}</button></div>
-  </div></section>`;
+  const frase = p => { const s = p.desc ? L(p.desc) : p.ab; return s.length > 160 ? s.slice(0, 157).replace(/\s+\S*$/, "") + "…" : s; };
+  const meta = p => `<p class="authors">${authorsHtml(p.au.filter(a => a[0] === "@"))}</p><p class="meta">${p.y}, ${esc(typeLabel(p))}</p>`;
+  const [m, ...sec] = feat;
+  const cover = `<section class="cover" aria-label="${esc(t("cover_label"))}"><div class="wrap">
+    ${ce("6.1", "Cover Story: bloco de Destaque, 1 principal + até 2 secundárias em simultâneo, sem rotação; ordem por ano, desempate pela publicação no website")}
+    <div class="lead-grid">
+      <article class="lead-main">${ph(t("img_visual"), "r-169")}
+        <p><span class="chip solid">${esc(L(AREAS[m.ar]))}</span></p>
+        <h1 data-focus><a href="${URL_.pub(m.id)}">${esc(m.ti)}</a></h1>
+        <p class="sum">${esc(frase(m))}</p>${meta(m)}
+        <p><a class="btn" href="${URL_.pub(m.id)}">${t("read_pub")}</a></p></article>
+      <div class="lead-side">${sec.map(p => `<article class="lead-sec">${ph(t("img_visual"), "r-169")}
+        <p><span class="chip solid">${esc(L(AREAS[p.ar]))}</span></p>
+        <h2><a href="${URL_.pub(p.id)}">${esc(p.ti)}</a></h2>${meta(p)}
+        <p><a class="btn btn-line btn-sm" href="${URL_.pub(p.id)}">${t("read_pub")}</a></p></article>`).join("")}</div>
+    </div></div></section>`;
   const sugg = lang === "pt" ? ["Mostra as publicações recentes sobre sustentabilidade.","Quem investiga desigualdade e trabalho?","Que projetos estão atualmente financiados?","Que investigadores trabalham na área de finanças?"]
                              : ["Show recent publications on sustainability.","Who researches inequality and work?","Which projects are currently funded?","Which researchers work in finance?"];
   const aiHero = `<section class="ai-hero dark" data-ai data-ctx="{}" data-scope="" data-list=""><div class="wrap"><div class="inner">
-    ${ce("6.1.1", "Hero AI substitui o Cover Story quando o AI Mode está ativo")}
+    ${ce("6.1.1", "Hero AI substitui o bloco de Destaque quando o AI Mode está ativo")}
     <p class="ai-head" style="justify-content:center">${I.spark}<span>AI Mode</span></p>
     <h1 data-focus>${t("ai_hero_t")}</h1><p class="sub">${t("ai_hero_s")}</p>
     <form class="prompt" data-aiform><label class="sr-only" for="ai-home">${t("ai_hero_s")}</label><input id="ai-home" type="text" placeholder="${esc(t("ai_ph"))}" autocomplete="off"><button class="btn" type="submit">${I.spark}${t("ai_send")}</button></form>
     <ul class="sugg">${sugg.map(s => `<li><button type="button" data-ask="${esc(s)}">${esc(s)}</button></li>`).join("")}</ul>
   </div><div class="ai-board" style="margin-top:28px">${ce("6.1.1", "AI Results Board")}<div class="ai-out" data-aiout aria-live="polite" hidden></div></div></div></section>`;
   return `${aiMode ? aiHero : cover}
-  <section class="sec"><div class="wrap">${ce("6.1", "Latest Research: 4 publicações mais recentes fora do destaque")}
-    <div class="sec-head"><div><h2>${t("latest_research")}</h2><p>${t("latest_research_p")}</p></div>${more("#/research/publications", t("view_all_research"))}</div>
-    <ul class="grid g-4">${latest.map(p => `<li>${pubCard(p)}</li>`).join("")}</ul></div></section>
-  <section class="sec band" style="padding-top:clamp(48px,6vw,80px)"><div class="wrap">${ce("6.1", "What’s Happening at FEP? Próxima Conference, próximo Advanced Course e próximos Seminars")}
-    <div class="sec-head"><div><h2>${t("happening")}</h2><p>${t("happening_p")}</p></div>${more("#/activities/seminars", t("all_events"))}</div>
-    <ul class="grid g-3">${picks.map(e => `<li>${evCard(e)}</li>`).join("")}</ul></div></section>
-  <section class="sec" style="padding-top:clamp(48px,6vw,80px)"><div class="wrap">${ce("6.1", "Latest News")}
-    <div class="sec-head"><h2>${t("latest_news")}</h2>${more("#/news", t("all_news"))}</div>
-    <ul class="nlist">${NEWS.slice(0, 3).map(newsRow).join("")}</ul></div></section>
-  <section class="sec band glance" style="padding-top:clamp(48px,6vw,80px)"><div class="wrap">${ce("6.1", "Research at a Glance: contadores automáticos")}
+  <section class="sec"><div class="wrap">${ce("6.1", "Latest Research: lista editorial com as 4 publicações de ano mais recente fora do destaque, no formato de item da listagem")}
+    <div class="sec-head"><div><h2>${t("latest_research")}</h2><p>${t("latest_research_p")}</p></div></div>
+    <ul class="plist">${latest.map(p => pubRow(p)).join("")}</ul>
+    <p style="margin-top:20px"><a class="btn btn-line" href="#/research/publications">${t("view_all_research")}</a></p></div></section>
+  <section class="sec"><div class="wrap">${ce("6.1", "What’s Happening at FEP? Agenda em lista compacta, por ordem cronológica")}
+    <div class="sec-head"><div><h2>${t("happening")}</h2><p>${t("happening_p")}</p></div></div>
+    <ul class="agenda">${picks.map(e => `<li><div class="ag-d"><b>${fd(e.d, { day:"numeric", month:"short", year:"numeric" })}${e.d2 ? " – " + fd(e.d2, { day:"numeric", month:"short" }) : ""}</b><span>${esc(e.h)}</span></div>
+      <div class="ag-t"><span class="kicker">${esc(L(EVTYPES[e.ty]))}${e.sub ? " " + esc(e.sub) : ""}</span><a class="c-title" href="${URL_.event(e.id)}">${esc(e.ti)}</a><span class="meta">${esc(e.sp)}, ${esc(L(e.loc))}</span></div>
+      <a class="more" href="${URL_.event(e.id)}">${t("see_event")} ${I.arrow}</a></li>`).join("")}</ul></div></section>
+  <section class="sec"><div class="wrap">${ce("6.1", "Latest News: 3 notícias com imagem pequena, Tipo de Notícia, data e título")}
+    <div class="sec-head"><h2>${t("latest_news")}</h2></div>
+    <ul class="nlist">${NEWS.slice().sort((a, b) => b.d.localeCompare(a.d)).slice(0, 3).map(n => `<li><a class="nrow sm" href="${URL_.news(n.s)}">${ph(t("img_cover"), "sm")}<div style="display:flex;flex-direction:column;gap:4px"><p class="meta">${esc(L(NEWSTYPES[n.ty]))}, ${fd(n.d)}</p><h3 class="c-title">${esc(L(n.ti))}</h3></div></a></li>`).join("")}</ul>
+    <p style="margin-top:20px"><a class="btn btn-line" href="#/news">${t("all_news")}</a></p></div></section>
+  <section class="sec band glance compact" style="padding-top:clamp(40px,5vw,56px);padding-bottom:clamp(40px,5vw,56px)"><div class="wrap">${ce("6.1", "Research at a Glance: bloco compacto no final da página, contadores automáticos")}
     <div class="sec-head"><div><h2>${t("glance")}</h2><p>${t("glance_p")}</p></div></div>
     <ul class="nums"><li><b>${cnt("int")}</b><span>${t("g_int")}</span></li><li><b>${cnt("ext")}</b><span>${t("g_ext")}</span></li><li><b>${cnt("phd")}</b><span>${t("g_phd")}</span></li><li><b>${PUBS.length}</b><span>${t("g_pubs")}</span></li><li><b>${THESES.length}</b><span>${t("g_theses")}</span></li></ul>
-    <h3 style="font-size:15px;margin-top:32px">${t("g_ods")}</h3>
-    <ul class="ods">${ODS.slice(1).map((o, i) => `<li><a href="#/research/publications?ods=${i + 1}"><span class="odsi" aria-hidden="true">${i + 1}</span><span><span class="ct">${odsCount(i + 1)}</span><br><span class="nm">${esc(L(o))}</span></span></a></li>`).join("")}</ul>
+    <h3 style="font-size:14px;margin-top:24px">${t("g_ods")}</h3>
+    ${ce("6.1","Contagem por ODS apresentada junto do ícone de cada ODS, sem ligação")}<ul class="ods">${ODS.slice(1).map((o, i) => `<li><div><span class="odsi" aria-hidden="true">${i + 1}</span><span><span class="ct">${odsCount(i + 1)}</span><br><span class="nm">${esc(L(o))}</span></span></div></li>`).join("")}</ul>
   </div></section>`;
 };
 
@@ -1360,44 +1410,35 @@ V.history = () => `${pageHead({ ce:ce("6.2.1","History"), crumbs:[[t("nav_about"
 
 V.governance = () => {
   const dir = PEOPLE.filter(p => (p.fn || []).some(f => f === "director" || f === "vice"));
-  const board = PEOPLE.filter(p => (p.fn || []).includes("board"));
-  const pis = GROUPS.map(g => pBy(g.pi));
-  const staff = PEOPLE.filter(p => p.t === "staff").slice(0, 2);
-  const card = (p, fnLabel) => `<li><article class="card">${ph(t("photo"), "person r-45")}<h3 class="c-title"><a href="${URL_.person(p.s)}" style="text-decoration:none">${esc(p.n)}</a></h3><p class="c-sum">${esc(fnLabel)}</p><p class="c-foot"><a href="mailto:[${p.s.split("-")[0]}]@fep.up.pt">[${esc(p.s.split("-")[0])}]@fep.up.pt</a></p></article></li>`;
+  const staff = PEOPLE.filter(p => p.t === "staff");
+  const card = (p, fnLabel, email) => `<li><article class="card">${ph(t("photo"), "person r-45")}<h3 class="c-title">${esc(p.n)}</h3><p class="c-sum">${esc(fnLabel)}</p><p class="c-foot"><a href="mailto:${esc(email)}">${esc(email)}</a></p></article></li>`;
   const fnName = p => (p.fn || []).includes("director") ? (lang === "pt" ? "Diretor" : "Director") : (lang === "pt" ? "Vice-Diretora" : "Vice-Director");
-  return `${pageHead({ ce:ce("6.2.2","Governance"), crumbs:[[t("nav_about"),"#/about/history"],[t("nav_governance")]], title:t("nav_governance"),
-    intro: lang === "pt" ? "O Centro é dirigido por uma Direção, apoiada por um Board que delibera sobre a execução da despesa e por um Conselho Científico com todos os investigadores integrados." : "The Centre is led by a Directorate, supported by a Board that decides on expenditure and by a Scientific Council of all integrated researchers.", tabs:aboutTabs("#/about/governance") })}
-  <div class="wrap sec"><div class="prose" style="margin-bottom:40px"><p>${lang === "pt" ? "[Texto enquadrador sobre o modelo de governação e a política científica do Centro, a fornecer pela FEP RC.] A política científica é definida pela Direção ouvido o Conselho Científico, e avaliada periodicamente por uma Comissão de Acompanhamento Externa." : "[Framing text on the governance model and scientific policy, to be supplied by FEP RC.] Scientific policy is set by the Directorate after consulting the Scientific Council, and is periodically reviewed by an External Advisory Committee."}</p></div>
-  <section class="block"><h2>${lang === "pt" ? "Direção" : "Directorate"}</h2><ul class="grid g-4">${dir.map(p => card(p, fnName(p))).join("")}</ul></section>
-  <section class="block"><h2>Board</h2><p class="muted">${lang === "pt" ? "Delibera sobre os Pedidos de Autorização de Despesa, depois do parecer do PI do Grupo." : "Decides on Expense Authorisation Requests after the Group PI’s opinion."}</p><ul class="grid g-4">${board.map(p => card(p, lang === "pt" ? "Membro do Board" : "Board member")).join("")}</ul></section>
-  <section class="block"><h2>${lang === "pt" ? "Investigadores Principais dos Grupos" : "Group Principal Investigators"}</h2><ul class="grid g-4">${pis.map(p => card(p, "PI, " + L(GROUPS.find(g => g.pi === p.s).n))).join("")}</ul></section>
-  <section class="block"><h2>Staff</h2><ul class="grid g-4">${staff.map(p => `<li><article class="card">${ph(t("photo"), "person r-45")}<h3 class="c-title">${esc(p.n)}</h3><p class="c-sum">${esc(L(p.r))}</p><p class="c-foot"><a href="mailto:${esc(p.email)}">${esc(p.email)}</a></p></article></li>`).join("")}</ul></section></div>`;
+  return `${pageHead({ ce:ce("6.2.2","Governance: texto enquadrador e cartões da Direção e do Staff (foto, nome, cargo/função, e-mail)"), crumbs:[[t("nav_about"),"#/about/history"],[t("nav_governance")]], title:t("nav_governance"), tabs:aboutTabs("#/about/governance") })}
+  <div class="wrap sec"><div class="prose" style="margin-bottom:40px"><p>${lang === "pt" ? "[Texto enquadrador sobre o modelo de governação e a política científica do Centro, a fornecer pela FEP RC.]" : "[Framing text on the governance model and scientific policy, to be supplied by FEP RC.]"}</p></div>
+  <section class="block"><h2>${lang === "pt" ? "Direção" : "Directorate"}</h2><ul class="grid g-4">${dir.map(p => card(p, fnName(p), `[${p.s.split("-")[0]}]@fep.up.pt`)).join("")}</ul></section>
+  <section class="block"><h2>Staff</h2><ul class="grid g-4">${staff.map(p => card(p, L(p.r), p.email)).join("")}</ul></section></div>`;
 };
 
-V.groups = () => `${pageHead({ ce:ce("6.2.3","Listagem de Groups"), crumbs:[[t("nav_about"),"#/about/history"],[t("nav_groups")]], title:t("nav_groups"),
-  intro: lang === "pt" ? "Cinco grupos organizam a investigação do Centro. Cada grupo tem um Investigador Principal, que também analisa os pedidos de despesa dos seus membros." : "Five groups organise the Centre’s research. Each has a Principal Investigator, who also reviews the expense requests of its members.", tabs:aboutTabs("#/about/groups") })}
-  <div class="wrap sec"><ul class="grid g-3">${GROUPS.map(g => { const n = PEOPLE.filter(p => p.g === g.s && ["int","ext","phd"].includes(p.t)).length; return `<li><a class="card" href="${URL_.group(g.s)}">${ph(t("photo"), "r-169")}<h2 class="c-title lg">${esc(L(g.n))}</h2><p class="c-sum">${esc(L(g.d))}</p><p class="c-foot">PI: ${esc(pBy(g.pi).n)}, ${n} ${lang === "pt" ? "membros" : "members"}</p></a></li>`; }).join("")}</ul></div>`;
+V.groups = () => `${pageHead({ ce:ce("6.2.3","Listagem de Groups: nome, excerto da descrição e ligação"), crumbs:[[t("nav_about"),"#/about/history"],[t("nav_groups")]], title:t("nav_groups"), tabs:aboutTabs("#/about/groups") })}
+  <div class="wrap sec"><ul class="grid g-3">${GROUPS.map(g => `<li><a class="card" href="${URL_.group(g.s)}"><h2 class="c-title lg">${esc(L(g.n))}</h2><p class="c-sum">${esc(L(g.d))}</p><span class="more">${t("read_more")} ${I.arrow}</span></a></li>`).join("")}</ul></div>`;
 
+const memberCard = p => ["int","ext","phd"].includes(p.t) ? `<li><a class="mcard" href="${URL_.person(p.s)}">${ph(t("photo"), "person round sm")}<b>${esc(p.n)}</b></a></li>` : `<li><div class="mcard">${ph(t("photo"), "person round sm")}<b>${esc(p.n)}</b></div></li>`;
 V.group = s => {
   const g = gBy(s); if (!g) return null;
   const mem = ty => PEOPLE.filter(p => p.g === s && p.t === ty);
-  const prs = PROJECTS.filter(p => p.g === s), evs = EVENTS.filter(e => e.g === s && isUpcoming(e)), nws = NEWS.filter(n => n.g === s);
-  const sec = (ty, label) => mem(ty).length ? `<div><h3 style="font-size:15px;margin:8px 0 12px">${esc(label)}</h3><ul class="grid g-3">${mem(ty).map(personCard).join("")}</ul></div>` : "";
-  return `${pageHead({ ce:ce("6.2.3","Detalhe do Group"), crumbs:[[t("nav_about"),"#/about/history"],[t("nav_groups"),"#/about/groups"],[L(g.n)]], title:L(g.n), intro:esc(L(g.d)) })}
-  <div class="wrap sec"><div class="detail"><div>
-    <section class="block"><h2>${lang === "pt" ? "Linhas de investigação" : "Research lines"}</h2><ul class="chips">${L(g.lines).map(l => `<li class="chip">${esc(l)}</li>`).join("")}</ul>
-      <div class="prose"><p>${lang === "pt" ? "[Texto detalhado sobre a área científica, linhas de investigação, projetos em curso e objetivos do Grupo, gerido no CMS.]" : "[Detailed text on the group’s scientific area, research lines, ongoing projects and objectives, managed in the CMS.]"}</p></div></section>
-    <section class="block">${ce("6.2.3","Membros agrupados por tipologia")}<h2>${t("members")}</h2>${sec("int", t("nav_researchers") + " (" + (lang === "pt" ? "integrados" : "integrated") + ")")}${sec("ext", t("nav_researchers") + " (" + (lang === "pt" ? "externos" : "external") + ")")}${sec("phd", t("nav_phdstudents"))}${sec("visit", t("nav_visiting"))}</section>
-    ${prs.length ? `<section class="block"><h2>${t("projects")}</h2><ul class="grid g-2">${prs.map(projCard).join("")}</ul></section>` : ""}
-    ${evs.length ? `<section class="block"><h2>${t("forthcoming")}</h2><ul class="grid g-2">${evs.map(e => `<li>${evCard(e)}</li>`).join("")}</ul></section>` : ""}
-    ${nws.length ? `<section class="block"><h2>${t("nav_news")}</h2><ul class="nlist">${nws.map(newsRow).join("")}</ul></section>` : ""}
-  </div><aside><div class="box"><h2>PI</h2>${personCard(pBy(g.pi)).replace(/^<li>|<\/li>$/g, "")}</div>${ph(t("photo"), "r-43")}</aside></div></div>`;
+  const sec = (ty, label) => mem(ty).length ? `<div><h3 style="font-size:15px;margin:8px 0 12px">${esc(label)}</h3><ul class="grid g-4">${mem(ty).map(memberCard).join("")}</ul></div>` : "";
+  return `${pageHead({ ce:ce("6.2.3","Detalhe do Group"), crumbs:[[t("nav_about"),"#/about/history"],[t("nav_groups"),"#/about/groups"],[L(g.n)]], title:L(g.n) })}
+  <div class="wrap sec">
+    <section class="block">${ce("6.2.3","Descrição do Grupo: área científica, linhas de investigação, projetos em curso e objetivos")}<div class="prose"><p>${esc(L(g.d))}</p>
+      <h3>${lang === "pt" ? "Linhas de investigação" : "Research lines"}</h3><ul>${L(g.lines).map(l => `<li>${esc(l)}</li>`).join("")}</ul>
+      <p>${lang === "pt" ? "[Texto sobre projetos em curso e objetivos do Grupo, gerido no CMS.]" : "[Text on the group’s ongoing projects and objectives, managed in the CMS.]"}</p></div></section>
+    <section class="block">${ce("6.2.3","Membros agrupados por tipologia: foto, nome e ligação para o perfil")}<h2>${t("members")}</h2>${sec("int", t("people_int"))}${sec("ext", t("people_ext"))}${sec("phd", t("nav_phdstudents"))}${sec("visit", t("nav_visiting"))}</section>
+  </div>`;
 };
 
-V.staff = () => `${pageHead({ ce:ce("6.2.4","Staff"), crumbs:[[t("nav_about"),"#/about/history"],[t("nav_staff")]], title:t("nav_staff"),
-  intro: lang === "pt" ? "A equipa de apoio trata da gestão de projetos e financiamento, do Data Center, da comunicação de ciência e do secretariado. É também quem recebe as notificações de deliberação dos pedidos de despesa." : "The support team handles project and funding management, the Data Center, science communication and the secretariat. It also receives the decision notifications for expense requests.", tabs:aboutTabs("#/about/staff") })}
-  <div class="wrap sec"><div class="tbl-wrap"><table class="tbl"><thead><tr><th scope="col">${t("photo")}</th><th scope="col">${t("pa_name")}</th><th scope="col">${t("role")}</th><th scope="col">${t("dept")}</th><th scope="col">${t("ext")}</th><th scope="col">${t("d_email")}</th></tr></thead>
-  <tbody>${PEOPLE.filter(p => p.t === "staff").map(p => `<tr><td>${avatar(p.n, 44)}</td><td><b>${esc(p.n)}</b></td><td>${esc(L(p.r))}</td><td>${esc(L(p.dep))}</td><td>${esc(p.ext)}</td><td><a href="mailto:${esc(p.email)}">${esc(p.email)}</a></td></tr>`).join("")}</tbody></table></div></div>`;
+V.staff = () => `${pageHead({ ce:ce("6.2.4","Staff: texto de introdução e grelha (foto, nome, cargo, departamento, telefone interno, e-mail)"), crumbs:[[t("nav_about"),"#/about/history"],[t("nav_staff")]], title:t("nav_staff"),
+  intro: lang === "pt" ? "A equipa de apoio trata da gestão de projetos e financiamento, do Data Center, da comunicação de ciência e do secretariado." : "The support team handles project and funding management, the Data Center, science communication and the secretariat.", tabs:aboutTabs("#/about/staff") })}
+  <div class="wrap sec"><ul class="grid g-4">${PEOPLE.filter(p => p.t === "staff").map(p => `<li><article class="card">${ph(t("photo"), "person r-45")}<h2 class="c-title">${esc(p.n)}</h2><p class="c-sum">${esc(L(p.r))}<br>${esc(L(p.dep))}</p><p class="c-foot">${t("ext")} ${esc(p.ext)}<br><a href="mailto:${esc(p.email)}">${esc(p.email)}</a></p></article></li>`).join("")}</ul></div>`;
 
 V.contacts = () => `${pageHead({ ce:ce("6.2.5","Contacts & How to Arrive"), crumbs:[[t("nav_about"),"#/about/history"],[t("nav_contacts")]], title:t("nav_contacts"), tabs:aboutTabs("#/about/contacts") })}
   <div class="wrap sec"><div class="detail"><div style="display:flex;flex-direction:column;gap:32px">
@@ -1433,15 +1474,15 @@ V.people = key => {
     tabs:tabs(Object.keys(PTYPE).map(k => [t(PTYPE[k].k), "#/people/" + k]), base) })}
   <div class="wrap sec">${aiBlock({ id:"people", intro:t("ai_list_intro"), sugg, scope:["person"], listBase:base, ceRef:"4.3", ceTxt:"Assistente AI na listagem" })}
     <div style="height:${aiMode ? 24 : 0}px"></div>
-    ${ce("4.6","Pesquisa por nome; filtros por Grupo e Keywords; ordenação alfabética")}
-    <form class="filters" role="search" data-filters="${base}" onsubmit="return false">${fSearch(t("search_name"))}${cfg.ty[0] !== "staff" ? fSelect("group", t("filter_group"), groupOpts()) : ""}${kws.length ? fSelect("kw", t("filter_kw"), kws.map(k => [k, k]), t("all_f")) : ""}${fSort([["az", t("sort_az")],["za", t("sort_za")]])}
+    ${ce("6.3.1","Pesquisa por nome; filtros por Grupo e Keywords; ordenação alfabética (comuns às 4 tipologias)")}
+    <form class="filters" role="search" data-filters="${base}" onsubmit="return false">${fSearch(t("search_name"))}${fSelect("group", t("filter_group"), groupOpts())}${fSelect("kw", t("filter_kw"), kws.map(k => [k, k]), t("all_f"))}${fSort([["az", t("sort_az")],["za", t("sort_za")]])}
       ${qv("ai") ? `<p class="count"><span class="chip solid">${I.spark} ${esc(qv("ai"))}</span> <a href="${base}">${t("ai_classic")}</a></p>` : ""}${countLine(list.length)}</form>
     ${list.length ? `<ul class="grid g-3">${list.map(personCard).join("")}</ul>` : `<p class="empty">${t("no_results")}</p>`}</div>`;
 };
 
 V.person = s => {
   const p = pBy(s); if (!p || !["int","ext","phd"].includes(p.t)) return null;
-  const g = gBy(p.g), pubs = pubsOf(s).sort((a, b) => b.y - a.y), prs = projectsOf(s), ths = thesesOf(s);
+  const g = gOf(p.g), pubs = pubsOf(s).sort((a, b) => b.y - a.y), prs = projectsOf(s);
   const years = [...new Set(pubs.map(x => x.y))];
   const bio = L(p.b) || (lang === "pt" ? `${p.n} é ${L(p.r).toLowerCase()} no FEP RC, no grupo ${L(g.n)}. Investiga ${p.k.join(", ").toLowerCase()}. [Biografia a fornecer.]` : `${p.n} is ${L(p.r)} at the FEP RC, in the ${L(g.n)} group. Research interests: ${p.k.join(", ").toLowerCase()}. [Biography to be supplied.]`);
   const sugg = lang === "pt" ? [`Que publicações tem ${p.n}?`, `Em que projetos participa?`, `Com quem colabora no FEP RC?`] : [`What has ${p.n} published?`, "Which projects is this researcher in?", "Who do they collaborate with at the FEP RC?"];
@@ -1455,11 +1496,10 @@ V.person = s => {
     </div></div></section>
     ${aiBlock({ id:"person", intro:t("ai_detail_intro"), sugg, ctx:{ k:"person", id:s }, ceRef:"6.3.2.1" })}
     <section class="block">${ce("6.3.2","Publicações (ORCID ou CMS), por ano e tipo")}<div class="sec-head" style="margin:0"><h2>${t("pubs_by_year")} <span class="meta">(${pubs.length})</span></h2></div><p class="hint">${t("orcid_note")}</p>
-      ${years.map(y => `<div class="yeargroup"><h3>${y}</h3><ul class="plist">${pubs.filter(x => x.y === y).map(x => pubRow(x)).join("")}</ul></div>`).join("") || `<p class="empty">—</p>`}</section>
+      ${years.map(y => `<div class="yeargroup"><h3>${y}</h3>${Object.keys(PUBTYPES).filter(k => pubs.some(x => x.y === y && x.ty === k)).map(k => `<h4 class="tygroup">${esc(L(PUBTYPES[k]))}</h4><ul class="plist">${pubs.filter(x => x.y === y && x.ty === k).map(x => pubRow(x)).join("")}</ul>`).join("")}</div>`).join("") || `<p class="empty">—</p>`}</section>
     ${prs.length ? `<section class="block">${ce("6.3.2","Projetos financiados")}<h2>${t("projects")}</h2><ul class="grid g-2">${prs.map(projCard).join("")}</ul></section>` : ""}
-    ${ths.length ? `<section class="block"><h2>${t("thesis_related")}</h2><ul class="plist">${ths.map(x => `<li><div class="prow"><div class="y">${x.a}${x.def ? "–" + x.def : "–"}</div><div><a class="t" href="${URL_.thesis(x.id)}">${esc(x.ti)}</a><p class="authors">${t("supervisors")}: ${esc(x.sup)}</p></div><div></div></div></li>`).join("")}</ul></section>` : ""}
     <section class="block">${ce("6.3.2","Outra informação (campo editorial livre)")}<h2>${t("other_info")}</h2><div class="prose"><p>${esc(L(p.other) || (lang === "pt" ? "[Campo editorial livre, gerido no CMS: cargos editoriais, prémios, orientações.]" : "[Free editorial field, managed in the CMS: editorial roles, awards, supervision.]"))}</p></div></section>
-  </div><aside><div class="box">${ce("6.3.2","Filiação interna")}<dl class="kv"><dt>${t("type_people")}</dt><dd><a href="${p.t === "phd" ? "#/people/phd-students" : "#/people/researchers"}">${esc(peopleType(p))}</a></dd><dt>${t("group")}</dt><dd><a href="${URL_.group(g.s)}">${esc(L(g.n))}</a></dd>${p.inst ? `<dt>${t("origin")}</dt><dd>${esc(p.inst)}</dd>` : ""}</dl></div></aside></div></div>`;
+  </div><aside><div class="box">${ce("6.3.2","Filiação interna")}<dl class="kv"><dt>${t("type_people")}</dt><dd><a href="${p.t === "phd" ? "#/people/phd-students" : "#/people/researchers"}">${esc(peopleType(p))}</a></dd><dt>${t("group")}</dt><dd>${g.s ? `<a href="${URL_.group(g.s)}">${esc(L(g.n))}</a>` : "—"}</dd></dl></div></aside></div></div>`;
 };
 
 /* ---------- Research (CE 6.4) ---------- */
@@ -1467,20 +1507,18 @@ V.publications = () => {
   const base = "#/research/publications";
   let list = PUBS.slice();
   if (qv("ai")) { const ids = aiAnswer(qv("ai"), ["pub"]).items.map(x => x.id); list = list.filter(p => ids.includes(p.id)); }
-  list = list.filter(p => (match(p.ti, qv("q")) || match(authorsText(p.au), qv("q"))) && (!qv("type") || p.ty === qv("type")) && (!qv("area") || p.ar === qv("area")) && (!qv("ods") || p.ods.includes(+qv("ods"))));
-  list.sort((a, b) => qv("sort") === "old" ? a.y - b.y : b.y - a.y);
-  const per = 10, pages = Math.max(1, Math.ceil(list.length / per)), page = Math.min(pages, +qv("page") || 1);
+  list = list.filter(p => (match(p.ti, qv("q")) || match(authorsText(p.au), qv("q"))) && (!qv("type") || p.ty === qv("type")) && (!qv("area") || p.ar === qv("area")));
+  list.sort((a, b) => b.y - a.y);
   const sugg = lang === "pt" ? ["Publicações sobre economia circular","Artigos sobre desigualdade e mercado de trabalho","Trabalhos publicados em 2025","Publicações por investigador","Papers relacionados com sustentabilidade","Artigos associados a projetos financiados"]
                              : ["Publications on the circular economy","Articles on inequality and the labour market","Work published in 2025","Publications by researcher","Papers related to sustainability","Articles linked to funded projects"];
   return `${pageHead({ ce:ce("6.4.1.1","Listagem de Publications"), crumbs:[[t("nav_research"),"#/research/publications"],[t("nav_publications")]], title:t("nav_publications"), intro:t("pubs_intro"),
     tabs:tabs([[t("nav_publications"), base],[t("nav_projects"),"#/research/projects"],[t("nav_theses"),"#/research/theses"]], base) })}
   <div class="wrap sec">${aiBlock({ id:"pubs", intro:t("ai_list_intro"), sugg, scope:["pub"], listBase:base, ceRef:"6.4.1.1", ceTxt:"Assistente AI antes da listagem" })}
     <div style="height:${aiMode ? 24 : 0}px"></div>
-    ${ce("6.4.1.1","Pesquisa por título ou autor; filtros por Tipo (lista curta bilingue) e Área Temática")}
-    <form class="filters" role="search" data-filters="${base}" onsubmit="return false">${fSearch(t("search_pub"))}${fSelect("type", t("pub_type"), Object.keys(PUBTYPES).map(k => [k, L(PUBTYPES[k])]))}${fSelect("area", t("area"), Object.keys(AREAS).map(k => [k, L(AREAS[k])]), t("all_f"))}${fSort([["new", t("sort_new")],["old", t("sort_old")]])}
-      ${qv("ods") ? `<p class="count"><span class="chip solid">${esc(t("ods_short"))} ${esc(odsName(+qv("ods")))}</span> <a href="${base}">${t("clear")}</a></p>` : ""}
+    ${ce("6.4.1.1","Pesquisa por título ou autor; filtros por Tipo (lista curta bilingue) e Área Temática; sem ordenação configurável")}
+    <form class="filters" role="search" data-filters="${base}" onsubmit="return false">${fSearch(t("search_pub"))}${fSelect("type", t("pub_type"), Object.keys(PUBTYPES).map(k => [k, L(PUBTYPES[k])]))}${fSelect("area", t("area"), Object.keys(AREAS).map(k => [k, L(AREAS[k])]), t("all_f"))}
       ${qv("ai") ? `<p class="count"><span class="chip solid">${I.spark} ${esc(qv("ai"))}</span> <a href="${base}">${t("ai_classic")}</a></p>` : ""}${countLine(list.length)}</form>
-    ${list.length ? `<ul class="plist">${list.slice((page - 1) * per, page * per).map(p => pubRow(p)).join("")}</ul>${pager(page, pages, base + (location.hash.includes("?") ? "?" + [...Q].filter(x => x[0] !== "page").map(x => x[0] + "=" + encodeURIComponent(x[1])).join("&") : ""))}` : `<p class="empty">${t("no_results")}</p>`}
+    ${list.length ? `<ul class="plist">${list.map(p => pubRow(p)).join("")}</ul>` : `<p class="empty">${t("no_results")}</p>`}
   </div>`;
 };
 
@@ -1489,8 +1527,8 @@ V.publication = id => {
   const pr = p.pr && prBy(p.pr), rel = relatedPubs(p);
   const sugg = lang === "pt" ? ["Quem são os autores?","Que publicações são relacionadas?","A que ODS está associada?", ...(pr ? ["De que projeto resulta?"] : [])] : ["Who are the authors?","Which publications are related?","Which SDGs is it linked to?", ...(pr ? ["Which project is it from?"] : [])];
   return `<header class="page-head"><div class="wrap">${ce("6.4.1.2","Cabeçalho do artigo")}${crumbs([[t("nav_research"),"#/research/publications"],[t("nav_publications"),"#/research/publications"],[p.ti.length > 48 ? p.ti.slice(0, 46) + "…" : p.ti]])}
-    <p class="meta">${esc(typeLabel(p))}, ${p.y}</p><h1 class="page-title" data-focus>${esc(p.ti)}</h1><p class="page-intro" style="font-style:italic">${esc(p.j)}</p>
-    <p style="display:flex;gap:8px;flex-wrap:wrap">${p.doi ? `<a class="btn btn-sm" href="https://doi.org/${p.doi}" target="_blank" rel="noopener">${t("open_doi")} ${I.ext}</a>` : `<a class="btn btn-sm btn-line" href="#">${t("open_link")} ${I.ext}</a>`}<button class="btn btn-sm btn-line" type="button" data-share>${t("share")}</button></p></div></header>
+    <p class="meta">${esc(typeLabel(p))}, ${p.y}</p><h1 class="page-title" data-focus>${esc(p.ti)}</h1>
+    <p style="display:flex;gap:8px;flex-wrap:wrap">${p.doi ? `<a class="btn btn-sm" href="https://doi.org/${p.doi}" target="_blank" rel="noopener">${t("open_doi")} ${I.ext}</a>` : `<a class="btn btn-sm btn-line" href="#">${t("open_link")} ${I.ext}</a>`}</p></div></header>
   <div class="wrap sec"><div class="detail"><div>
     <section class="block">${ce("6.4.1.2","Bloco de autoria e projeto")}<h2>${t("authors")}</h2><p class="authors" style="font-size:14px">${authorsHtml(p.au)}</p>
       <ul class="grid g-2">${p.au.filter(a => a[0] === "@").map(a => pBy(a.slice(1))).map(x => `<li><a class="pcard" href="${URL_.person(x.s)}">${ph(t("photo"), "person round sm")}<div><h3 class="n">${esc(x.n)}</h3><p class="r">${esc(peopleType(x))}</p><p class="g">${esc(L(gBy(x.g).n))}</p></div></a></li>`).join("")}</ul>
@@ -1499,7 +1537,7 @@ V.publication = id => {
     <section class="block">${ce("6.4.1.2","Corpo: imagem, abstract e texto descritivo")}${p.img ? ph(t("img_visual"), "r-169") : ""}<h2>${t("abstract")}</h2><div class="prose"><p>${esc(p.ab)}</p><p class="hint">${lang === "pt" ? "[Texto descritivo de divulgação (campo editorial, opcional), gerido no CMS.]" : "[Plain-language descriptive text (optional editorial field), managed in the CMS.]"}</p></div></section>
     <section class="block">${ce("6.4.1.2","Mapeamento ODS (ícones oficiais)")}<h2>${t("ods")}</h2>${odsBadges(p.ods) || `<p class="muted">—</p>`}</section>
     <section class="block">${ce("6.4.1.2","Artigos relacionados")}<h2>${t("related_pubs")}</h2><ul class="plist">${rel.map(x => pubRow(x)).join("")}</ul></section>
-  </div><aside><div class="box"><dl class="kv"><dt>${t("type")}</dt><dd>${esc(typeLabel(p))}</dd><dt>${t("year")}</dt><dd>${p.y}</dd><dt>${t("journal")}</dt><dd>${esc(p.j)}</dd><dt>${t("area")}</dt><dd>${esc(L(AREAS[p.ar]))}</dd>${p.doi ? `<dt>DOI</dt><dd style="word-break:break-all">${esc(p.doi)}</dd>` : ""}<dt>${t("pa_origin")}</dt><dd>${p.src === "manual" ? t("src_manual") : "ORCID"}</dd></dl></div></aside></div></div>`;
+  </div><aside></aside></div></div>`;
 };
 
 V.projects = () => {
@@ -1522,8 +1560,7 @@ V.project = s => {
   const p = prBy(s); if (!p) return null;
   const pubs = PUBS.filter(x => x.pr === s);
   const sugg = lang === "pt" ? ["Quem faz parte da equipa?","Que publicações produziu?","Projetos relacionados"] : ["Who is on the team?","What has it published?","Related projects"];
-  return `${pageHead({ ce:ce("6.4.2.2","Detalhe do Projeto"), crumbs:[[t("nav_research"),"#/research/publications"],[t("nav_projects"),"#/research/projects"],[p.acr]], title:`${p.acr}: ${L(p.ti)}`,
-    after:`<p><span class="chip ${isCurrentProject(p) ? "solid" : ""}">${isCurrentProject(p) ? t("current") : t("past")}</span></p>` })}
+  return `${pageHead({ ce:ce("6.4.2.2","Detalhe do Projeto"), crumbs:[[t("nav_research"),"#/research/publications"],[t("nav_projects"),"#/research/projects"],[p.acr]], title:`${p.acr}: ${L(p.ti)}` })}
   <div class="wrap sec"><div class="detail"><div>
     <section class="block">${ce("6.4.2.2","Resumo do projeto")}<h2>${t("summary")}</h2><div class="prose"><p>${esc(L(p.d))}</p></div></section>
     ${aiBlock({ id:"project", intro:t("ai_detail_intro"), sugg, ctx:{ k:"project", id:s }, ceRef:"6.4.2.2" })}
@@ -1531,12 +1568,12 @@ V.project = s => {
     <section class="block">${ce("6.4.2.2","Publicações produzidas")}<h2>${t("produced")}</h2>${pubs.length ? `<ul class="plist">${pubs.map(x => pubRow(x)).join("")}</ul>` : `<p class="muted">—</p>`}</section>
     <section class="block"><h2>${t("ods")}</h2>${odsBadges(p.ods)}</section>
     <section class="block">${ce("6.4.2.2","Outros outputs (tipo, título, ligação)")}<h2>${t("outputs")}</h2>${p.out.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th scope="col">${t("type")}</th><th scope="col">${t("pa_title")}</th><th scope="col"></th></tr></thead><tbody>${p.out.map(o => `<tr><td>${esc(o[0])}</td><td>${esc(o[1])}</td><td class="num"><a href="#">${t("open_link")} ${I.ext}</a></td></tr>`).join("")}</tbody></table></div>` : `<p class="muted">—</p>`}</section>
-  </div><aside><div class="box">${ce("6.4.2.2","Ficha financeira e temporal")}<h2>${t("fin_sheet")}</h2><dl class="kv"><dt>${t("acronym")}</dt><dd>${esc(p.acr)}</dd><dt>${t("funder")}</dt><dd>${esc(p.f)}</dd><dt>${t("amount")}</dt><dd>${money(p.amt)}</dd><dt>${t("start")}</dt><dd>${fd(p.a)}</dd><dt>${t("end")}</dt><dd>${fd(p.e)}</dd><dt>${t("group")}</dt><dd><a href="${URL_.group(p.g)}">${esc(L(gBy(p.g).n))}</a></dd></dl></div>${ph("Logo " + p.f, "r-21")}</aside></div></div>`;
+  </div><aside><div class="box">${ce("6.4.2.2","Ficha financeira e temporal")}<h2>${t("fin_sheet")}</h2><dl class="kv"><dt>${t("acronym")}</dt><dd>${esc(p.acr)}</dd><dt>${t("funder")}</dt><dd>${esc(p.f)}</dd><dt>${t("amount")}</dt><dd>${money(p.amt)}</dd><dt>${t("start")}</dt><dd>${fd(p.a)}</dd><dt>${t("end")}</dt><dd>${fd(p.e)}</dd></dl></div></aside></div></div>`;
 };
 
 V.theses = () => {
   const base = "#/research/theses", cur = THESES.filter(x => !x.def), past = THESES.filter(x => x.def);
-  const row = x => `<li><div class="prow"><div class="y"><span>${x.a}${x.def ? "–" + x.def : "–"}</span></div><div><a class="t" href="${URL_.thesis(x.id)}">${esc(x.ti)}</a><p class="authors" style="margin-top:6px">${t("student")}: <a href="${URL_.person(x.st)}">${esc(pBy(x.st).n)}</a><br>${t("supervisors")}: ${esc(x.sup)}</p></div><div class="side">${odsBadges(x.ods.slice(0, 1))}</div></div></li>`;
+  const row = x => `<li><div class="prow"><div class="y"><span>${x.a}${x.def ? "–" + x.def : "–"}</span></div><div><a class="t" href="${URL_.thesis(x.id)}">${esc(x.ti)}</a><p class="authors" style="margin-top:6px">${t("student")}: <a href="${URL_.person(x.st)}">${esc(pBy(x.st).n)}</a><br>${t("supervisors")}: ${esc(x.sup)}</p></div><div class="side"></div></div></li>`;
   return `${pageHead({ ce:ce("6.4.3.1","Listagem de PhD Thesis"), crumbs:[[t("nav_research"),"#/research/publications"],[t("nav_theses")]], title:t("nav_theses"), intro:t("theses_intro"),
     tabs:tabs([[t("nav_publications"),"#/research/publications"],[t("nav_projects"),"#/research/projects"],[t("nav_theses"), base]], base) })}
   <div class="wrap sec">${aiBlock({ id:"theses", intro:t("ai_list_intro"), sugg: lang === "pt" ? ["Teses sobre energia","Teses em curso em finanças"] : ["Theses on energy","Ongoing theses in finance"], scope:["thesis"] })}
@@ -1546,7 +1583,7 @@ V.theses = () => {
 
 V.thesis = id => {
   const x = THESES.find(y => y.id === id); if (!x) return null; const s = pBy(x.st);
-  return `${pageHead({ ce:ce("6.4.3.2","Detalhe da Tese"), crumbs:[[t("nav_research"),"#/research/publications"],[t("nav_theses"),"#/research/theses"],[x.ti]], title:x.ti, after:`<p><span class="chip ${x.def ? "" : "solid"}">${x.def ? t("past_f") : t("current")}</span></p>` })}
+  return `${pageHead({ ce:ce("6.4.3.2","Detalhe da Tese"), crumbs:[[t("nav_research"),"#/research/publications"],[t("nav_theses"),"#/research/theses"],[x.ti]], title:x.ti })}
   <div class="wrap sec"><div class="detail"><div>
     <section class="block"><h2>${t("abstract")}</h2><div class="prose"><p>${esc(x.ab)}</p></div></section>
     ${aiBlock({ id:"thesis", intro:t("ai_detail_intro"), sugg: lang === "pt" ? ["Quem orienta esta tese?","Há publicações sobre este tema?","Que outros investigadores trabalham o tema?"] : ["Who supervises this thesis?","Are there publications on this topic?","Who else works on this topic?"], ctx:{ k:"thesis", id, hint:x.ti }, ceRef:"6.4.3.2" })}
@@ -1576,7 +1613,7 @@ V.event = id => {
   const e = EVENTS.find(x => x.id === id); if (!e) return null; const past = !isUpcoming(e), g = gBy(e.g);
   const key = e.ty === "conf" ? "conferences" : e.ty === "course" ? "advanced-courses" : e.sub.toLowerCase() + "-seminars";
   return `${pageHead({ ce:ce("6.5.2","Detalhe do Evento"), crumbs:[[t("nav_activities"),"#/activities/seminars"],[ACT[key].n || t(ACT[key].k), "#/activities/" + key],[e.ti]], title:e.ti,
-    after:`<p class="meta">${esc(L(EVTYPES[e.ty]))}${e.sub ? " " + esc(e.sub) : ""}${past ? ` <span class="chip">${t("previous")}</span>` : ""}</p>` })}
+    after:`<p class="meta">${esc(L(EVTYPES[e.ty]))}${e.sub ? " " + esc(e.sub) : ""}</p>` })}
   <div class="wrap sec"><div class="detail"><div>
     <section class="block">${ph(t("img_cover"), "r-21")}</section>
     ${aiBlock({ id:"event", intro:t("ai_detail_intro"), sugg: lang === "pt" ? ["Quem organiza este evento?","Há publicações sobre este tema?","Outros eventos deste grupo"] : ["Who organises this event?","Are there publications on this topic?","Other events from this group"], ctx:{ k:"event", id, hint:e.ti + " " + (g ? g.n.en : "") }, ceRef:"6.5.2" })}
@@ -1584,8 +1621,7 @@ V.event = id => {
       <h3 style="font-size:16px;margin-top:8px">${t("programme")}</h3><div class="tbl-wrap"><table class="tbl" style="min-width:420px"><tbody>${(e.ty === "sem" ? [[e.h.split("–")[0], lang === "pt" ? "Apresentação" : "Presentation"],["", lang === "pt" ? "Debate" : "Discussion"]] : [["09:00", lang === "pt" ? "Receção e abertura" : "Welcome and opening"],["09:30", "Keynote"],["11:00", lang === "pt" ? "Sessões paralelas" : "Parallel sessions"],["14:00", lang === "pt" ? "Sessões paralelas" : "Parallel sessions"],["17:00", lang === "pt" ? "Encerramento" : "Closing"]]).map(r => `<tr><td style="width:90px" class="meta">${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("")}</tbody></table></div>
       <h3 style="font-size:16px;margin-top:8px">${t("speakers")}</h3><ul class="grid g-2"><li><article class="pcard">${ph(t("photo"), "person round sm")}<div><h4 class="n">${esc(e.sp)}</h4><p class="r">${lang === "pt" ? "[Biografia do orador]" : "[Speaker bio]"}</p></div></article></li></ul></section>
     ${past ? `<section class="block">${ce("6.5.2","Galeria multimédia (pós-realização)")}<h2>${t("gallery")}</h2><div class="gallery">${Array.from({ length:5 }, (_, i) => ph(`${t("photo")} ${i + 1}`, "r-43")).join("")}${ph(t("video"), "video r-43")}</div></section>` : ""}
-  </div><aside><div class="box">${ce("6.5.2","Ficha de informação")}<dl class="kv"><dt>${t("date")}</dt><dd>${fd(e.d)}${e.d2 ? " – " + fd(e.d2) : ""}</dd><dt>${t("time")}</dt><dd>${esc(e.h)}</dd><dt>${t("place")}</dt><dd>${esc(L(e.loc))}${/online/i.test(e.loc.en) ? `<br><a href="#">${t("online")} ${I.ext}</a>` : ""}</dd>${g ? `<dt>${t("group")}</dt><dd><a href="${URL_.group(g.s)}">${esc(L(g.n))}</a></dd>` : ""}${e.phd ? `<dt>${t("phd_prog")}</dt><dd>${e.phd.map(k => `<a href="#/phd/${k}">${esc(L(PHD[k].n))}</a>`).join("<br>")}</dd>` : ""}</dl>
-    ${past ? "" : `<button class="btn btn-line btn-sm" type="button" data-toast="${esc(lang === "pt" ? "Ficheiro .ics gerado (simulado)." : ".ics file generated (simulated).")}">${t("add_cal")}</button>`}</div></aside></div></div>`;
+  </div><aside><div class="box">${ce("6.5.2","Ficha de informação")}<dl class="kv"><dt>${t("date")}</dt><dd>${fd(e.d)}${e.d2 ? " – " + fd(e.d2) : ""}</dd><dt>${t("time")}</dt><dd>${esc(e.h)}</dd><dt>${t("place")}</dt><dd>${esc(L(e.loc))}${/online/i.test(e.loc.en) ? `<br><a href="#">${t("online")} ${I.ext}</a>` : ""}</dd></dl></div></aside></div></div>`;
 };
 
 /* ---------- Initiatives (CE 6.6) ---------- */
@@ -1609,18 +1645,23 @@ V.bulletinItem = id => {
   const b = BULLETIN.find(x => x.id === id); if (!b) return null; const p = pBy(b.p), pub = pubBy(b.pub), tw = L(b.tw);
   return `${pageHead({ ce:ce("6.6.2.1","Detalhe do Bulletin"), crumbs:[[t("nav_initiatives"),"#/initiatives/data-center"],[t("nav_bulletin"),"#/initiatives/bulletin"],["N.º " + b.id]], title:`Research Bulletin n.º ${b.id}`, intro:fd(b.d) })}
   <div class="wrap sec"><div class="profile" style="grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,5vw,64px);align-items:center">${ph(t("photo") + ": " + p.n, "person r-45")}
-    <div style="display:flex;flex-direction:column;gap:20px"><p class="kicker">${t("interviewee")}: <a href="${URL_.person(p.s)}">${esc(p.n)}</a>, ${esc(L(gBy(p.g).n))}</p>
-    ${ce("6.6.2.1","Sumário estilo tweet, máx. 280 caracteres")}<blockquote class="tweet" style="margin:0">${esc(tw)}</blockquote><p class="charcount">${tw.length}/280</p>
+    <div style="display:flex;flex-direction:column;gap:20px"><p class="kicker">${t("interviewee")}: <a href="${URL_.person(p.s)}">${esc(p.n)}</a>, ${esc(L(gOf(p.g).n))}</p>
+    ${ce("6.6.2.1","Sumário estilo tweet, máx. 280 caracteres")}<blockquote class="tweet" style="margin:0">${esc(tw)}</blockquote>
     <p><a class="btn" href="${URL_.pub(pub.id)}">${t("read_paper")}</a></p></div></div></div>`;
 };
 
-V.other = () => `${pageHead({ ce:ce("6.6.3","Other Initiatives"), crumbs:[[t("nav_initiatives"),"#/initiatives/data-center"],[t("nav_other")]], title:t("nav_other"),
+V.other = () => {
+  const base = "#/initiatives/other", types = [...new Set(OTHER.map(o => o.ty.en))];
+  const list = OTHER.filter(o => !qv("type") || o.ty.en === qv("type")).sort((a, b) => b.d.localeCompare(a.d));
+  return `${pageHead({ ce:ce("6.6.3.1","Listagem de Other Initiatives: ordem cronológica (mais recente primeiro), filtro por Tipo de iniciativa"), crumbs:[[t("nav_initiatives"),"#/initiatives/data-center"],[t("nav_other")]], title:t("nav_other"),
   intro: lang === "pt" ? "Exposições, workshops de transferência de conhecimento e outras iniciativas especiais do Centro." : "Exhibitions, knowledge-transfer workshops and other special initiatives of the Centre.", tabs:initTabs("#/initiatives/other") })}
-  <div class="wrap sec"><ul class="grid g-3">${OTHER.map(o => `<li><a class="card" href="#/initiatives/other/${o.s}">${ph(t("img_cover"), "r-169")}<p class="meta">${fd(o.d)}</p><h2 class="c-title">${esc(L(o.ti))}</h2><p class="c-sum">${esc(L(o.lead))}</p></a></li>`).join("")}</ul></div>`;
+  <div class="wrap sec"><form class="filters" data-filters="${base}" onsubmit="return false">${fSelect("type", t("init_type"), types.map(x => [x, L(OTHER.find(o => o.ty.en === x).ty)]))}${countLine(list.length)}</form>
+  ${list.length ? `<ul class="grid g-3">${list.map(o => `<li><a class="card" href="#/initiatives/other/${o.s}">${ph(t("img_cover"), "r-169")}<p class="meta">${fd(o.d)}</p><h2 class="c-title">${esc(L(o.ti))}</h2><p class="c-sum">${esc(L(o.lead))}</p></a></li>`).join("")}</ul>` : `<p class="empty">${t("no_results")}</p>`}</div>`;
+};
 
 V.otherItem = s => {
   const o = OTHER.find(x => x.s === s); if (!o) return null;
-  return `${pageHead({ ce:ce("6.6.3","Template de página genérica"), crumbs:[[t("nav_initiatives"),"#/initiatives/data-center"],[t("nav_other"),"#/initiatives/other"],[L(o.ti)]], title:L(o.ti), intro:esc(L(o.lead)) })}
+  return `${pageHead({ ce:ce("6.6.3.2","Detalhe de Other Initiatives: título, data, imagem principal, texto enriquecido e galeria"), crumbs:[[t("nav_initiatives"),"#/initiatives/data-center"],[t("nav_other"),"#/initiatives/other"],[L(o.ti)]], title:L(o.ti), intro:esc(L(o.lead)), after:`<p class="meta">${fd(o.d)}</p>` })}
   <div class="wrap sec"><div class="prose" style="max-width:52rem;margin:0 auto">${ph(t("img_cover"), "r-169")}<p>${lang === "pt" ? "[Corpo de texto enriquecido, gerido no CMS: títulos, listas, citações, ligações e imagens inline.]" : "[Rich text body, managed in the CMS: headings, lists, quotes, links and inline images.]"}</p><h2>${lang === "pt" ? "Subtítulo de secção" : "Section heading"}</h2><p>${lang === "pt" ? "[Parágrafo de texto.]" : "[Paragraph text.]"}</p></div>
   <div class="block" style="margin-top:40px"><h2>${t("gallery")}</h2><div class="gallery">${Array.from({ length:6 }, (_, i) => ph(`${t("photo")} ${i + 1}`, "r-43")).join("")}</div></div></div>`;
 };
@@ -1638,7 +1679,7 @@ V.phd = k => {
     <section class="block">${ce("6.7.1","Iniciativas e eventos associados")}<h2>${t("assoc_events")}</h2>${evs.length ? `<ul class="grid g-2">${evs.map(e => `<li>${evCard(e)}</li>`).join("")}</ul>` : `<p class="muted">—</p>`}</section>
     <section class="block">${ce("6.7.1","Galeria de iniciativas (ex.: Welcome Day), gerida no Backoffice")}<h2>${t("prog_gallery")}</h2><div class="gallery">${Array.from({ length:6 }, (_, i) => ph(`Welcome Day 2026, ${t("photo").toLowerCase()} ${i + 1}`, "r-43")).join("")}</div></section>
     <section class="block">${ce("6.7.1","Alumni do programa")}<div class="sec-head" style="margin:0"><h2>${t("prog_alumni")}</h2>${more("#/phd/alumni?prog=" + k, t("view_all"))}</div><ul class="grid g-3">${al.map(alumniCard).join("")}</ul></section>
-  </div><aside><div class="box">${ce("6.7.1","Ficha do programa")}<h2>${t("facts")}</h2><dl class="kv">${pr.facts.map(f => `<dt>${esc(L(f[0]))}</dt><dd>${esc(L(f[1]))}</dd>`).join("")}</dl><a class="btn" href="#">${t("apply")} ${I.ext}</a></div></aside></div></div>`;
+  </div><aside><div class="box">${ce("6.7.1","Ficha do programa")}<h2>${t("facts")}</h2><dl class="kv">${pr.facts.map(f => `<dt>${esc(L(f[0]))}</dt><dd>${esc(L(f[1]))}</dd>`).join("")}</dl></div></aside></div></div>`;
 };
 const alumniCard = p => `<li><article class="pcard">${ph(t("photo"), "person round sm")}<div><h3 class="n">${esc(p.n)}</h3><p class="r">${esc(L(PHD[p.prog].n))}, ${p.year}</p><p class="g">${esc(L(p.now))}</p></div><p class="x">${esc(L(p.b))}</p><ul class="linklist" style="grid-column:1/-1">${["LinkedIn", lang === "pt" ? "Página pessoal" : "Website"].map(l => `<li><a class="chip" href="#">${l} ${I.ext}</a></li>`).join("")}</ul></article></li>`;
 V.alumni = () => {
@@ -1661,7 +1702,7 @@ V.news = () => {
 V.newsItem = s => {
   const n = NEWS.find(x => x.s === s); if (!n) return null; const g = gBy(n.g);
   const rel = NEWS.filter(x => x.s !== s && (x.g === n.g || x.ty === n.ty)).slice(0, 3);
-  return `<header class="page-head"><div class="wrap" style="max-width:900px">${ce("6.8.2","Detalhe da Notícia")}${crumbs([[t("nav_news"),"#/news"],[L(n.ti)]])}<p class="meta">${fd(n.d)}, ${esc(L(NEWSTYPES[n.ty]))}${g ? `, <a href="${URL_.group(g.s)}">${esc(L(g.n))}</a>` : ""}</p><h1 class="page-title" data-focus>${esc(L(n.ti))}</h1><p class="page-intro">${esc(L(n.lead))}</p></div></header>
+  return `<header class="page-head"><div class="wrap" style="max-width:900px">${ce("6.8.2","Detalhe da Notícia")}${crumbs([[t("nav_news"),"#/news"],[L(n.ti)]])}<p class="meta">${fd(n.d)}</p><h1 class="page-title" data-focus>${esc(L(n.ti))}</h1><p class="page-intro">${esc(L(n.lead))}</p></div></header>
   <div class="wrap sec" style="max-width:900px">${ph(t("img_cover"), "r-169")}
     <div style="margin-top:28px">${aiBlock({ id:"news", intro:t("ai_detail_intro"), sugg: lang === "pt" ? ["Quem são os investigadores envolvidos?","Há publicações relacionadas?"] : ["Which researchers are involved?","Are there related publications?"], ctx:{ k:"news", id:s, hint:L(n.ti) }, ceRef:"6.8.2" })}</div>
     <div class="prose" style="margin-top:28px"><p>${lang === "pt" ? "[Texto enriquecido da notícia, gerido no CMS.] Parágrafo de desenvolvimento com o contexto, as pessoas envolvidas e as ligações para as páginas de investigadores, projetos e publicações relacionadas." : "[Rich text of the news item, managed in the CMS.] A paragraph developing the context, the people involved and links to related researcher, project and publication pages."}</p>
@@ -1672,21 +1713,24 @@ V.newsItem = s => {
 };
 
 /* ---------- Search, legal, 404, sitemap (CE 8) ---------- */
-const PAGES = () => [[t("nav_history"),"#/about/history"],[t("nav_governance"),"#/about/governance"],[t("nav_groups"),"#/about/groups"],[t("nav_contacts"),"#/about/contacts"],[t("nav_datacenter"),"#/initiatives/data-center"],[t("nav_rankings"),"#/initiatives/rankings"],[t("nav_other"),"#/initiatives/other"],[t("nav_phdeco"),"#/phd/economics"],[t("nav_phdmgt"),"#/phd/management"]];
+const PAGES = () => [[t("nav_history"),"#/about/history", lang === "pt" ? "Missão, visão e marcos do FEP Research Center." : "Mission, vision and milestones of the FEP Research Center."],[t("nav_governance"),"#/about/governance", lang === "pt" ? "Modelo de governação, Direção e Staff." : "Governance model, Directorate and Staff."],[t("nav_groups"),"#/about/groups", lang === "pt" ? "Os grupos de investigação do Centro." : "The Centre’s research groups."],[t("nav_staff"),"#/about/staff", lang === "pt" ? "A equipa técnica e administrativa de apoio à investigação." : "The technical and administrative research support team."],[t("nav_contacts"),"#/about/contacts", lang === "pt" ? "Contactos, morada, como chegar e formulário de contacto." : "Contacts, address, how to arrive and contact form."],[t("nav_datacenter"),"#/initiatives/data-center", lang === "pt" ? "Bases de dados, microdados e apoio técnico." : "Databases, microdata and technical support."],[t("nav_rankings"),"#/initiatives/rankings", lang === "pt" ? "Posição do Centro em avaliações e rankings." : "The Centre’s position in evaluations and rankings."],[t("nav_other"),"#/initiatives/other", lang === "pt" ? "Exposições, workshops e iniciativas especiais." : "Exhibitions, workshops and special initiatives."],[t("nav_phdeco"),"#/phd/economics", L(PHD.economics.i)],[t("nav_phdmgt"),"#/phd/management", L(PHD.management.i)]];
 V.search = q => {
   if (!INDEX) buildIndex();
   const terms = norm(q).split(/\s+/).filter(w => w.length > 1);
-  const res = terms.length ? INDEX.filter(x => terms.every(w => x.txt.includes(w) || norm(x.title).includes(w))).concat(PAGES().filter(p => terms.every(w => norm(p[0]).includes(w))).map(p => ({ k:"page", title:p[0], url:p[1], sub:() => "", txt:"" }))) : [];
-  const hl = s => { let h = esc(s); terms.forEach(w => { h = h.replace(new RegExp("(" + w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")", "ig"), "<mark>$1</mark>"); }); return h; };
+  const pages = PAGES().concat(OTHER.map(o => [L(o.ti), "#/initiatives/other/" + o.s, L(o.lead)]));
+  const pool = INDEX.filter(x => x.srch).concat(pages.map(pg => ({ k:"page", title:pg[0], url:pg[1], ex:() => pg[2] || "", txt:norm(pg[0] + " " + (pg[2] || "")) })));
+  const res = terms.length ? pool.filter(x => terms.every(w => x.txt.includes(w) || norm(x.title).includes(w) || norm(x.ex()).includes(w))) : [];
+  const rx = s => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const hl = s => { let h = esc(s); terms.forEach(w => { h = h.replace(new RegExp("(" + rx(w) + ")", "ig"), "<mark>$1</mark>"); }); return h; };
+  const excerpt = x => { const s = x.ex() || ""; const n = norm(s); let pos = -1; terms.some(w => (pos = n.indexOf(w)) >= 0); const a = Math.max(0, pos - 60); let e = s.slice(a, a + 180); if (a > 0) e = "…" + e.replace(/^\S*\s/, ""); if (a + 180 < s.length) e = e.replace(/\s+\S*$/, "") + "…"; return e; };
   return `${pageHead({ ce:ce("8","Página de Resultados de Pesquisa: lista única com tipo, título e excerto"), crumbs:[[t("search_title_pg")]], title:q ? t("search_for", { q }) : t("search_title_pg"), intro:t("search_intro") })}
-  <div class="wrap sec"><form id="sform" role="search" class="filters" style="margin-bottom:24px"><div class="field q"><label for="sq">${t("search")}</label><input id="sq" type="search" value="${esc(q)}" autocomplete="off"></div><button class="btn" type="submit">${t("search_btn")}</button>${q ? `<p class="count" aria-live="polite">${res.length === 1 ? t("result_1") : t("results_n", { n:res.length })}</p>` : ""}</form>
-  ${!q ? `<p class="empty">${t("search_empty")}</p>` : res.length ? `<ul style="list-style:none;border-top:1px solid var(--border)">${res.map(x => `<li><a class="result" href="${x.url}"><span class="kicker">${esc(KLABEL(x.k))}</span><span class="c-title">${hl(x.title)}</span><span class="c-sum">${hl(x.sub())}</span></a></li>`).join("")}</ul>` : `<p class="empty">${t("no_results")}</p>`}</div>`;
+  <div class="wrap sec">${ce("4.6","Pesquisa global: Researchers e PhD Students, Publications, Funded Projects, PhD Thesis, Events, News, Research Bulletin e páginas institucionais (About, Initiatives, PhD Programmes); títulos, nomes, resumos e texto principal")}
+  <form id="sform" role="search" class="filters" style="margin-bottom:24px"><div class="field q"><label for="sq">${t("search")}</label><input id="sq" type="search" value="${esc(q)}" autocomplete="off"></div><button class="btn" type="submit">${t("search_btn")}</button>${q ? `<p class="count" aria-live="polite">${res.length === 1 ? t("result_1") : t("results_n", { n:res.length })}</p>` : ""}</form>
+  ${!q ? `<p class="empty">${t("search_empty")}</p>` : res.length ? `<ul style="list-style:none;border-top:1px solid var(--border)">${res.map(x => `<li><a class="result" href="${x.url}"><span class="kicker">${esc(KLABEL(x.k))}</span><span class="c-title">${hl(x.title)}</span><span class="c-sum">${hl(excerpt(x))}</span></a></li>`).join("")}</ul>` : `<p class="empty">${t("no_results")}</p>`}</div>`;
 };
 const LEGAL = {
   privacy:{ k:"privacy", s:[[P("Who is responsible","Responsável pelo tratamento"),P("The Faculty of Economics of the University of Porto, Rua Dr. Roberto Frias, 4200-464 Porto. Data Protection Officer: [contact].","Faculdade de Economia da Universidade do Porto, Rua Dr. Roberto Frias, 4200-464 Porto. Encarregado de Proteção de Dados: [contacto].")],[P("What data we collect","Que dados recolhemos"),P("Contact form and newsletter data, Private Area account data and, with consent, analytics data.","Dados do formulário de contacto e da newsletter, dados de conta da Área Privada e, com consentimento, dados de análise.")],[P("Newsletter","Newsletter"),P("Subscriber data is stored on the email marketing platform, not on this website.","Os dados dos subscritores ficam na plataforma de e-mail marketing e não neste website.")],[P("Your rights","Os seus direitos"),P("Access, rectification, erasure, restriction, portability and objection. Write to [contact].","Acesso, retificação, apagamento, limitação, portabilidade e oposição. Contacte [contacto].")]] },
-  cookies:{ k:"cookies", s:[[P("Essential cookies","Cookies essenciais"),P("Session, language, AI Mode state and consent preferences.","Sessão, idioma, estado do AI Mode e preferências de consentimento.")],[P("Analytics cookies","Cookies de análise"),P("Google Analytics 4 via Google Tag Manager, blocked until you give consent (Consent Mode v2).","Google Analytics 4 através do Google Tag Manager, bloqueados até dar consentimento (Consent Mode v2).")],[P("Managing consent","Gerir o consentimento"),P("Use “Cookie settings” in the footer at any time. [CMP to be defined by FEP RC.]","Use «Definições de cookies» no rodapé a qualquer momento. [CMP a definir pela FEP RC.]")]] },
-  terms:{ k:"terms", s:[[P("Use of the website","Utilização do website"),P("[Terms to be supplied by FEP RC.]","[Termos a fornecer pela FEP RC.]")],[P("Intellectual property","Propriedade intelectual"),P("Publication metadata comes from ORCID and remains the responsibility of each researcher.","Os metadados das publicações vêm do ORCID e são da responsabilidade de cada investigador.")]] },
-  accessibility:{ k:"accessibility", s:[[P("Commitment","Compromisso"),P("Templates are built to conform with WCAG 2.2 AA: heading structure, contrast, text alternatives and keyboard navigation.","Os templates são desenvolvidos para conformidade com as WCAG 2.2 AA: estrutura de títulos, contraste, alternativas textuais e navegação por teclado.")],[P("Content","Conteúdos"),P("The accessibility of content added in the CMS is the responsibility of FEP RC.","A acessibilidade dos conteúdos inseridos no CMS é da responsabilidade da FEP RC.")],[P("Feedback","Contacto"),P("Found a barrier? Write to [contact].","Encontrou uma barreira? Escreva para [contacto].")]] }
+  cookies:{ k:"cookies", s:[[P("Essential cookies","Cookies essenciais"),P("Session, language, AI Mode state and consent preferences.","Sessão, idioma, estado do AI Mode e preferências de consentimento.")],[P("Analytics cookies","Cookies de análise"),P("Google Analytics 4 via Google Tag Manager, blocked until you give consent (Consent Mode v2).","Google Analytics 4 através do Google Tag Manager, bloqueados até dar consentimento (Consent Mode v2).")],[P("Managing consent","Gerir o consentimento"),P("Use “Cookie settings” in the footer at any time. [CMP to be defined by FEP RC.]","Use «Definições de cookies» no rodapé a qualquer momento. [CMP a definir pela FEP RC.]")]] }
 };
 V.legal = key => { const x = LEGAL[key]; return `${pageHead({ ce:ce("8", t(x.k)), crumbs:[[t(x.k)]], title:t(x.k), intro:(lang === "pt" ? "Última atualização: [data]." : "Last updated: [date].") })}<div class="wrap sec"><div class="prose">${x.s.map(s => `<h2>${esc(L(s[0]))}</h2><p>${esc(L(s[1]))}</p>`).join("")}</div></div>`; };
 V.notFound = () => `<div class="wrap"><div class="nf">${ce("8","Página 404 com sugestões de navegação")}<p class="kicker">${t("nf_kicker")}</p><h1 data-focus>${t("nf_title")}</h1><p class="lead">${t("nf_text")}</p>
@@ -1706,7 +1750,7 @@ V.sitemap = () => {
     ${s(t("nav_news") + " (6.8)", [[t("nav_news"),"#/news"],[L(NEWS[0].ti).slice(0, 40) + "…",URL_.news(NEWS[0].s),1]])}
     ${s(t("pa_area") + " (7.1–7.2)", [["Login","#/private/login"],[t("pa_recover_t"),"#/private/recover"],[t("pa_profile"),"#/private/profile?as=researcher"],[t("pa_mypads"),"#/private/pads?as=researcher"],["PAD: " + t("st_correcao"),"#/private/pad/PAD-2026-0147?as=researcher",1],["PAD: " + t("st_indeferido"),"#/private/pad/PAD-2026-0098?as=researcher",1],[t("pa_mypubs"),"#/private/publications?as=researcher"],[t("pa_pubform_t"),"#/private/publication/new?as=researcher"],[t("pa_docs"),"#/private/documents?as=researcher"],[t("pa_newpad"),"#/private/pad/new?as=researcher"]])}
     ${s("Backoffice (7.3–7.5)", [["PI: " + t("bo_pi_list"),"#/backoffice/pi?as=pi"],["PI: " + t("bo_analyse"),"#/backoffice/pi/PAD-2026-0151?as=pi",1],["Board: " + t("bo_board_list"),"#/backoffice/board?as=board"],["Board: " + t("bo_decision"),"#/backoffice/board/PAD-2026-0139?as=board",1],["Admin: " + t("bo_dash"),"#/backoffice/admin?as=admin"],[t("bo_users"),"#/backoffice/admin/users?as=admin",1],[t("bo_groups"),"#/backoffice/admin/groups?as=admin",1],[t("bo_people"),"#/backoffice/admin/people?as=admin",1],[t("bo_pads"),"#/backoffice/admin/pads?as=admin",1],[t("bo_docs"),"#/backoffice/admin/documents?as=admin",1],[t("bo_audit"),"#/backoffice/admin/audit?as=admin",1]])}
-    ${s(lang === "pt" ? "Outras páginas (8)" : "Other pages (8)", [[t("search_title_pg"),"#/search?q=inequality"],[t("privacy"),"#/privacy"],[t("cookies"),"#/cookies"],[t("terms"),"#/terms"],[t("accessibility"),"#/accessibility"],["404","#/pagina-inexistente"]])}
+    ${s(lang === "pt" ? "Outras páginas (8)" : "Other pages (8)", [[t("search_title_pg"),"#/search?q=inequality"],[t("privacy"),"#/privacy"],[t("cookies"),"#/cookies"],["404","#/pagina-inexistente"]])}
   </div></div>`;
 };
 /* ================= Private Area & Backoffice (simulated) — CE 3 and 7 ================= */
@@ -1724,6 +1768,16 @@ const stamp = () => { const n = new Date(); return `2026-10-19 ${String(n.getHou
 const addLog = (pad, who, act, from, to) => pad.log.push([stamp(), who, act, from, to]);
 const fakeIp = (i) => `10.12.${(i * 7) % 40 + 3}.${(i * 53) % 200 + 10}`;
 const actLabel = a => t("act_" + a);
+const uid = s => "U-" + String(PEOPLE.findIndex(p => p.s === s) + 1).padStart(4, "0");
+const DELETED_USERS = new Set();
+const USER_LOG = [
+  ["2026-10-18 17:02","rita-lopes","u_role","joao-pereira",P("Role: Researcher","Perfil: Investigador")],
+  ["2026-10-17 11:40","rita-lopes","u_group","andre-martins",P("Group: Management, Strategy & Marketing","Grupo: Gestão, Estratégia e Marketing")],
+  ["2026-10-16 09:12","rita-lopes","u_orcid","rui-fonseca",P("ORCID iD set to 0000-0003-2271-5904","ORCID iD definido: 0000-0003-2271-5904")],
+  ["2026-10-14 15:30","rita-lopes","u_create","andre-martins",P("Invitation sent to the institutional email","Convite enviado para o e-mail institucional")],
+  ["2026-10-12 10:05","rita-lopes","u_role","sofia-pinheiro",P("Role: PI (Labour, Inequality & Social Economics)","Perfil: PI (Trabalho, Desigualdade e Economia Social)")],
+  ["2026-10-02 08:50","rita-lopes","u_login","rita-lopes",P("Sign-in to the Backoffice","Entrada no Backoffice")]
+];
 function toast(title, body){
   const box = $("#toast"); if (!box) return;
   const d = document.createElement("div"); d.innerHTML = `<b>${esc(title)}</b>${esc(body || "")}`; box.appendChild(d);
@@ -1772,7 +1826,7 @@ const profTabs = cur => tabs([[t("pa_profile") + ": " + (lang === "pt" ? "dados"
 
 /* ---------- O Meu Perfil (7.2.1) ---------- */
 V.paProfile = () => {
-  const p = meP(), u = me(), g = gBy(p.g);
+  const p = meP(), u = me(), g = gOf(p.g);
   return paShell("#/private/profile", `<div class="pa-h"><div>${ce("7.2","O Meu Perfil: dados de perfil")}<h1 data-focus>${t("pa_profile")}</h1><p>${t("pa_profile_p")}</p></div><a class="btn btn-line btn-sm" href="${URL_.person(p.s)}">${t("pa_public")} ${I.ext}</a></div>
     ${profTabs("#/private/profile")}
     <form class="box" id="profForm" novalidate><div class="form">
@@ -1785,7 +1839,6 @@ V.paProfile = () => {
       <div class="field full"><label for="pf-bio-en">${t("pa_bio")} (EN)</label><textarea id="pf-bio-en">${esc((p.b || {}).en || "")}</textarea></div>
       <div class="field"><label for="pf-email">${t("pa_email")}</label><input id="pf-email" value="${esc(u.email)}" readonly></div>
       <div class="field"><label for="pf-phone">${t("d_phone")}</label><input id="pf-phone" value="+351 225 571 [000]"></div>
-      <div class="field full"><label for="pf-kw">${t("keywords")}</label><input id="pf-kw" value="${esc((p.k || []).join(", "))}"><span class="hint">${lang === "pt" ? "Separadas por vírgulas. Usadas nos filtros da listagem de investigadores." : "Comma-separated. Used in the researchers list filters."}</span></div>
       <fieldset class="full" style="border:0;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 20px"><legend class="lab" style="font-size:12px;font-weight:600;color:var(--fg2);margin-bottom:8px">${t("pa_inst_links")}</legend>
         ${["Google Scholar","Scopus","ResearchGate", lang === "pt" ? "Página pessoal" : "Personal website"].map((l, i) => `<div class="field"><label for="pf-l${i}">${esc(l)}</label><input id="pf-l${i}" type="url" placeholder="https://"></div>`).join("")}</fieldset>
       <div class="full" style="display:flex;gap:8px"><button class="btn" type="submit">${t("pa_save")}</button></div></div></form>`);
@@ -1797,13 +1850,13 @@ V.paPads = () => {
   list = list.filter(x => match(x.id + " " + x.ti, qv("q")) && (!qv("st") || visSt(x.st) === qv("st"))).sort((a, b) => b.d.localeCompare(a.d));
   return paShell("#/private/pads", `<div class="pa-h"><div>${ce("7.2","Os Meus PAD: lista, pesquisa e filtro por estado")}<h1 data-focus>${t("pa_mypads")}</h1><p>${t("pa_pads_p")}</p></div><a class="btn" href="#/private/pad/new">${I.plus} ${t("pa_newpad")}</a></div>
     ${profTabs("#/private/pads")}
-    <form class="filters" data-filters="#/private/pads" onsubmit="return false" style="margin:0">${fSearch(t("search"))}${fSelect("st", t("pa_status"), ["analise","correcao","deferido","indeferido"].map(s => [s, t("st_" + s)]), t("pa_all_status"))}${countLine(list.length)}</form>
+    ${lang === "en" ? ce("3.4","EN state labels are a proposal; the spec defines them in PT only. To be validated by FEP RC") : ""}<form class="filters" data-filters="#/private/pads" onsubmit="return false" style="margin:0">${fSearch(t("search"))}${fSelect("st", t("pa_status"), ["analise","correcao","deferido","indeferido"].map(s => [s, t("st_" + s)]), t("pa_all_status"))}${countLine(list.length)}</form>
     ${list.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th scope="col">${t("pa_request")}</th><th scope="col">${t("pad_title")}</th><th scope="col">${t("group")}</th><th scope="col" class="num">${t("pa_amount")}</th><th scope="col">${t("pa_submitted")}</th><th scope="col">${t("pa_status")}</th></tr></thead>
       <tbody>${list.map(x => `<tr><td><a href="#/private/pad/${x.id}">${x.id}</a></td><td>${esc(x.ti)}</td><td>${esc(L(gBy(x.g).n))}</td><td class="num">${money(x.amt)}</td><td>${fds(x.d)}</td><td>${stPill(x.st)}</td></tr>`).join("")}</tbody></table></div>` : `<p class="empty">${t("no_results")}</p>`}`);
 };
 
 /* ---------- Detalhe do PAD (researcher view) ---------- */
-const padInfo = (x, internal) => `<div class="box"><h2>${t("pad_info")}</h2><dl class="kv">
+const padInfo = (x, internal) => `<div class="box"><h2>${t("pad_info")}</h2><p class="hint">${t("pad_ilus_info")}</p><dl class="kv">
   <dt>${t("pa_request")}</dt><dd>${x.id}</dd><dt>${t("bo_requester")}</dt><dd>${esc(pBy(x.by).n)}</dd><dt>${t("pad_group")}</dt><dd>${esc(L(gBy(x.g).n))} (PI: ${esc(pBy(piOf(x)).n)})</dd>
   <dt>${t("pad_type")}</dt><dd>${esc(PADTYPES[x.ty])}</dd><dt>${t("pad_title")}</dt><dd>${esc(x.ti)}</dd><dt>${t("pad_desc")}</dt><dd>${esc(x.desc)}</dd>
   <dt>${t("pa_amount")}</dt><dd>${money(x.amt)}</dd><dt>${t("pad_project")}</dt><dd>${x.pr ? esc(prBy(x.pr).acr) : t("pad_none_selected")}</dd><dt>${t("pad_supplier")}</dt><dd>${esc(x.sup)}</dd><dt>${t("pa_submitted")}</dt><dd>${fd(x.d)}</dd>
@@ -1812,21 +1865,21 @@ const padInfo = (x, internal) => `<div class="box"><h2>${t("pad_info")}</h2><dl 
 V.paPad = id => {
   const x = padBy(id); if (!x) return null; const u = me();
   if (x.by !== u.p && u.role !== "admin") return paShell("#/private/pads", `<p class="notice strong">${t("no_access")}</p>`);
-  const vis = x.log.filter((l, i, a) => i === 0 || visSt(l[4]) !== visSt(l[3]) || l[2] === "resubmit");
+  const vis = x.log.filter((l, i, a) => i === 0 || visSt(l[4]) !== visSt(l[3]) || (l[3] === "correcao" && l[4] === "analise"));
   return paShell("#/private/pads", `<p><a class="back" href="#/private/pads">${I.back} ${t("pa_mypads")}</a></p>
-    <div class="pa-h"><div>${ce("7.2","Detalhe do PAD: estado, histórico, mensagem do PI")}<p class="meta">${x.id}</p><h1 data-focus>${esc(x.ti)}</h1></div>${stPill(x.st)}</div>
+    <div class="pa-h"><div>${ce("7.2","Detalhe do PAD: estado, histórico, mensagem do PI")}${lang === "en" ? ce("3.4","EN state labels are a proposal; the spec defines them in PT only. To be validated by FEP RC") : ""}<p class="meta">${x.id}</p><h1 data-focus>${esc(x.ti)}</h1></div>${stPill(x.st)}</div>
     ${x.st === "correcao" ? `<div class="notice strong" role="status"><div><b>${t("pad_pi_msg")}</b><p style="margin-top:4px">${esc(x.piMsg)}</p></div></div>` : ""}
     ${x.st === "indeferido" ? `<div class="notice strong"><div><b>${t("pad_pi_just")}</b><p style="margin-top:4px">${esc(x.piJust)}</p></div></div>` : ""}
     ${x.st === "deferido" ? `<div class="notice"><div><b>${t("st_deferido")}</b><p style="margin-top:4px">${lang === "pt" ? "O pedido foi aprovado. A equipa de Staff de apoio trata da execução da despesa." : "The request was approved. The support Staff team handles the expense."}</p></div></div>` : ""}
     <p class="conf">${I.lock} ${t("pad_conf_note")}</p>
-    ${x.st === "correcao" ? `<form class="box" id="fixForm" data-pad="${x.id}">${ce("3.2","Passo 2: correção e ressubmissão pelo investigador")}<h2>${t("pad_fix")}</h2><div class="form">
-      <div class="field"><label for="fx-amt">${t("pad_amount")}</label><input id="fx-amt" type="number" step="0.01" value="${x.amt}"></div>
-      <div class="field"><label for="fx-pr">${t("pad_project")}</label><select id="fx-pr">${PROJECTS.filter(isCurrentProject).map(p => `<option value="${p.s}" ${p.s === x.pr ? "selected" : ""}>${p.acr}</option>`).join("")}</select></div>
-      <div class="field full"><label for="fx-desc">${t("pad_desc")}</label><textarea id="fx-desc">${esc(x.desc)}\n${lang === "pt" ? "Rubrica: [indicar]" : "Budget line: [specify]"}</textarea></div>
+    ${x.st === "correcao" ? `<form class="box" id="fixForm" data-pad="${x.id}">${ce("3.2","Passo 2: correção e ressubmissão pelo investigador")}<h2>${t("pad_fix")}</h2><p class="notice ilus-note">${t("pad_ilus_note")}</p><div class="form">
+      <div class="field"><label for="fx-amt">${t("pad_amount")} <span class="ilus">${t("pad_ilus")}</span></label><input id="fx-amt" type="number" step="0.01" value="${x.amt}"></div>
+      <div class="field"><label for="fx-pr">${t("pad_project")} <span class="ilus">${t("pad_ilus")}</span></label><select id="fx-pr">${PROJECTS.filter(isCurrentProject).map(p => `<option value="${p.s}" ${p.s === x.pr ? "selected" : ""}>${p.acr}</option>`).join("")}</select></div>
+      <div class="field full"><label for="fx-desc">${t("pad_desc")} <span class="ilus">${t("pad_ilus")}</span></label><textarea id="fx-desc">${esc(x.desc)}\n${lang === "pt" ? "Rubrica: [indicar]" : "Budget line: [specify]"}</textarea></div>
       <div class="field full"><span class="lab">${t("pad_files")}</span><div class="drop">${I.file}<span>${t("pad_drop")} <label style="text-decoration:underline;cursor:pointer">${t("pad_choose")}<input type="file" multiple class="sr-only" data-files></label></span><span class="hint">${t("pad_files_hint")}</span></div><ul class="files" data-filelist>${x.files.map(f => `<li>${I.file}<span>${esc(f[0])}</span><span class="s">${esc(f[1])}</span></li>`).join("")}<li>${I.file}<span>Orcamento_agencia_viagens.pdf</span><span class="s">${lang === "pt" ? "novo" : "new"}</span></li></ul></div>
       <div class="full"><button class="btn" type="submit">${t("pad_resubmit")}</button></div></div></form>` : ""}
     <div class="cp-col" style="grid-template-columns:minmax(0,1fr) 320px"><div style="display:flex;flex-direction:column;gap:16px">${padInfo(x)}</div>
-      <div class="box"><h2>${t("pad_history")}</h2><ol class="timeline">${vis.map(l => `<li><b>${t("st_" + visSt(l[4]))}</b><span>${esc(l[0])}${l[2] === "resubmit" ? ` · ${t("act_resubmit")}` : ""}</span></li>`).join("")}</ol></div></div>`);
+      <div class="box"><h2>${t("pad_history")}</h2><ol class="timeline">${vis.map(l => `<li><b>${t("st_" + visSt(l[4]))}</b><span>${esc(l[0])}${l[3] === "correcao" && l[4] === "analise" ? ` · ${t("act_resubmit")}` : ""}</span></li>`).join("")}</ol></div></div>`);
 };
 
 /* ---------- Novo PAD ---------- */
@@ -1834,20 +1887,19 @@ V.paNewPad = () => {
   const p = meP();
   return paShell("#/private/pad/new", `<div class="pa-h"><div>${ce("7.2","Novo PAD: FAQ, formulário com Grupo, upload")}<h1 data-focus>${t("pa_newpad")}</h1><p>${t("pa_newpad_p")}</p></div></div>
     <a class="folder" href="#" data-toast="${esc(t("pa_download"))}: FAQ_PAD.pdf">${I.file}<div><b>${t("pa_faq")}</b><p class="meta">${t("pa_faq_p")}</p></div>${I.dl}</a>
-    <ol class="steps" aria-label="${esc(t("pad_flow"))}">${["fl1","fl2","fl3","fl4","fl5","fl6"].map((k, i) => `<li class="${i === 0 ? "now" : ""}"><b>${t(k)}</b></li>`).join("")}</ol>
-    <form class="box" id="padForm" novalidate><div class="form">
+    <form class="box" id="padForm" novalidate>${ce("3.2 / 7.2","Formulário simples: seletor de Grupo e upload de anexos; sem lógica condicional nem cálculos")}<p class="notice ilus-note">${t("pad_ilus_note")}</p><div class="form">
       <div class="field"><label for="pd-group">${t("pad_group")} <span class="req">(${t("required")})</span></label><select id="pd-group" required aria-describedby="pd-group-h"><option value="">${t("pad_choose_opt")}</option>${GROUPS.map(g => `<option value="${g.s}" ${g.s === p.g ? "selected" : ""}>${esc(L(g.n))} (PI: ${esc(pBy(g.pi).n)})</option>`).join("")}</select><span class="hint" id="pd-group-h">${t("pad_group_hint")}</span><span class="err" hidden>${t("e_required")}</span></div>
-      <div class="field"><label for="pd-type">${t("pad_type")} <span class="req">(${t("required")})</span></label><select id="pd-type" required><option value="">${t("pad_choose_opt")}</option>${PADTYPES.map((x, i) => `<option value="${i}">${esc(x)}</option>`).join("")}</select><span class="err" hidden>${t("e_required")}</span></div>
-      <div class="field full"><label for="pd-title">${t("pad_title")} <span class="req">(${t("required")})</span></label><input id="pd-title" required maxlength="140"><span class="err" hidden>${t("e_required")}</span></div>
-      <div class="field full"><label for="pd-desc">${t("pad_desc")} <span class="req">(${t("required")})</span></label><textarea id="pd-desc" required></textarea><span class="err" hidden>${t("e_required")}</span></div>
-      <div class="field"><label for="pd-amt">${t("pad_amount")} <span class="req">(${t("required")})</span></label><input id="pd-amt" type="number" min="0" step="0.01" required inputmode="decimal"><span class="err" hidden>${t("e_required")}</span></div>
-      <div class="field"><label for="pd-pr">${t("pad_project")}</label><select id="pd-pr"><option value="">${t("pad_none_selected")}</option>${PROJECTS.filter(isCurrentProject).map(x => `<option value="${x.s}" ${x.team.includes(p.s) ? "selected" : ""}>${x.acr}: ${esc(L(x.ti))}</option>`).join("")}</select></div>
-      <div class="field"><label for="pd-date">${t("pad_date")}</label><input id="pd-date" type="date" value="2026-11-15"></div>
-      <div class="field"><label for="pd-sup">${t("pad_supplier")}</label><input id="pd-sup"></div>
+      <div class="field"><label for="pd-type">${t("pad_type")} <span class="ilus">${t("pad_ilus")}</span> <span class="req">(${t("required")})</span></label><select id="pd-type" required><option value="">${t("pad_choose_opt")}</option>${PADTYPES.map((x, i) => `<option value="${i}">${esc(x)}</option>`).join("")}</select><span class="err" hidden>${t("e_required")}</span></div>
+      <div class="field full"><label for="pd-title">${t("pad_title")} <span class="ilus">${t("pad_ilus")}</span> <span class="req">(${t("required")})</span></label><input id="pd-title" required maxlength="140"><span class="err" hidden>${t("e_required")}</span></div>
+      <div class="field full"><label for="pd-desc">${t("pad_desc")} <span class="ilus">${t("pad_ilus")}</span> <span class="req">(${t("required")})</span></label><textarea id="pd-desc" required></textarea><span class="err" hidden>${t("e_required")}</span></div>
+      <div class="field"><label for="pd-amt">${t("pad_amount")} <span class="ilus">${t("pad_ilus")}</span> <span class="req">(${t("required")})</span></label><input id="pd-amt" type="number" min="0" step="0.01" required inputmode="decimal"><span class="err" hidden>${t("e_required")}</span></div>
+      <div class="field"><label for="pd-pr">${t("pad_project")} <span class="ilus">${t("pad_ilus")}</span></label><select id="pd-pr"><option value="">${t("pad_none_selected")}</option>${PROJECTS.filter(isCurrentProject).map(x => `<option value="${x.s}" ${x.team.includes(p.s) ? "selected" : ""}>${x.acr}: ${esc(L(x.ti))}</option>`).join("")}</select></div>
+      <div class="field"><label for="pd-date">${t("pad_date")} <span class="ilus">${t("pad_ilus")}</span></label><input id="pd-date" type="date" value="2026-11-15"></div>
+      <div class="field"><label for="pd-sup">${t("pad_supplier")} <span class="ilus">${t("pad_ilus")}</span></label><input id="pd-sup"></div>
       <div class="field full"><span class="lab">${t("pad_files")}</span><div class="drop">${I.file}<span>${t("pad_drop")} <label style="text-decoration:underline;cursor:pointer">${t("pad_choose")}<input type="file" multiple class="sr-only" data-files></label></span><span class="hint">${t("pad_files_hint")}</span></div><ul class="files" data-filelist></ul></div>
-      <label class="check full"><input type="checkbox" id="pd-ok"> <span>${t("pad_decl")}</span></label><span class="err full" id="pd-ok-err" hidden>${t("e_consent")}</span>
-      <p class="hint full">${ce("3.2","Campos do formulário a validar com a FEP RC")}</p>
-      <div class="full" style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" type="submit">${t("pad_submit")}</button><button class="btn btn-line" type="button" data-toast="${esc(lang === "pt" ? "Rascunho guardado." : "Draft saved.")}">${t("pad_draft")}</button></div></div></form>`);
+      <label class="check full"><input type="checkbox" id="pd-ok"> <span>${t("pad_decl")} <span class="ilus">${t("pad_ilus")}</span></span></label><span class="err full" id="pd-ok-err" hidden>${t("e_consent")}</span>
+      
+      <div class="full" style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" type="submit">${t("pad_submit")}</button></div></div></form>`);
 };
 
 /* ---------- As Minhas Publicações & Ficha ---------- */
@@ -1898,7 +1950,7 @@ function cpShell(cur, inner){
   return `<div class="cp"><aside class="cp-side dark">
     <a class="lockup" href="#/"><b>FEP</b><span>RC</span></a><span class="tagcp">${t("bo_cp")}</span>
     <ul class="cp-nav"><li class="h">${esc(roleLabel(u.role))}</li>${items.map(i => `<li><a href="${i[0]}" ${cur === i[0] ? 'aria-current="page"' : ""}>${esc(i[1])}${i[2] ? `<span class="n">${i[2]}</span>` : ""}</a></li>`).join("")}
-      ${u.role === "admin" ? `<li class="h">Statamic</li>${["Publications","People","Funded Projects","Events","News","Research Bulletin"].map(c => `<li><a href="#" data-toast="${esc(lang === "pt" ? "Coleção Statamic (fora do âmbito deste wireframe)." : "Statamic collection (outside this wireframe’s scope).")}">${c}</a></li>`).join("")}` : ""}
+      ${u.role === "admin" ? `<li class="h">${lang === "pt" ? "Conteúdos" : "Content"}</li>${["Publications","People","Funded Projects","Events","News","Research Bulletin"].map(c => `<li><a href="#" data-toast="${esc(lang === "pt" ? "Coleção de conteúdos (fora do âmbito deste wireframe)." : "Content collection (outside this wireframe’s scope).")}">${c}</a></li>`).join("")}` : ""}
       <li class="h"></li>${u.role !== "admin" ? `<li><a href="#/private/profile">${t("bo_back_site")}</a></li>` : ""}<li><a href="#/private/logout">${t("pa_signout")}</a></li></ul>
     ${ce("7","Backoffice: wireframe da área de gestão")}
   </aside><div style="min-width:0"><div class="cp-top"><span class="ctx">${esc(p.n)}, ${esc(roleLabel(u.role))}</span><span style="display:flex;gap:10px;align-items:center"><span class="lang" role="group" aria-label="${esc(t("langGroup"))}" data-langgroup></span><a class="btn btn-line btn-sm" href="#/">${lang === "pt" ? "Ver site" : "View site"} ${I.ext}</a></span></div>
@@ -1906,12 +1958,12 @@ function cpShell(cur, inner){
 }
 const padTable = (list, base, cols) => list.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th scope="col">${t("pa_request")}</th><th scope="col">${t("bo_requester")}</th><th scope="col">${t("pad_title")}</th>${cols.group ? `<th scope="col">${t("group")}</th>` : ""}<th scope="col" class="num">${t("pa_amount")}</th><th scope="col">${t("pa_submitted")}</th>${cols.board ? `<th scope="col">${t("bo_assigned")}</th>` : ""}<th scope="col">${t("pa_status")}</th></tr></thead>
   <tbody>${list.map(x => `<tr><td><a href="${base}/${x.id}">${x.id}</a></td><td>${esc(pBy(x.by).n)}</td><td>${esc(x.ti)}</td>${cols.group ? `<td>${esc(L(gBy(x.g).n))}</td>` : ""}<td class="num">${money(x.amt)}</td><td>${fds(x.d)}</td>${cols.board ? `<td>${x.board ? esc(pBy(x.board).n) : "—"}</td>` : ""}<td>${stPill(x.st, true)}${x.st === "board" && x.bd && !x.bd.pos ? `<br><span class="meta">${lang === "pt" ? "Board: desfavorável, falta justificação" : "Board: rejected, justification pending"}</span>` : ""}</td></tr>`).join("")}</tbody></table></div>` : `<p class="empty">${t("no_results")}</p>`;
-const padFilters = base => `<form class="filters" data-filters="${base}" onsubmit="return false" style="margin:0">${fSearch(t("search"))}${fSelect("st", t("pa_status"), ["analise","correcao","board","deferido","indeferido"].map(s => [s, t("sti_" + s)]), t("pa_all_status"))}</form>`;
+const padFilters = base => `${lang === "en" ? ce("3.4","EN state labels are a proposal; the spec defines them in PT only. To be validated by FEP RC") : ""}<form class="filters" data-filters="${base}" onsubmit="return false" style="margin:0">${fSearch(t("search"))}${fSelect("st", t("pa_status"), ["analise","correcao","board","deferido","indeferido"].map(s => [s, t("sti_" + s)]), t("pa_all_status"))}</form>`;
 const filterPads = list => list.filter(x => match(x.id + " " + x.ti + " " + pBy(x.by).n, qv("q")) && (!qv("st") || x.st === qv("st"))).sort((a, b) => b.d.localeCompare(a.d));
-const logTable = rows => `<div class="tbl-wrap"><table class="tbl"><thead><tr><th scope="col">${t("bo_when")}</th><th scope="col">${t("bo_who")}</th><th scope="col">${t("bo_action")}</th><th scope="col">${t("bo_change")}</th><th scope="col">${t("bo_ip")}</th></tr></thead><tbody>${rows.map((l, i) => `<tr><td style="white-space:nowrap">${esc(l[0])}</td><td>${esc(pBy(l[1]).n)}</td><td>${esc(actLabel(l[2]))}${l.pad ? `<br><span class="meta">${l.pad}</span>` : ""}</td><td>${l[3] === "—" ? "—" : esc(t("sti_" + l[3]))} → <b>${esc(t("sti_" + l[4]))}</b></td><td>${fakeIp(i + l[0].length)}</td></tr>`).join("")}</tbody></table></div>`;
+const logTable = rows => `<div class="tbl-wrap"><table class="tbl"><thead><tr><th scope="col">${t("bo_when")}</th><th scope="col">${t("bo_who")}</th><th scope="col">${t("bo_action")}</th><th scope="col">${t("bo_change")}</th><th scope="col">${t("bo_ip")}</th></tr></thead><tbody>${rows.map((l, i) => `<tr><td style="white-space:nowrap">${esc(l[0])}</td><td>${esc(pBy(l[1]).n)}<br><span class="meta">${uid(l[1])}</span></td><td>${esc(actLabel(l[2]))}${l.pad ? `<br><span class="meta">${l.pad}</span>` : ""}</td><td>${l[3] === "—" ? "—" : esc(t("sti_" + l[3]))} → <b>${esc(t("sti_" + l[4]))}</b></td><td>${fakeIp(i + l[0].length)}</td></tr>`).join("")}</tbody></table></div>`;
 const confBox = (title, body) => `<div class="box priv"><div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><h3>${esc(title)}</h3><span class="lock">${I.lock} ${t("bo_admin_only")}</span></div>${body}</div>`;
 
-V.boPiList = () => { const p = meP(); return cpShell("#/backoffice/pi", `<div class="pa-h"><div>${ce("7.3","PAD do Grupo: pesquisa e filtro por estado, inclui concluídos")}<h1 data-focus>${t("bo_pi_list")}</h1><p>${esc(L(gBy(p.g).n))}. ${t("bo_pi_list_p")}</p></div></div>${padFilters("#/backoffice/pi")}${padTable(filterPads(PADS.filter(x => x.g === p.g)), "#/backoffice/pi", { board:true })}`); };
+V.boPiList = () => { const p = meP(); return cpShell("#/backoffice/pi", `<div class="pa-h"><div>${ce("7.3","PAD do Grupo: pesquisa e filtro por estado, inclui concluídos")}<h1 data-focus>${t("bo_pi_list")}</h1><p>${esc(L(gOf(p.g).n))}. ${t("bo_pi_list_p")}</p></div></div>${padFilters("#/backoffice/pi")}${padTable(filterPads(PADS.filter(x => x.g === p.g)), "#/backoffice/pi", { board:true })}`); };
 V.boPi = id => {
   const x = padBy(id), p = meP(); if (!x || x.g !== p.g) return null;
   const pending = x.st === "board" && x.bd && !x.bd.pos && !x.piJust;
@@ -1930,13 +1982,8 @@ V.boPi = id => {
   else panel = `<div class="notice">${x.st === "correcao" ? t("bo_waiting_fix") + (x.piMsg ? `<br><span class="meta">${esc(x.piMsg)}</span>` : "") : x.st === "board" ? t("bo_waiting_board") + `<br><span class="meta">${lang === "pt" ? "Parecer emitido; conteúdo visível apenas para Admin." : "Opinion issued; content visible to Admin only."}</span>` : t("bo_closed") + (x.piJust ? `<br><span class="meta">${t("pad_pi_just")}: ${esc(x.piJust)}</span>` : "")}</div>`;
   return cpShell("#/backoffice/pi", `<p><a class="back" href="#/backoffice/pi">${I.back} ${t("bo_pi_list")}</a></p>
     <div class="pa-h"><div>${ce("7.3","Análise do PAD")}<p class="meta">${x.id}</p><h1 data-focus>${esc(x.ti)}</h1></div>${stPill(x.st, true)}</div>
-    ${flowSteps(x)}
     <div class="cp-col"><div style="display:flex;flex-direction:column;gap:16px">${padInfo(x, true)}<div class="box"><h2>${t("pad_history")}</h2>${logTable(x.log)}</div></div><div style="display:flex;flex-direction:column;gap:16px">${panel}</div></div>`);
 };
-function flowSteps(x){
-  const at = { analise: x.log.some(l => l[2] === "reopen") ? 1 : 1, correcao:1, board: x.bd ? 4 : 3, deferido:5, indeferido:5 }[x.st];
-  return `<ol class="steps" aria-label="${esc(t("pad_flow"))}">${["fl1","fl2","fl3","fl4","fl5","fl6"].map((k, i) => `<li class="${i < at ? "done" : i === at ? "now" : ""}"><b>${t(k)}</b></li>`).join("")}</ol>`;
-}
 V.boBoardList = () => { const p = meP(); return cpShell("#/backoffice/board", `<div class="pa-h"><div>${ce("7.4","PAD para Deliberação, inclui deliberações emitidas")}<h1 data-focus>${t("bo_board_list")}</h1><p>${t("bo_board_list_p")}</p></div></div>${padFilters("#/backoffice/board")}${padTable(filterPads(PADS.filter(x => x.board === p.s)), "#/backoffice/board", { group:true })}`); };
 V.boBoard = id => {
   const x = padBy(id), p = meP(); if (!x || x.board !== p.s) return null;
@@ -1945,7 +1992,7 @@ V.boBoard = id => {
       <div class="field"><label for="bd-txt">${t("bo_reason")}</label><textarea id="bd-txt" required></textarea><span class="err" hidden>${t("e_required")}</span></div><button class="btn" type="submit">${t("bo_decide_btn")}</button></form>`
     : `<div class="notice">${x.bd ? `<div><b>${t("bo_bd_view")}: ${x.bd.pos ? t("bo_approve") : t("bo_reject")}</b><p class="meta">${esc(x.bd.txt)}</p></div>` : t("bo_closed")}</div>`;
   return cpShell("#/backoffice/board", `<p><a class="back" href="#/backoffice/board">${I.back} ${t("bo_board_list")}</a></p>
-    <div class="pa-h"><div>${ce("7.4","Detalhe do PAD com parecer do PI")}<p class="meta">${x.id}</p><h1 data-focus>${esc(x.ti)}</h1></div>${stPill(x.st, true)}</div>${flowSteps(x)}
+    <div class="pa-h"><div>${ce("7.4","Detalhe do PAD com parecer do PI")}<p class="meta">${x.id}</p><h1 data-focus>${esc(x.ti)}</h1></div>${stPill(x.st, true)}</div>
     <div class="cp-col"><div style="display:flex;flex-direction:column;gap:16px">${padInfo(x, true)}</div><div style="display:flex;flex-direction:column;gap:16px">
       ${x.piOp ? `<div class="box"><h2>${t("bo_pi_op_view")}: ${x.piOp.pos ? t("bo_positive") : t("bo_negative")}</h2><p class="muted">${esc(x.piOp.txt)}</p><p class="meta">${esc(pBy(piOf(x)).n)}</p></div>` : ""}${panel}</div></div>`);
 };
@@ -1958,15 +2005,27 @@ V.boAdmin = () => cpShell("#/backoffice/admin", `<div class="pa-h"><div>${ce("7.
   <section class="box"><div style="display:flex;justify-content:space-between;align-items:center"><h2>${t("bo_latest")}</h2>${more("#/backoffice/admin/audit", t("bo_audit"))}</div>${logTable(allLogs().slice(0, 6))}</section>`);
 V.boUsers = () => {
   const roleOf = p => p.s === "rita-lopes" ? "admin" : (p.fn || []).includes("board") ? "board" : (p.fn || []).includes("pi") ? "pi" : "researcher";
-  const list = PEOPLE.filter(p => ["int","ext","phd"].includes(p.t) || p.s === "rita-lopes").filter(p => match(p.n, qv("q")) && (!qv("role") || roleOf(p) === qv("role")));
-  return cpShell("#/backoffice/admin/users", `<div class="pa-h"><div>${ce("7.5","Gestão de Utilizadores: perfis e Grupos")}<h1 data-focus>${t("bo_users")}</h1></div><button class="btn" type="button" data-toast="${esc(lang === "pt" ? "Formulário de novo utilizador (convite por e-mail)." : "New user form (email invitation).")}">${I.plus} ${t("bo_new_user")}</button></div>
+  const list = PEOPLE.filter(p => (["int","ext","phd"].includes(p.t) || p.s === "rita-lopes") && !DELETED_USERS.has(p.s)).filter(p => match(p.n, qv("q")) && (!qv("role") || roleOf(p) === qv("role")));
+  return cpShell("#/backoffice/admin/users", `<div class="pa-h"><div>${ce("7.5","Gestão de Utilizadores: criar, editar e eliminar; atribuição de perfis; associação a Grupos")}<h1 data-focus>${t("bo_users")}</h1></div><button class="btn" type="button" data-toast="${esc(lang === "pt" ? "Formulário de novo utilizador (convite por e-mail)." : "New user form (email invitation).")}">${I.plus} ${t("bo_new_user")}</button></div>
   <form class="filters" data-filters="#/backoffice/admin/users" onsubmit="return false" style="margin:0">${fSearch(t("search_name"))}${fSelect("role", t("bo_role"), ["researcher","pi","board","admin"].map(r => [r, roleLabel(r)]))}${countLine(list.length)}</form>
-  <div class="tbl-wrap"><table class="tbl"><thead><tr><th scope="col">${t("pa_name")}</th><th scope="col">${t("d_email")}</th><th scope="col">${t("bo_role")}</th><th scope="col">${t("group")}</th><th scope="col">${t("bo_last")}</th><th scope="col"></th></tr></thead>
-  <tbody>${list.map((p, i) => `<tr><td><b>${esc(p.n)}</b></td><td>[${p.s.split("-")[0]}]@fep.up.pt</td><td><span class="chip">${esc(roleLabel(roleOf(p)))}</span></td><td>${p.g ? esc(L(gBy(p.g).n)) : "—"}</td><td>${fds(["2026-10-19","2026-10-16","2026-10-12","2026-09-30"][i % 4])}</td><td class="num"><button class="btn btn-line btn-sm" type="button" data-toast="${esc(t("pa_edit"))}: ${esc(p.n)}">${t("pa_edit")}</button></td></tr>`).join("")}</tbody></table></div>`);
+  <div class="tbl-wrap"><table class="tbl"><thead><tr><th scope="col">ID</th><th scope="col">${t("pa_name")}</th><th scope="col">${t("d_email")}</th><th scope="col">${t("bo_role")}</th><th scope="col">${t("group")}</th><th scope="col">${t("bo_last")}</th><th scope="col"></th></tr></thead>
+  <tbody>${list.map((p, i) => `<tr><td class="meta">${uid(p.s)}</td><td><b>${esc(p.n)}</b></td><td>[${p.s.split("-")[0]}]@fep.up.pt</td>
+    <td><label class="sr-only" for="ur-${p.s}">${t("bo_role")}</label><select id="ur-${p.s}" data-urole="${p.s}" style="min-height:34px;border:1px solid var(--border-2);border-radius:8px;padding:0 6px;background:var(--surface)">${["researcher","pi","board","admin"].map(r => `<option value="${r}" ${roleOf(p) === r ? "selected" : ""}>${esc(roleLabel(r))}</option>`).join("")}</select></td>
+    <td><label class="sr-only" for="ug-${p.s}">${t("group")}</label><select id="ug-${p.s}" data-ugroup="${p.s}" style="min-height:34px;border:1px solid var(--border-2);border-radius:8px;padding:0 6px;background:var(--surface);max-width:220px"><option value="">—</option>${GROUPS.map(g => `<option value="${g.s}" ${p.g === g.s ? "selected" : ""}>${esc(L(g.n))}</option>`).join("")}</select></td>
+    <td>${fds(["2026-10-19","2026-10-16","2026-10-12","2026-09-30"][i % 4])}</td>
+    <td class="num" style="white-space:nowrap"><button class="btn btn-line btn-sm" type="button" data-toast="${esc(t("pa_edit"))}: ${esc(p.n)}">${t("pa_edit")}</button> <button class="btn btn-line btn-sm" type="button" data-udel="${p.s}">${t("bo_delete")}</button></td></tr>`).join("")}</tbody></table></div>`);
 };
-V.boGroups = () => cpShell("#/backoffice/admin/groups", `<div class="pa-h"><div>${ce("7.5","Gestão de Grupos: PI responsável e membros")}<h1 data-focus>${t("bo_groups")}</h1></div><button class="btn" type="button" data-toast="${esc(t("bo_new_group"))}">${I.plus} ${t("bo_new_group")}</button></div>
+V.boGroups = () => cpShell("#/backoffice/admin/groups", `<div class="pa-h"><div>${ce("7.5","Gestão de Grupos: criar e editar; definir o PI responsável; associar investigadores")}<h1 data-focus>${t("bo_groups")}</h1></div><button class="btn" type="button" data-toast="${esc(t("bo_new_group"))}">${I.plus} ${t("bo_new_group")}</button></div>
   <div class="tbl-wrap"><table class="tbl"><thead><tr><th scope="col">${t("group")}</th><th scope="col">${t("bo_pi")}</th><th scope="col" class="num">${t("members")}</th><th scope="col"></th></tr></thead>
-  <tbody>${GROUPS.map(g => `<tr><td><b>${esc(L(g.n))}</b></td><td><label class="sr-only" for="gpi-${g.s}">${t("bo_pi")}</label><select id="gpi-${g.s}" class="field" style="min-height:36px;border:1px solid var(--border-2);border-radius:8px;padding:0 8px;background:var(--surface)">${PEOPLE.filter(p => p.g === g.s && p.t === "int").map(p => `<option ${p.s === g.pi ? "selected" : ""}>${esc(p.n)}</option>`).join("")}</select></td><td class="num">${PEOPLE.filter(p => p.g === g.s && ["int","ext","phd"].includes(p.t)).length}</td><td class="num"><button class="btn btn-line btn-sm" type="button" data-toast="${esc(t("pa_saved"))}">${t("pa_save")}</button></td></tr>`).join("")}</tbody></table></div>`);
+  <tbody>${GROUPS.map(g => `<tr><td><b>${esc(L(g.n))}</b></td><td><label class="sr-only" for="gpi-${g.s}">${t("bo_pi")}</label><select id="gpi-${g.s}" style="min-height:36px;border:1px solid var(--border-2);border-radius:8px;padding:0 8px;background:var(--surface)">${PEOPLE.filter(p => p.g === g.s && p.t === "int").map(p => `<option ${p.s === g.pi ? "selected" : ""}>${esc(p.n)}</option>`).join("")}</select></td><td class="num">${PEOPLE.filter(p => p.g === g.s && ["int","ext","phd"].includes(p.t)).length}</td><td class="num" style="white-space:nowrap"><a class="btn btn-line btn-sm" href="#/backoffice/admin/groups/${g.s}">${t("bo_members")}</a> <button class="btn btn-line btn-sm" type="button" data-toast="${esc(t("pa_saved"))}">${t("pa_save")}</button></td></tr>`).join("")}</tbody></table></div>`);
+V.boGroup = s => {
+  const g = gBy(s); if (!g) return null;
+  const all = PEOPLE.filter(p => ["int","ext","phd"].includes(p.t)).sort((a, b) => a.n.localeCompare(b.n));
+  return cpShell("#/backoffice/admin/groups", `<p><a class="back" href="#/backoffice/admin/groups">${I.back} ${t("bo_groups")}</a></p>
+  <div class="pa-h"><div>${ce("7.5","Associar investigadores ao Grupo")}<h1 data-focus>${esc(L(g.n))}</h1><p>${t("bo_members_p")}</p></div></div>
+  <form class="box" id="gmForm" data-group="${s}"><fieldset style="border:0;padding:0;margin:0"><legend class="sr-only">${t("members")}</legend><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px">${all.map(p => `<label class="check"><input type="checkbox" value="${p.s}" ${p.g === s ? "checked" : ""}> <span>${esc(p.n)} <span class="meta">(${esc(peopleType(p))}${p.g && p.g !== s ? ", " + esc(L(gBy(p.g).n)) : ""})</span></span></label>`).join("")}</div></fieldset>
+  <div><button class="btn" type="submit">${t("pa_save")}</button></div></form>`);
+};
 V.boPeople = () => {
   const tab = qv("tab") === "q" ? "q" : "p";
   const list = PEOPLE.filter(p => ["int","ext","phd"].includes(p.t)).filter(p => match(p.n, qv("q")));
@@ -1974,7 +2033,7 @@ V.boPeople = () => {
   ${tabs([["People","#/backoffice/admin/people"],[t("bo_quar_t") + " (" + QUARANTINE.length + ")","#/backoffice/admin/people?tab=q"]], tab === "q" ? "#/backoffice/admin/people?tab=q" : "#/backoffice/admin/people")}
   ${tab === "p" ? `<form class="filters" data-filters="#/backoffice/admin/people" onsubmit="return false" style="margin:0">${fSearch(t("search_name"))}${countLine(list.length)}</form>
   <div class="tbl-wrap"><table class="tbl"><thead><tr><th scope="col">${t("pa_name")}</th><th scope="col">${t("type_people")}</th><th scope="col">${t("group")}</th><th scope="col">ORCID iD</th><th scope="col">${t("bo_orcid_st")}</th><th scope="col"></th></tr></thead>
-  <tbody>${list.map(p => `<tr><td><b>${esc(p.n)}</b></td><td>${esc(peopleType(p))}</td><td>${esc(L(gBy(p.g).n))}</td><td>${p.o ? esc(p.o) : "—"}</td><td><span class="st" data-s="${p.orcidSt === "ok" ? "ok" : p.orcidSt === "err" ? "erro" : "x"}"><i aria-hidden="true"></i>${t("or_" + (p.orcidSt || "ok"))}</span>${p.orcidSt === "ok" ? `<br><span class="meta">${fds("2026-10-12")}</span>` : ""}</td><td class="num"><button class="btn btn-line btn-sm" type="button" data-orcid="${p.s}" ${p.o ? "" : "disabled"}>${lang === "pt" ? "Guardar e importar" : "Save and import"}</button></td></tr>`).join("")}</tbody></table></div>`
+  <tbody>${list.map(p => `<tr><td><b>${esc(p.n)}</b></td><td>${esc(peopleType(p))}</td><td>${esc(L(gOf(p.g).n))}</td><td>${p.o ? esc(p.o) : "—"}</td><td><span class="st" data-s="${p.orcidSt === "ok" ? "ok" : p.orcidSt === "err" ? "erro" : "x"}"><i aria-hidden="true"></i>${t("or_" + (p.orcidSt || "ok"))}</span>${p.orcidSt === "ok" ? `<br><span class="meta">${fds("2026-10-12")}</span>` : ""}</td><td class="num"><button class="btn btn-line btn-sm" type="button" data-orcid="${p.s}" ${p.o ? "" : "disabled"}>${lang === "pt" ? "Guardar e importar" : "Save and import"}</button></td></tr>`).join("")}</tbody></table></div>`
   : `<p class="muted">${t("bo_quar_p")}</p>${QUARANTINE.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th scope="col">${t("pa_title")}</th><th scope="col">${t("year")}</th><th scope="col">${lang === "pt" ? "Perfil" : "Profile"}</th><th scope="col">${lang === "pt" ? "Motivo" : "Reason"}</th><th scope="col"></th></tr></thead>
   <tbody>${QUARANTINE.map((q, i) => `<tr><td><span class="qbadge">Q</span> <b>${esc(q.ti)}</b></td><td>${q.y}</td><td>${esc(pBy(q.who).n)}</td><td>${esc(L(q.why))}</td><td class="num" style="white-space:nowrap"><button class="btn btn-sm" type="button" data-quar="${i}" data-act="merge">${t("bo_merge")}</button> <button class="btn btn-line btn-sm" type="button" data-quar="${i}" data-act="publish">${t("bo_publish")}</button> <button class="btn btn-line btn-sm" type="button" data-quar="${i}" data-act="discard">${t("bo_discard")}</button></td></tr>`).join("")}</tbody></table></div>` : `<p class="empty">${lang === "pt" ? "Quarentena vazia." : "Quarantine is empty."}</p>`}`}`);
 };
@@ -1982,7 +2041,7 @@ V.boPads = () => cpShell("#/backoffice/admin/pads", `<div class="pa-h"><div>${ce
 V.boPadAdmin = id => {
   const x = padBy(id); if (!x) return null;
   return cpShell("#/backoffice/admin/pads", `<p><a class="back" href="#/backoffice/admin/pads">${I.back} ${t("bo_pads")}</a></p>
-  <div class="pa-h"><div>${ce("7.5","Acesso transversal a pareceres e deliberações")}<p class="meta">${x.id}</p><h1 data-focus>${esc(x.ti)}</h1></div>${stPill(x.st, true)}</div>${flowSteps(x)}
+  <div class="pa-h"><div>${ce("7.5","Acesso transversal a pareceres e deliberações")}<p class="meta">${x.id}</p><h1 data-focus>${esc(x.ti)}</h1></div>${stPill(x.st, true)}</div>
   <div class="cp-col"><div style="display:flex;flex-direction:column;gap:16px">${padInfo(x, true)}<div class="box"><h2>${t("pad_history")}</h2>${logTable(x.log)}</div></div>
   <div style="display:flex;flex-direction:column;gap:16px">
     ${x.piMsg ? confBox(t("pad_pi_msg"), `<p class="muted">${esc(x.piMsg)}</p>`) : ""}
@@ -1995,9 +2054,17 @@ V.boPadAdmin = id => {
 V.boDocs = () => cpShell("#/backoffice/admin/documents", `<div class="pa-h"><div>${ce("7.5","Gestão de Documentos Internos: upload e pastas")}<h1 data-focus>${t("bo_docs")}</h1></div><span style="display:flex;gap:8px"><button class="btn btn-line" type="button" data-toast="${esc(t("bo_new_folder"))}">${I.plus} ${t("bo_new_folder")}</button><button class="btn" type="button" data-toast="${esc(lang === "pt" ? "Documento carregado (simulado)." : "Document uploaded (simulated).")}">${I.dl} ${t("bo_upload")}</button></span></div>
   ${DOCS.map(d => `<section class="box"><h2>${I.folder} ${esc(L(d.n))} <span class="meta">(${d.files.length})</span></h2><div class="tbl-wrap"><table class="tbl"><tbody>${d.files.map(f => `<tr><td><b>${esc(f[0])}</b></td><td>${f[1]}</td><td>${f[2]}</td><td>${fds(f[3])}</td><td class="num"><button class="btn btn-line btn-sm" type="button" data-toast="${esc(t("pa_edit"))}: ${esc(f[0])}">${t("pa_edit")}</button></td></tr>`).join("")}</tbody></table></div></section>`).join("")}`);
 V.boAudit = () => {
+  const tab = qv("tab") === "users" ? "users" : "pad";
+  const base = "#/backoffice/admin/audit";
+  const head = `<div class="pa-h"><div>${ce("3.4 / 7.5","Auditoria: ações críticas (quem, o quê, quando), alterações de estado dos PAD e histórico de utilizadores; timestamp, ID e nome, tipo de ação, estado anterior e novo, IP")}<h1 data-focus>${t("bo_audit")}</h1></div></div>
+  ${tabs([[t("bo_audit_pad"), base],[t("bo_audit_users"), base + "?tab=users"]], tab === "users" ? base + "?tab=users" : base)}`;
+  if (tab === "users"){
+    const rows = USER_LOG.filter(l => match(pBy(l[1]).n + " " + pBy(l[3]).n, qv("q")) && (!qv("act") || l[2] === qv("act"))).sort((a, b) => b[0].localeCompare(a[0]));
+    return cpShell(base, `${head}<form class="filters" data-filters="${base}" onsubmit="return false" style="margin:0"><input type="hidden" data-f="tab" value="users">${fSearch(t("search"))}${fSelect("act", t("bo_action"), ["u_create","u_role","u_group","u_orcid","u_delete","u_login"].map(a => [a, t("act_" + a)]), t("all_f"))}${countLine(rows.length)}</form>
+    <div class="tbl-wrap"><table class="tbl"><thead><tr><th scope="col">${t("bo_when")}</th><th scope="col">${t("bo_who")}</th><th scope="col">${t("bo_action")}</th><th scope="col">${t("bo_target")}</th><th scope="col">${t("bo_change")}</th><th scope="col">${t("bo_ip")}</th></tr></thead><tbody>${rows.map((l, i) => `<tr><td style="white-space:nowrap">${esc(l[0])}</td><td>${esc(pBy(l[1]).n)}<br><span class="meta">${uid(l[1])}</span></td><td>${esc(t("act_" + l[2]))}</td><td>${esc(pBy(l[3]).n)}<br><span class="meta">${uid(l[3])}</span></td><td>${esc(L(l[4]))}</td><td>${fakeIp(i + 3)}</td></tr>`).join("")}</tbody></table></div>`);
+  }
   const rows = allLogs().filter(l => match(l.pad + " " + pBy(l[1]).n, qv("q")) && (!qv("act") || l[2] === qv("act")));
-  return cpShell("#/backoffice/admin/audit", `<div class="pa-h"><div>${ce("3.4","Audit trail imutável (pad_audit_logs): timestamp, utilizador, ação, estado anterior e novo, IP")}<h1 data-focus>${t("bo_audit")}</h1></div><button class="btn btn-line" type="button" data-toast="${esc(t("bo_export"))}">${I.dl} ${t("bo_export")}</button></div>
-  <form class="filters" data-filters="#/backoffice/admin/audit" onsubmit="return false" style="margin:0">${fSearch(t("search"))}${fSelect("act", t("bo_action"), ["submit","reopen","resubmit","opinion","decision","justify","state"].map(a => [a, actLabel(a)]), t("all_f"))}${countLine(rows.length)}</form>${logTable(rows)}`);
+  return cpShell(base, `${head}<form class="filters" data-filters="${base}" onsubmit="return false" style="margin:0">${fSearch(t("search"))}${fSelect("act", t("bo_action"), ["submit","reopen","opinion","decision","state"].map(a => [a, actLabel(a)]), t("all_f"))}${countLine(rows.length)}</form>${logTable(rows)}`);
 };
 /* ================= chrome: header, menu, footer, toolbar ================= */
 const NAV = () => [
@@ -2028,12 +2095,12 @@ function renderChrome(){
     <section class="fx-news" aria-labelledby="nl-t"><div class="t">${ce("6.0","Newsletter (plataforma de e-mail marketing, CE 1.3.5)")}<h2 id="nl-t">${t("nl_title")}</h2><p>${t("nl_text")}</p></div>
       <form id="nlForm" novalidate><label class="sr-only" for="nl-email">${t("d_email")}</label><div class="nl-row"><input id="nl-email" type="email" autocomplete="email" placeholder="${esc(t("nl_ph"))}" aria-describedby="nl-err"><button class="btn" type="submit">${t("nl_btn")}</button></div>
         <span class="err" id="nl-err" hidden>${t("e_email")}</span><label class="check"><input type="checkbox" id="nl-ok"> <span>${t("nl_consent")}</span></label><span class="err" id="nl-ok-err" hidden>${t("e_consent")}</span><p class="notice" id="nl-done" role="status" hidden>${t("nl_ok")}</p></form></section>
-    <div class="fx-main"><div class="f-brand"><a class="lockup" href="#/" aria-label="${esc(t("home"))}"><b>FEP</b><span>Research Center</span></a><p class="f-msg">${t("f_msg")}</p><p>${t("f_about")}</p></div>
+    <div class="fx-main"><div class="f-brand"><a class="lockup" href="#/" aria-label="${esc(t("home"))}"><b>FEP</b><span>Research Center</span></a><p class="f-msg" lang="pt-PT">${t("f_msg")}</p>${lang === "en" ? ce("1.1.1","Main message kept in PT until FEP supplies the EN version from its brand strategy") : ""}<p>${t("f_about")}</p></div>
       <nav aria-labelledby="fh-ex"><h2 class="f-h" id="fh-ex">${t("f_explore")}</h2><ul class="f-list">${NAV().slice(1).map(n => `<li><a href="${n.h || n.c[0][1]}">${esc(n.l)}</a></li>`).join("")}<li><a href="#/private/login">${t("private_area")}</a></li></ul></nav>
       <div><h2 class="f-h">${t("f_contact")}</h2><address class="f-addr"><span><span class="k">${t("d_address")}</span>Rua Dr. Roberto Frias<br>4200-464 Porto, Portugal</span><span><span class="k">${t("d_email")}</span><a href="mailto:[research]@fep.up.pt">[research]@fep.up.pt</a></span><span><span class="k">${t("d_phone")}</span>[+351 225 571 100]</span></address></div>
       <div><h2 class="f-h" id="fh-so">${t("f_follow")}</h2><ul class="soc" aria-labelledby="fh-so"><li><a href="#" aria-label="LinkedIn FEP">${I.li}</a></li><li><a href="#" aria-label="X / Twitter FEP">${I.xx}</a></li><li><a href="#" aria-label="YouTube FEP">${I.yt}</a></li></ul><p class="hint" style="margin-top:10px">${lang === "pt" ? "Canais oficiais da FEP." : "Official FEP channels."}</p></div></div>
     <div>${ce("6.0","Barra de logótipos de apoios e financiadores")}<p class="f-h">${t("f_funders")}</p><div class="funders" style="border:0;padding-top:0">${["FCT","União Europeia / COMPETE 2030","Universidade do Porto","FEP"].map(x => `<div class="logo-ph">${x}</div>`).join("")}</div></div>
-    <div class="fx-bottom"><span>${t("f_copy")}</span><div class="fx-legal"><a href="#/privacy">${t("privacy")}</a><a href="#/terms">${t("terms")}</a><a href="#/accessibility">${t("accessibility")}</a><a href="#/cookies">${t("cookies")}</a><a href="https://www.livroreclamacoes.pt" target="_blank" rel="noopener">${t("complaints")} ${I.ext}</a><button type="button" id="cookieSettings">${t("cookie_settings")}</button></div><a href="https://www.loba.com/" target="_blank" rel="noopener" style="color:var(--faint);font-size:12px">${t("developed")}</a></div></div>`;
+    <div class="fx-bottom"><span>${t("f_copy")}</span><div class="fx-legal"><a href="#/privacy">${t("privacy")}</a><a href="#/cookies">${t("cookies")}</a><a href="https://www.livroreclamacoes.pt" target="_blank" rel="noopener">${t("complaints")} ${I.ext}</a><button type="button" id="cookieSettings">${t("cookie_settings")}</button></div><a href="https://www.loba.com/" target="_blank" rel="noopener" style="color:var(--faint);font-size:12px">${t("developed")}</a></div></div>`;
   $("#cookie").setAttribute("aria-label", t("cookie_settings"));
   $("#cookie").innerHTML = `<p>${t("cookie_text")}</p><div class="opts" id="ckOpts" hidden><label class="check"><input type="checkbox" checked disabled> <span>${t("ck_essential")}</span></label><label class="check"><input type="checkbox" id="ckA"> <span>${t("ck_analytics")}</span></label><button class="btn btn-line btn-sm" type="button" data-ck="custom" style="align-self:flex-start">${t("ck_save")}</button></div>
     <div class="row"><button class="btn btn-sm" type="button" data-ck="all">${t("ck_all")}</button><button class="btn btn-line btn-sm" type="button" data-ck="ess">${t("ck_ess")}</button><button class="btn btn-line btn-sm" type="button" id="ckChoose" aria-expanded="false" aria-controls="ckOpts">${t("ck_choose")}</button></div>`;
@@ -2087,7 +2154,7 @@ function route(){
     bo = !!session;
     if (b === "pi") html = gate("pi", () => c ? V.boPi(c) : V.boPiList());
     else if (b === "board") html = gate("board", () => c ? V.boBoard(c) : V.boBoardList());
-    else if (b === "admin") html = gate("admin", () => !c ? V.boAdmin() : c === "users" ? V.boUsers() : c === "groups" ? V.boGroups() : c === "people" ? V.boPeople() : c === "pads" ? (p[3] ? V.boPadAdmin(p[3]) : V.boPads()) : c === "documents" ? V.boDocs() : c === "audit" ? V.boAudit() : null);
+    else if (b === "admin") html = gate("admin", () => !c ? V.boAdmin() : c === "users" ? V.boUsers() : c === "groups" ? (p[3] ? V.boGroup(p[3]) : V.boGroups()) : c === "people" ? V.boPeople() : c === "pads" ? (p[3] ? V.boPadAdmin(p[3]) : V.boPads()) : c === "documents" ? V.boDocs() : c === "audit" ? V.boAudit() : null);
     if (!session) bo = false; else if (me() && b && me().role !== b) bo = false;
   }
   if (html === null || html === undefined){ html = V.notFound(); key = "none"; }
@@ -2130,7 +2197,6 @@ function applyFilters(form){
   const params = new URLSearchParams();
   $$("[data-f]", form).forEach(el => { if (el.value) params.set(el.dataset.f, el.value); });
   if (Q.get("ai")) params.set("ai", Q.get("ai"));
-  if (Q.get("ods")) params.set("ods", Q.get("ods"));
   if (Q.get("tab")) params.set("tab", Q.get("tab"));
   const qs = params.toString();
   route.keep = { id: document.activeElement && document.activeElement.id, y: window.scrollY, pos: document.activeElement && document.activeElement.selectionStart };
@@ -2149,13 +2215,13 @@ document.addEventListener("click", e => {
   if (el.dataset.slide) return slideTo(+el.dataset.slide);
   if (el.dataset.slideStep) return slideTo(slide + +el.dataset.slideStep);
   if (el.dataset.toast){ e.preventDefault(); return toast(lang === "pt" ? "Wireframe" : "Wireframe", el.dataset.toast); }
-  if (el.hasAttribute("data-share")){ try { navigator.clipboard && navigator.clipboard.writeText(location.href); } catch(err){} return toast(t("share"), lang === "pt" ? "Ligação copiada." : "Link copied."); }
   if (el.dataset.login){ setSession(el.dataset.login); renderChrome(); const nx = pendingNext; pendingNext = null; location.hash = nx || (el.dataset.login === "admin" ? "#/backoffice/admin" : "#/private/profile"); return; }
   if (el.id === "wfNotes"){ const on = document.body.classList.toggle("notes"); el.setAttribute("aria-pressed", String(on)); try { localStorage.setItem("feprc-notes", on ? "1" : "0"); } catch(err){} return; }
   if (el.id === "cookieSettings"){ $("#cookie").hidden = false; return; }
   if (el.id === "ckChoose"){ const o = $("#ckOpts"); o.hidden = !o.hidden; el.setAttribute("aria-expanded", String(!o.hidden)); return; }
   if (el.dataset.ck){ try { localStorage.setItem("feprc-ck", el.dataset.ck === "all" || (el.dataset.ck === "custom" && $("#ckA").checked) ? "analytics" : "essential"); } catch(err){} $("#cookie").hidden = true; return; }
   if (el.dataset.orcid){ const p = pBy(el.dataset.orcid); toast("ORCID", lang === "pt" ? `Perfil guardado. Importação de ${p.n} em segundo plano…` : `Profile saved. Importing ${p.n} in the background…`); setTimeout(() => { p.orcidSt = "ok"; toast("ORCID", lang === "pt" ? "Importação concluída: 1 publicação nova, 0 em Quarentena." : "Import finished: 1 new publication, 0 in Quarantine."); if (location.hash.includes("admin/people")) reroute(); }, 1400); return; }
+  if (el.dataset.udel){ if (!confirm(t("bo_confirm_del"))) return; DELETED_USERS.add(el.dataset.udel); USER_LOG.push([stamp(), me().p, "u_delete", el.dataset.udel, P("Account removed","Conta removida")]); toast(t("bo_users"), t("bo_deleted")); reroute(); return; }
   if (el.dataset.quar){ const q = QUARANTINE.splice(+el.dataset.quar, 1)[0]; toast(t("bo_quar_t"), `${q.ti}: ${t("bo_" + el.dataset.act)}`); reroute(); return; }
   if (el.matches(".dd a, .menu-panel a")) closeDD();
 });
@@ -2163,6 +2229,8 @@ document.addEventListener("keydown", e => { if (e.key === "Escape"){ closeDD(); 
 document.addEventListener("change", e => {
   const el = e.target;
   if (el.id === "wfRole"){ setSession(el.value || null); renderChrome(); location.hash = !el.value ? "#/" : el.value === "admin" ? "#/backoffice/admin" : el.value === "pi" ? "#/backoffice/pi" : el.value === "board" ? "#/backoffice/board" : "#/private/profile"; return; }
+  if (el.dataset.ugroup !== undefined){ const p = pBy(el.dataset.ugroup); p.g = el.value || null; USER_LOG.push([stamp(), me().p, "u_group", p.s, P("Group: " + (p.g ? gBy(p.g).n.en : "—"), "Grupo: " + (p.g ? gBy(p.g).n.pt : "—"))]); toast(t("bo_users"), t("pa_saved")); return; }
+  if (el.dataset.urole !== undefined){ USER_LOG.push([stamp(), me().p, "u_role", el.dataset.urole, P("Role: " + T["role_" + el.value][1], "Perfil: " + T["role_" + el.value][0])]); toast(t("bo_users"), t("pa_saved")); return; }
   if (el.matches("select[data-f]")) applyFilters(el.closest("form"));
   if (el.matches("input[data-files]")){ const list = el.closest(".field").querySelector("[data-filelist]"); [...el.files].forEach(f => list.insertAdjacentHTML("beforeend", `<li>${I.file}<span>${esc(f.name)}</span><span class="s">${Math.max(1, Math.round(f.size / 1024))} KB</span></li>`)); }
 });
@@ -2178,7 +2246,7 @@ document.addEventListener("submit", e => {
   if (f.id === "cform"){ let first = null; $$("input[required]:not([type=checkbox]), textarea[required]", f).forEach(i => { const bad = !i.value.trim() || (i.type === "email" && !validEmail(i.value)); showErr(i, bad); if (bad && !first) first = i; }); const ok = $("#c-ok"); $("#c-ok-err").hidden = ok.checked; if (first) return first.focus(); if (!ok.checked) return ok.focus(); $("#c-sent").hidden = false; f.reset(); return; }
   if (f.id === "loginForm"){ const em = norm($("#lg-email").value.trim()); const r = Object.keys(USERS).find(k => USERS[k].email === em); if (!r || !$("#lg-pw").value){ $("#lg-err").hidden = false; return $("#lg-email").focus(); } setSession(r); renderChrome(); const nx = pendingNext; pendingNext = null; location.hash = nx || (r === "admin" ? "#/backoffice/admin" : "#/private/profile"); return; }
   if (f.id === "recForm"){ const em = $("#rc-email"); if (showErr(em, !validEmail(em.value))) return em.focus(); $("#rc-ok").hidden = false; return; }
-  if (f.id === "profForm"){ const p = meP(); p.b = { pt: $("#pf-bio-pt").value, en: $("#pf-bio-en").value }; p.k = $("#pf-kw").value.split(",").map(s => s.trim()).filter(Boolean); INDEX = null; toast(t("pa_profile"), t("pa_saved")); return; }
+  if (f.id === "profForm"){ const p = meP(); p.b = { pt: $("#pf-bio-pt").value, en: $("#pf-bio-en").value }; INDEX = null; toast(t("pa_profile"), t("pa_saved")); return; }
   if (f.id === "pubForm"){
     const ti = $("#pb-ti"), y = $("#pb-y"); let bad = showErr(ti, !ti.value.trim()); bad = showErr(y, !y.value) || bad; if (bad) return (ti.value ? y : ti).focus();
     const ods = $$("fieldset input[type=checkbox]:checked", f).map(i => +i.value), s = me().p;
@@ -2195,13 +2263,14 @@ document.addEventListener("submit", e => {
     addLog(x, me().p, "submit", "—", "analise"); PADS.unshift(x);
     toast(t("pa_newpad"), t("pad_sent", { id })); mail(t("pad_mail_pi", { n: pBy(gBy(g).pi).n })); location.hash = "#/private/pad/" + id; return;
   }
-  if (f.id === "fixForm"){ const x = padBy(f.dataset.pad); x.amt = +$("#fx-amt").value || x.amt; x.desc = $("#fx-desc").value; x.pr = $("#fx-pr").value; x.files = $$("[data-filelist] li", f).map(li => [li.children[1].textContent, li.children[2].textContent]); x.st = "analise"; x.piMsg = null; addLog(x, me().p, "resubmit", "correcao", "analise"); toast(x.id, t("pad_resent")); mail(t("pad_mail_pi", { n: pBy(piOf(x)).n })); reroute(); return; }
+  if (f.id === "fixForm"){ const x = padBy(f.dataset.pad); x.amt = +$("#fx-amt").value || x.amt; x.desc = $("#fx-desc").value; x.pr = $("#fx-pr").value; x.files = $$("[data-filelist] li", f).map(li => [li.children[1].textContent, li.children[2].textContent]); x.st = "analise"; x.piMsg = null; addLog(x, me().p, "state", "correcao", "analise"); toast(x.id, t("pad_resent")); mail(t("pad_mail_pi", { n: pBy(piOf(x)).n })); reroute(); return; }
   if (f.id === "reopenForm"){ const m = $("#ro-msg"); if (showErr(m, !m.value.trim())) return m.focus(); const x = padBy(f.dataset.pad); x.st = "correcao"; x.piMsg = m.value.trim(); addLog(x, me().p, "reopen", "analise", "correcao"); toast(x.id, t("sti_correcao")); mail(t("mail_researcher", { n: pBy(x.by).n })); reroute(); return; }
   if (f.id === "opForm"){ const m = $("#op-txt"); if (showErr(m, !m.value.trim())) return m.focus(); const x = padBy(f.dataset.pad); x.piOp = { pos: f.querySelector("input[name=op]:checked").value === "1", txt: m.value.trim() }; x.board = $("#op-bd").value; x.st = "board"; addLog(x, me().p, "opinion", "analise", "board"); toast(x.id, t("sti_board")); mail(t("mail_board", { n: pBy(x.board).n })); reroute(); return; }
   if (f.id === "bdForm"){ const m = $("#bd-txt"); if (showErr(m, !m.value.trim())) return m.focus(); const x = padBy(f.dataset.pad); const pos = f.querySelector("input[name=bd]:checked").value === "1"; x.bd = { pos, txt: m.value.trim() };
     if (pos){ x.st = "deferido"; addLog(x, me().p, "decision", "board", "deferido"); mail(t("mail_staff")); mail(t("mail_researcher", { n: pBy(x.by).n })); } else { addLog(x, me().p, "decision", "board", "board"); mail(t("mail_staff")); }
     toast(x.id, pos ? t("sti_deferido") : (lang === "pt" ? "Deliberação desfavorável registada. O PI vai redigir a justificação." : "Rejection recorded. The PI will write the justification.")); reroute(); return; }
-  if (f.id === "justForm"){ const m = $("#js-txt"); if (showErr(m, !m.value.trim())) return m.focus(); const x = padBy(f.dataset.pad); x.piJust = m.value.trim(); x.st = "indeferido"; addLog(x, me().p, "justify", "board", "indeferido"); toast(x.id, t("sti_indeferido")); mail(t("mail_researcher", { n: pBy(x.by).n })); reroute(); return; }
+  if (f.id === "justForm"){ const m = $("#js-txt"); if (showErr(m, !m.value.trim())) return m.focus(); const x = padBy(f.dataset.pad); x.piJust = m.value.trim(); x.st = "indeferido"; addLog(x, me().p, "state", "board", "indeferido"); toast(x.id, t("sti_indeferido")); mail(t("mail_researcher", { n: pBy(x.by).n })); reroute(); return; }
+  if (f.id === "gmForm"){ const g = f.dataset.group; $$("input[type=checkbox]", f).forEach(c => { const p = pBy(c.value); if (c.checked && p.g !== g){ p.g = g; USER_LOG.push([stamp(), me().p, "u_group", p.s, P("Group: " + gBy(g).n.en, "Grupo: " + gBy(g).n.pt)]); } else if (!c.checked && p.g === g){ p.g = null; USER_LOG.push([stamp(), me().p, "u_group", p.s, P("Removed from group", "Removido do grupo")]); } }); INDEX = null; toast(t("bo_groups"), t("pa_saved")); location.hash = "#/backoffice/admin/groups"; return; }
   if (f.id === "stForm"){ const x = padBy(f.dataset.pad), to = $("#st-sel").value; if (to !== x.st){ addLog(x, me().p, "state", x.st, to); x.st = to; toast(x.id, t("sti_" + to)); } reroute(); return; }
 });
 
