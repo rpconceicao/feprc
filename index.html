@@ -566,6 +566,7 @@ body.bo .site-header,body.bo .site-footer,body.bo .cookie{display:none}
 .mcard{display:grid;grid-template-columns:48px minmax(0,1fr);gap:12px;align-items:center;padding:10px;border:1px solid var(--border);border-radius:12px;background:var(--surface);text-decoration:none;color:var(--fg)}
 a.mcard:hover{border-color:var(--border-2);color:var(--fg)} .mcard .ph{width:48px;height:48px}
 .mcard b{font-size:14px;font-weight:600}
+.pager .dis{display:inline-flex;align-items:center;justify-content:center;min-width:36px;min-height:36px;color:var(--border-2)}
 </style>
 </head>
 <body class="locked notes">
@@ -889,7 +890,7 @@ const MANUAL_PUBS = { "ana-ribeiro":[{ id:"m-notas-salario-minimo", ti:"Notas so
 /* ================= interface copy (PT / EN) — CE 1.3.4: microcopy assegurado pela LOBA ================= */
 const T = {
   skip:["Saltar para o conteúdo","Skip to content"],
-  gate_note:["Pré-visualização privada dos wireframes do novo website do FEP Research Center. Introduza a password para continuar. fep-rc","Private preview of the new FEP Research Center website wireframes. Enter the password to continue."],
+  gate_note:["Pré-visualização privada dos wireframes do novo website do FEP Research Center. Introduza a password para continuar.","Private preview of the new FEP Research Center website wireframes. Enter the password to continue."],
   gate_pw:["Password","Password"], gate_show:["Mostrar","Show"], gate_hide:["Ocultar","Hide"], gate_enter:["Entrar","Enter"],
   gate_err:["A password não está correta. Verifique e tente novamente.","The password is not correct. Check it and try again."],
   home:["Página inicial do FEP Research Center","FEP Research Center home"],
@@ -928,6 +929,7 @@ const T = {
   sort_new:["Mais recentes","Newest first"], sort_old:["Mais antigos","Oldest first"], filter_group:["Grupo de Investigação","Research group"], filter_kw:["Palavra-chave","Keyword"],
   results_n:["{n} resultados","{n} results"], result_1:["1 resultado","1 result"], no_results:["Sem resultados para estes filtros. Experimente limpar a pesquisa ou escolher outro grupo.","No results for these filters. Try clearing the search or choosing another group."],
   clear:["Limpar filtros","Clear filters"], page_of:["Página {a} de {b}","Page {a} of {b}"], prev:["Anterior","Previous"], next:["Seguinte","Next"],
+  pagination:["Paginação","Pagination"], per_page:["{n} por página","{n} per page"],
   authors:["Autores","Authors"], year:["Ano","Year"], type:["Tipo","Type"], area:["Área temática","Subject area"], journal:["Revista / editora","Journal / publisher"],
   group:["Grupo","Group"], groups:["Grupos","Groups"], keywords:["Palavras-chave","Keywords"], members:["Membros","Members"],
   ods:["Objetivos de Desenvolvimento Sustentável","Sustainable Development Goals"], ods_short:["ODS","SDG"],
@@ -1154,8 +1156,16 @@ const newsRow = n => `<li><a class="nrow" href="${URL_.news(n.s)}">${ph(t("img_c
 const projCard = p => `<li><a class="card" href="${URL_.project(p.s)}"><h3 class="c-title">${esc(L(p.ti))}</h3>
   <dl class="kv" style="font-size:13px"><dt>${t("funder")}</dt><dd>${esc(p.f)}</dd><dt>${t("start")}</dt><dd>${fds(p.a)}</dd><dt>${t("end")}</dt><dd>${fds(p.e)}</dd></dl></a></li>`;
 
-/* pagination (visual) */
-const pager = (cur, total, base) => total <= 1 ? "" : `<nav class="pager" aria-label="Paginação"><span>${t("page_of", { a:cur, b:total })}</span><ol>${Array.from({ length: total }, (_, i) => i + 1 === cur ? `<li><span class="cur" aria-current="page">${i + 1}</span></li>` : `<li><a href="${base}${base.includes("?") ? "&" : "?"}page=${i + 1}">${i + 1}</a></li>`).join("")}</ol></nav>`;
+/* pagination (CE: paginação nas listagens) */
+const PER = { pubs:20, people:24, past:10, events:10, news:10, bulletin:20, other:12, alumni:24, search:20, priv:25 };
+const paginate = (list, per) => { const pages = Math.max(1, Math.ceil(list.length / per)); const page = Math.min(pages, Math.max(1, +qv("page") || 1)); return { items:list.slice((page - 1) * per, page * per), page, pages, per, total:list.length }; };
+const pagerNav = (pg, always) => {
+  if (pg.pages < 2 && !always) return "";
+  const base = location.hash.split("?")[0] || "#/", qs = [...Q].filter(x => x[0] !== "page");
+  const href = n => base + "?" + qs.concat([["page", n]]).map(x => x[0] + "=" + encodeURIComponent(x[1])).join("&");
+  const a = (n, label, cls) => n < 1 || n > pg.pages ? `<li><span class="dis" aria-disabled="true">${label}</span></li>` : `<li><a href="${href(n)}" ${cls || ""}>${label}</a></li>`;
+  return `<nav class="pager" aria-label="${esc(t("pagination"))}"><span>${t("page_of", { a:pg.page, b:pg.pages })} · ${t("per_page", { n:pg.per })}</span><ol>${a(pg.page - 1, I.prev + `<span class="sr-only">${t("prev")}</span>`)}${Array.from({ length:pg.pages }, (_, k) => k + 1 === pg.page ? `<li><span class="cur" aria-current="page">${k + 1}</span></li>` : a(k + 1, String(k + 1))).join("")}${a(pg.page + 1, I.next + `<span class="sr-only">${t("next")}</span>`)}</ol></nav>`;
+};
 
 /* listing filters: values read from the hash query */
 let Q = new URLSearchParams();
@@ -1474,10 +1484,10 @@ V.people = key => {
     tabs:tabs(Object.keys(PTYPE).map(k => [t(PTYPE[k].k), "#/people/" + k]), base) })}
   <div class="wrap sec">${aiBlock({ id:"people", intro:t("ai_list_intro"), sugg, scope:["person"], listBase:base, ceRef:"4.3", ceTxt:"Assistente AI na listagem" })}
     <div style="height:${aiMode ? 24 : 0}px"></div>
-    ${ce("6.3.1","Pesquisa por nome; filtros por Grupo e Keywords; ordenação alfabética (comuns às 4 tipologias)")}
+    ${ce("6.3.1","Pesquisa por nome; filtros por Grupo e Keywords; ordenação alfabética (comuns às 4 tipologias); paginação a cada 24")}
     <form class="filters" role="search" data-filters="${base}" onsubmit="return false">${fSearch(t("search_name"))}${fSelect("group", t("filter_group"), groupOpts())}${fSelect("kw", t("filter_kw"), kws.map(k => [k, k]), t("all_f"))}${fSort([["az", t("sort_az")],["za", t("sort_za")]])}
       ${qv("ai") ? `<p class="count"><span class="chip solid">${I.spark} ${esc(qv("ai"))}</span> <a href="${base}">${t("ai_classic")}</a></p>` : ""}${countLine(list.length)}</form>
-    ${list.length ? `<ul class="grid g-3">${list.map(personCard).join("")}</ul>` : `<p class="empty">${t("no_results")}</p>`}</div>`;
+    ${list.length ? (pg => `<ul class="grid g-3">${pg.items.map(personCard).join("")}</ul>${pagerNav(pg, true)}`)(paginate(list, PER.people)) : `<p class="empty">${t("no_results")}</p>`}</div>`;
 };
 
 V.person = s => {
@@ -1515,10 +1525,10 @@ V.publications = () => {
     tabs:tabs([[t("nav_publications"), base],[t("nav_projects"),"#/research/projects"],[t("nav_theses"),"#/research/theses"]], base) })}
   <div class="wrap sec">${aiBlock({ id:"pubs", intro:t("ai_list_intro"), sugg, scope:["pub"], listBase:base, ceRef:"6.4.1.1", ceTxt:"Assistente AI antes da listagem" })}
     <div style="height:${aiMode ? 24 : 0}px"></div>
-    ${ce("6.4.1.1","Pesquisa por título ou autor; filtros por Tipo (lista curta bilingue) e Área Temática; sem ordenação configurável")}
+    ${ce("6.4.1.1","Pesquisa por título ou autor; filtros por Tipo (lista curta bilingue) e Área Temática; sem ordenação configurável; paginação a cada 20")}
     <form class="filters" role="search" data-filters="${base}" onsubmit="return false">${fSearch(t("search_pub"))}${fSelect("type", t("pub_type"), Object.keys(PUBTYPES).map(k => [k, L(PUBTYPES[k])]))}${fSelect("area", t("area"), Object.keys(AREAS).map(k => [k, L(AREAS[k])]), t("all_f"))}
       ${qv("ai") ? `<p class="count"><span class="chip solid">${I.spark} ${esc(qv("ai"))}</span> <a href="${base}">${t("ai_classic")}</a></p>` : ""}${countLine(list.length)}</form>
-    ${list.length ? `<ul class="plist">${list.map(p => pubRow(p)).join("")}</ul>` : `<p class="empty">${t("no_results")}</p>`}
+    ${list.length ? (pg => `<ul class="plist">${pg.items.map(p => pubRow(p)).join("")}</ul>${pagerNav(pg, true)}`)(paginate(list, PER.pubs)) : `<p class="empty">${t("no_results")}</p>`}
   </div>`;
 };
 
@@ -1553,7 +1563,7 @@ V.projects = () => {
   <div class="wrap sec">${aiBlock({ id:"projects", intro:t("ai_list_intro"), sugg, scope:["project"], listBase:base })}<div style="height:${aiMode ? 24 : 0}px"></div>
     <form class="filters" role="search" data-filters="${base}" onsubmit="return false">${fSearch(t("search_project"))}${fSelect("group", t("filter_group"), groupOpts())}${fSort([["az", t("sort_az")],["za", t("sort_za")]])}${qv("ai") ? `<p class="count"><span class="chip solid">${I.spark} ${esc(qv("ai"))}</span> <a href="${base}">${t("ai_classic")}</a></p>` : ""}${countLine(list.length)}</form>
     <section class="block">${ce("6.4.2.1","Secção Em Vigor (data de fim não atingida)")}<h2>${t("current")} <span class="meta">(${cur.length})</span></h2>${cur.length ? `<ul class="grid g-3">${cur.map(projCard).join("")}</ul>` : `<p class="empty">${t("no_results")}</p>`}</section>
-    <section class="block">${ce("6.4.2.1","Secção Passados, paginação ao fim de 10")}<h2>${t("past")} <span class="meta">(${past.length})</span></h2>${past.length ? `<ul class="grid g-3">${past.map(projCard).join("")}</ul>` : `<p class="empty">${t("no_results")}</p>`}</section></div>`;
+    <section class="block">${ce("6.4.2.1","Secção Passados, paginação ao fim de 10")}<h2>${t("past")} <span class="meta">(${past.length})</span></h2>${past.length ? (pg => `<ul class="grid g-3">${pg.items.map(projCard).join("")}</ul>${pagerNav(pg, true)}`)(paginate(past, PER.past)) : `<p class="empty">${t("no_results")}</p>`}</section></div>`;
 };
 
 V.project = s => {
@@ -1574,11 +1584,11 @@ V.project = s => {
 V.theses = () => {
   const base = "#/research/theses", cur = THESES.filter(x => !x.def), past = THESES.filter(x => x.def);
   const row = x => `<li><div class="prow"><div class="y"><span>${x.a}${x.def ? "–" + x.def : "–"}</span></div><div><a class="t" href="${URL_.thesis(x.id)}">${esc(x.ti)}</a><p class="authors" style="margin-top:6px">${t("student")}: <a href="${URL_.person(x.st)}">${esc(pBy(x.st).n)}</a><br>${t("supervisors")}: ${esc(x.sup)}</p></div><div class="side"></div></div></li>`;
-  return `${pageHead({ ce:ce("6.4.3.1","Listagem de PhD Thesis"), crumbs:[[t("nav_research"),"#/research/publications"],[t("nav_theses")]], title:t("nav_theses"), intro:t("theses_intro"),
+  return `${pageHead({ ce:ce("6.4.3.1","Listagem de PhD Thesis: Em Vigor e Passadas; paginação das Passadas a cada 10"), crumbs:[[t("nav_research"),"#/research/publications"],[t("nav_theses")]], title:t("nav_theses"), intro:t("theses_intro"),
     tabs:tabs([[t("nav_publications"),"#/research/publications"],[t("nav_projects"),"#/research/projects"],[t("nav_theses"), base]], base) })}
   <div class="wrap sec">${aiBlock({ id:"theses", intro:t("ai_list_intro"), sugg: lang === "pt" ? ["Teses sobre energia","Teses em curso em finanças"] : ["Theses on energy","Ongoing theses in finance"], scope:["thesis"] })}
     <section class="block"><h2>${t("current")} <span class="meta">(${cur.length})</span></h2><ul class="plist">${cur.map(row).join("")}</ul></section>
-    <section class="block"><h2>${t("past_f")} <span class="meta">(${past.length})</span></h2><ul class="plist">${past.map(row).join("")}</ul></section></div>`;
+    <section class="block"><h2>${t("past_f")} <span class="meta">(${past.length})</span></h2>${(pg => `<ul class="plist">${pg.items.map(row).join("")}</ul>${pagerNav(pg, true)}`)(paginate(past, PER.past))}</section></div>`;
 };
 
 V.thesis = id => {
@@ -1604,9 +1614,9 @@ V.activities = key => {
   return `${pageHead({ ce:ce("6.5.1","Template de listagem comum a tipologias e subtipologias"), crumbs:[[t("nav_activities"),"#/activities/seminars"],[title]], title, intro: c.s ? t("sem_sub_intro", { s:c.s }) : t(c.i),
     tabs:tabs(Object.keys(ACT).map(k => [ACT[k].n || t(ACT[k].k), "#/activities/" + k]), base) })}
   <div class="wrap sec">${aiBlock({ id:"events", intro:t("ai_list_intro"), sugg: lang === "pt" ? ["Que eventos estão previstos?","Seminários sobre finanças","Cursos para doutorandos"] : ["Which events are coming up?","Seminars on finance","Courses for PhD students"], scope:["event"] })}<div style="height:${aiMode ? 24 : 0}px"></div>
-    <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:16px">${ce("6.5.1","Filtro Próximos / Anteriores")}<div class="seg" role="group" aria-label="${esc(t("nav_activities"))}"><a href="${base}" ${prev ? "" : 'aria-current="true"'}>${t("forthcoming")}</a><a href="${base}?when=prev" ${prev ? 'aria-current="true"' : ""}>${t("previous")}</a></div></div>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:16px">${ce("6.5.1","Filtro Próximos / Anteriores; paginação a cada 10")}<div class="seg" role="group" aria-label="${esc(t("nav_activities"))}"><a href="${base}" ${prev ? "" : 'aria-current="true"'}>${t("forthcoming")}</a><a href="${base}?when=prev" ${prev ? 'aria-current="true"' : ""}>${t("previous")}</a></div></div>
     <form class="filters" role="search" data-filters="${base}" onsubmit="return false">${prev ? `<input type="hidden" data-f="when" value="prev">` : ""}${fSearch(t("search_event"))}${fSelect("group", t("filter_group"), groupOpts())}${c.sub ? fSelect("sub", t("subtype"), [["ECO","ECO"],["FIN","FIN"],["MAR","MAR"],["WiP","WiP"]]) : ""}${countLine(list.length)}</form>
-    ${list.length ? `<ul class="grid g-2">${list.map(e => `<li>${evCard(e)}</li>`).join("")}</ul>` : `<p class="empty">${t("no_results")}</p>`}</div>`;
+    ${list.length ? (pg => `<ul class="grid g-2">${pg.items.map(e => `<li>${evCard(e)}</li>`).join("")}</ul>${pagerNav(pg, true)}`)(paginate(list, PER.events)) : `<p class="empty">${t("no_results")}</p>`}</div>`;
 };
 
 V.event = id => {
@@ -1639,7 +1649,7 @@ V.rankings = () => `${pageHead({ ce:ce("6.6.1","Rankings: página institucional 
   <div class="prose" style="margin-top:40px">${ph(t("photo"), "r-21")}<p>${lang === "pt" ? "[Texto explicativo, imagens e datas relevantes sobre o posicionamento do Centro.]" : "[Explanatory text, images and key dates on the Centre’s standing.]"}</p></div></div>`;
 
 V.bulletin = () => `${pageHead({ ce:ce("6.6.2","Research Bulletin: grelha com paginação a cada 20"), crumbs:[[t("nav_initiatives"),"#/initiatives/data-center"],[t("nav_bulletin")]], title:t("nav_bulletin"), intro:t("bulletin_intro"), tabs:initTabs("#/initiatives/bulletin") })}
-  <div class="wrap sec"><ul class="grid g-3">${BULLETIN.map(b => { const p = pBy(b.p); return `<li><a class="card" href="${URL_.bulletin(b.id)}">${ph(t("photo"), "person r-43")}<p class="meta">N.º ${b.id}, ${fd(b.d)}</p><h2 class="c-title">${esc(p.n)}</h2><p class="c-sum">${esc(L(b.tw))}</p></a></li>`; }).join("")}</ul></div>`;
+  <div class="wrap sec"><ul class="grid g-3">${(pg => pg.items.map(b => { const p = pBy(b.p); return `<li><a class="card" href="${URL_.bulletin(b.id)}">${ph(t("photo"), "person r-43")}<p class="meta">N.º ${b.id}, ${fd(b.d)}</p><h2 class="c-title">${esc(p.n)}</h2><p class="c-sum">${esc(L(b.tw))}</p></a></li>`; }).join("") + `</ul>${pagerNav(pg, true)}`)(paginate(BULLETIN, PER.bulletin))}</div>`;
 
 V.bulletinItem = id => {
   const b = BULLETIN.find(x => x.id === id); if (!b) return null; const p = pBy(b.p), pub = pubBy(b.pub), tw = L(b.tw);
@@ -1653,10 +1663,10 @@ V.bulletinItem = id => {
 V.other = () => {
   const base = "#/initiatives/other", types = [...new Set(OTHER.map(o => o.ty.en))];
   const list = OTHER.filter(o => !qv("type") || o.ty.en === qv("type")).sort((a, b) => b.d.localeCompare(a.d));
-  return `${pageHead({ ce:ce("6.6.3.1","Listagem de Other Initiatives: ordem cronológica (mais recente primeiro), filtro por Tipo de iniciativa"), crumbs:[[t("nav_initiatives"),"#/initiatives/data-center"],[t("nav_other")]], title:t("nav_other"),
+  return `${pageHead({ ce:ce("6.6.3.1","Listagem de Other Initiatives: ordem cronológica (mais recente primeiro), filtro por Tipo de iniciativa, paginação a cada 12"), crumbs:[[t("nav_initiatives"),"#/initiatives/data-center"],[t("nav_other")]], title:t("nav_other"),
   intro: lang === "pt" ? "Exposições, workshops de transferência de conhecimento e outras iniciativas especiais do Centro." : "Exhibitions, knowledge-transfer workshops and other special initiatives of the Centre.", tabs:initTabs("#/initiatives/other") })}
   <div class="wrap sec"><form class="filters" data-filters="${base}" onsubmit="return false">${fSelect("type", t("init_type"), types.map(x => [x, L(OTHER.find(o => o.ty.en === x).ty)]))}${countLine(list.length)}</form>
-  ${list.length ? `<ul class="grid g-3">${list.map(o => `<li><a class="card" href="#/initiatives/other/${o.s}">${ph(t("img_cover"), "r-169")}<p class="meta">${fd(o.d)}</p><h2 class="c-title">${esc(L(o.ti))}</h2><p class="c-sum">${esc(L(o.lead))}</p></a></li>`).join("")}</ul>` : `<p class="empty">${t("no_results")}</p>`}</div>`;
+  ${list.length ? (pg => `<ul class="grid g-3">${pg.items.map(o => `<li><a class="card" href="#/initiatives/other/${o.s}">${ph(t("img_cover"), "r-169")}<p class="meta">${fd(o.d)}</p><h2 class="c-title">${esc(L(o.ti))}</h2><p class="c-sum">${esc(L(o.lead))}</p></a></li>`).join("")}</ul>${pagerNav(pg, true)}`)(paginate(list, PER.other)) : `<p class="empty">${t("no_results")}</p>`}</div>`;
 };
 
 V.otherItem = s => {
@@ -1684,9 +1694,9 @@ V.phd = k => {
 const alumniCard = p => `<li><article class="pcard">${ph(t("photo"), "person round sm")}<div><h3 class="n">${esc(p.n)}</h3><p class="r">${esc(L(PHD[p.prog].n))}, ${p.year}</p><p class="g">${esc(L(p.now))}</p></div><p class="x">${esc(L(p.b))}</p><ul class="linklist" style="grid-column:1/-1">${["LinkedIn", lang === "pt" ? "Página pessoal" : "Website"].map(l => `<li><a class="chip" href="#">${l} ${I.ext}</a></li>`).join("")}</ul></article></li>`;
 V.alumni = () => {
   const base = "#/phd/alumni"; const list = PEOPLE.filter(p => p.t === "alumni" && (!qv("prog") || p.prog === qv("prog"))).sort((a, b) => b.year - a.year);
-  return `${pageHead({ ce:ce("6.7.2","Alumni: sem página individual"), crumbs:[[t("nav_phd"),"#/phd/economics"],[t("nav_alumni")]], title:t("nav_alumni"), intro:t("alumni_intro"),
+  return `${pageHead({ ce:ce("6.7.2","Alumni: sem página individual; paginação a cada 24"), crumbs:[[t("nav_phd"),"#/phd/economics"],[t("nav_alumni")]], title:t("nav_alumni"), intro:t("alumni_intro"),
     tabs:tabs([[t("nav_phdeco"),"#/phd/economics"],[t("nav_phdmgt"),"#/phd/management"],[t("nav_alumni"), base]], base) })}
-  <div class="wrap sec"><form class="filters" data-filters="${base}" onsubmit="return false">${fSelect("prog", t("phd_prog"), Object.keys(PHD).map(k => [k, L(PHD[k].n)]))}${countLine(list.length)}</form><ul class="grid g-3">${list.map(alumniCard).join("")}</ul></div>`;
+  <div class="wrap sec"><form class="filters" data-filters="${base}" onsubmit="return false">${fSelect("prog", t("phd_prog"), Object.keys(PHD).map(k => [k, L(PHD[k].n)]))}${countLine(list.length)}</form>${(pg => `<ul class="grid g-3">${pg.items.map(alumniCard).join("")}</ul>${pagerNav(pg, true)}`)(paginate(list, PER.alumni))}</div>`;
 };
 
 /* ---------- News (CE 6.8) ---------- */
@@ -1697,7 +1707,7 @@ V.news = () => {
   return `${pageHead({ ce:ce("6.8.1","Listagem de News: paginação a cada 10"), crumbs:[[t("nav_news")]], title:t("nav_news"), intro:t("news_intro") })}
   <div class="wrap sec">${aiBlock({ id:"news", intro:t("ai_list_intro"), sugg: lang === "pt" ? ["Notícias sobre financiamento","Prémios recentes"] : ["News about funding","Recent awards"], scope:["news"] })}<div style="height:${aiMode ? 24 : 0}px"></div>
     <form class="filters" role="search" data-filters="${base}" onsubmit="return false">${fSearch(t("search_title"))}${fSelect("type", t("news_type"), Object.keys(NEWSTYPES).map(k => [k, L(NEWSTYPES[k])]))}${fSelect("group", t("filter_group"), groupOpts())}${fSort([["new", t("sort_new")],["old", t("sort_old")]])}${countLine(list.length)}</form>
-    ${list.length ? `<ul class="nlist">${list.map(newsRow).join("")}</ul>${pager(1, 1, base)}` : `<p class="empty">${t("no_results")}</p>`}</div>`;
+    ${list.length ? (pg => `<ul class="nlist">${pg.items.map(newsRow).join("")}</ul>${pagerNav(pg, true)}`)(paginate(list, PER.news)) : `<p class="empty">${t("no_results")}</p>`}</div>`;
 };
 V.newsItem = s => {
   const n = NEWS.find(x => x.s === s); if (!n) return null; const g = gBy(n.g);
@@ -1723,10 +1733,10 @@ V.search = q => {
   const rx = s => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const hl = s => { let h = esc(s); terms.forEach(w => { h = h.replace(new RegExp("(" + rx(w) + ")", "ig"), "<mark>$1</mark>"); }); return h; };
   const excerpt = x => { const s = x.ex() || ""; const n = norm(s); let pos = -1; terms.some(w => (pos = n.indexOf(w)) >= 0); const a = Math.max(0, pos - 60); let e = s.slice(a, a + 180); if (a > 0) e = "…" + e.replace(/^\S*\s/, ""); if (a + 180 < s.length) e = e.replace(/\s+\S*$/, "") + "…"; return e; };
-  return `${pageHead({ ce:ce("8","Página de Resultados de Pesquisa: lista única com tipo, título e excerto"), crumbs:[[t("search_title_pg")]], title:q ? t("search_for", { q }) : t("search_title_pg"), intro:t("search_intro") })}
+  return `${pageHead({ ce:ce("8","Página de Resultados de Pesquisa: lista única com tipo, título e excerto; paginação a cada 20"), crumbs:[[t("search_title_pg")]], title:q ? t("search_for", { q }) : t("search_title_pg"), intro:t("search_intro") })}
   <div class="wrap sec">${ce("4.6","Pesquisa global: Researchers e PhD Students, Publications, Funded Projects, PhD Thesis, Events, News, Research Bulletin e páginas institucionais (About, Initiatives, PhD Programmes); títulos, nomes, resumos e texto principal")}
   <form id="sform" role="search" class="filters" style="margin-bottom:24px"><div class="field q"><label for="sq">${t("search")}</label><input id="sq" type="search" value="${esc(q)}" autocomplete="off"></div><button class="btn" type="submit">${t("search_btn")}</button>${q ? `<p class="count" aria-live="polite">${res.length === 1 ? t("result_1") : t("results_n", { n:res.length })}</p>` : ""}</form>
-  ${!q ? `<p class="empty">${t("search_empty")}</p>` : res.length ? `<ul style="list-style:none;border-top:1px solid var(--border)">${res.map(x => `<li><a class="result" href="${x.url}"><span class="kicker">${esc(KLABEL(x.k))}</span><span class="c-title">${hl(x.title)}</span><span class="c-sum">${hl(excerpt(x))}</span></a></li>`).join("")}</ul>` : `<p class="empty">${t("no_results")}</p>`}</div>`;
+  ${!q ? `<p class="empty">${t("search_empty")}</p>` : res.length ? (pg => `<ul style="list-style:none;border-top:1px solid var(--border)">${pg.items.map(x => `<li><a class="result" href="${x.url}"><span class="kicker">${esc(KLABEL(x.k))}</span><span class="c-title">${hl(x.title)}</span><span class="c-sum">${hl(excerpt(x))}</span></a></li>`).join("")}</ul>${pagerNav(pg, true)}`)(paginate(res, PER.search)) : `<p class="empty">${t("no_results")}</p>`}</div>`;
 };
 const LEGAL = {
   privacy:{ k:"privacy", s:[[P("Who is responsible","Responsável pelo tratamento"),P("The Faculty of Economics of the University of Porto, Rua Dr. Roberto Frias, 4200-464 Porto. Data Protection Officer: [contact].","Faculdade de Economia da Universidade do Porto, Rua Dr. Roberto Frias, 4200-464 Porto. Encarregado de Proteção de Dados: [contacto].")],[P("What data we collect","Que dados recolhemos"),P("Contact form and newsletter data, Private Area account data and, with consent, analytics data.","Dados do formulário de contacto e da newsletter, dados de conta da Área Privada e, com consentimento, dados de análise.")],[P("Newsletter","Newsletter"),P("Subscriber data is stored on the email marketing platform, not on this website.","Os dados dos subscritores ficam na plataforma de e-mail marketing e não neste website.")],[P("Your rights","Os seus direitos"),P("Access, rectification, erasure, restriction, portability and objection. Write to [contact].","Acesso, retificação, apagamento, limitação, portabilidade e oposição. Contacte [contacto].")]] },
@@ -1846,13 +1856,13 @@ V.paProfile = () => {
 
 /* ---------- Os Meus PAD ---------- */
 V.paPads = () => {
-  const u = me(); let list = PADS.filter(x => x.by === u.p);
+  let pgP; const u = me(); let list = PADS.filter(x => x.by === u.p);
   list = list.filter(x => match(x.id + " " + x.ti, qv("q")) && (!qv("st") || visSt(x.st) === qv("st"))).sort((a, b) => b.d.localeCompare(a.d));
   return paShell("#/private/pads", `<div class="pa-h"><div>${ce("7.2","Os Meus PAD: lista, pesquisa e filtro por estado")}<h1 data-focus>${t("pa_mypads")}</h1><p>${t("pa_pads_p")}</p></div><a class="btn" href="#/private/pad/new">${I.plus} ${t("pa_newpad")}</a></div>
     ${profTabs("#/private/pads")}
     ${lang === "en" ? ce("3.4","EN state labels are a proposal; the spec defines them in PT only. To be validated by FEP RC") : ""}<form class="filters" data-filters="#/private/pads" onsubmit="return false" style="margin:0">${fSearch(t("search"))}${fSelect("st", t("pa_status"), ["analise","correcao","deferido","indeferido"].map(s => [s, t("st_" + s)]), t("pa_all_status"))}${countLine(list.length)}</form>
     ${list.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th scope="col">${t("pa_request")}</th><th scope="col">${t("pad_title")}</th><th scope="col">${t("group")}</th><th scope="col" class="num">${t("pa_amount")}</th><th scope="col">${t("pa_submitted")}</th><th scope="col">${t("pa_status")}</th></tr></thead>
-      <tbody>${list.map(x => `<tr><td><a href="#/private/pad/${x.id}">${x.id}</a></td><td>${esc(x.ti)}</td><td>${esc(L(gBy(x.g).n))}</td><td class="num">${money(x.amt)}</td><td>${fds(x.d)}</td><td>${stPill(x.st)}</td></tr>`).join("")}</tbody></table></div>` : `<p class="empty">${t("no_results")}</p>`}`);
+      <tbody>${(pgP = paginate(list, PER.priv)).items.map(x => `<tr><td><a href="#/private/pad/${x.id}">${x.id}</a></td><td>${esc(x.ti)}</td><td>${esc(L(gBy(x.g).n))}</td><td class="num">${money(x.amt)}</td><td>${fds(x.d)}</td><td>${stPill(x.st)}</td></tr>`).join("")}</tbody></table></div>${pagerNav(pgP, true)}` : `<p class="empty">${t("no_results")}</p>`}`);
 };
 
 /* ---------- Detalhe do PAD (researcher view) ---------- */
@@ -1904,12 +1914,12 @@ V.paNewPad = () => {
 
 /* ---------- As Minhas Publicações & Ficha ---------- */
 V.paPubs = () => {
-  const p = meP(); const list = pubsOf(p.s).sort((a, b) => b.y - a.y);
+  let pgM; const p = meP(); const list = pubsOf(p.s).sort((a, b) => b.y - a.y);
   return paShell("#/private/publications", `<div class="pa-h"><div>${ce("7.2","As Minhas Publicações (ORCID e manuais)")}<h1 data-focus>${t("pa_mypubs")}</h1><p>${t("pa_mypubs_p")}</p></div><a class="btn" href="#/private/publication/new">${I.plus} ${t("pa_add_pub")}</a></div>
     ${profTabs("#/private/publications")}
     <div class="notice"><span><span class="orcid" aria-hidden="true">iD</span></span><div><b>ORCID ${esc(p.o || "—")}</b><p class="meta">${t("bo_orcid_st")}: ${t("or_" + (p.orcidSt || "ok"))}, ${fd("2026-10-12")}. ${t("orcid_note")}</p></div></div>
     <div class="tbl-wrap"><table class="tbl"><thead><tr><th scope="col">${t("pa_title")}</th><th scope="col">${t("year")}</th><th scope="col">${t("type")}</th><th scope="col">${t("pa_origin")}</th><th scope="col"></th></tr></thead>
-    <tbody>${list.map(x => `<tr><td><a href="${URL_.pub(x.id)}">${esc(x.ti)}</a><br><span class="meta">${esc(x.j)}</span></td><td>${x.y}</td><td>${esc(typeLabel(x))}</td><td><span class="chip">${x.src === "manual" ? t("src_manual") : "ORCID"}</span></td><td class="num">${x.src === "manual" ? `<a class="btn btn-line btn-sm" href="#/private/publication/${x.id}">${t("pa_edit")}</a>` : `<span class="meta">${I.lock} ${t("pa_locked")}</span>`}</td></tr>`).join("")}</tbody></table></div>`);
+    <tbody>${(pgM = paginate(list, PER.priv)).items.map(x => `<tr><td><a href="${URL_.pub(x.id)}">${esc(x.ti)}</a><br><span class="meta">${esc(x.j)}</span></td><td>${x.y}</td><td>${esc(typeLabel(x))}</td><td><span class="chip">${x.src === "manual" ? t("src_manual") : "ORCID"}</span></td><td class="num">${x.src === "manual" ? `<a class="btn btn-line btn-sm" href="#/private/publication/${x.id}">${t("pa_edit")}</a>` : `<span class="meta">${I.lock} ${t("pa_locked")}</span>`}</td></tr>`).join("")}</tbody></table></div>${pagerNav(pgM, true)}`);
 };
 V.paPubForm = id => {
   const x = id === "new" ? null : pubBy(id); if (id !== "new" && (!x || x.src !== "manual")) return null;
@@ -1956,8 +1966,8 @@ function cpShell(cur, inner){
   </aside><div style="min-width:0"><div class="cp-top"><span class="ctx">${esc(p.n)}, ${esc(roleLabel(u.role))}</span><span style="display:flex;gap:10px;align-items:center"><span class="lang" role="group" aria-label="${esc(t("langGroup"))}" data-langgroup></span><a class="btn btn-line btn-sm" href="#/">${lang === "pt" ? "Ver site" : "View site"} ${I.ext}</a></span></div>
   <main class="cp-main" id="cpmain">${inner}</main></div></div>`;
 }
-const padTable = (list, base, cols) => list.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th scope="col">${t("pa_request")}</th><th scope="col">${t("bo_requester")}</th><th scope="col">${t("pad_title")}</th>${cols.group ? `<th scope="col">${t("group")}</th>` : ""}<th scope="col" class="num">${t("pa_amount")}</th><th scope="col">${t("pa_submitted")}</th>${cols.board ? `<th scope="col">${t("bo_assigned")}</th>` : ""}<th scope="col">${t("pa_status")}</th></tr></thead>
-  <tbody>${list.map(x => `<tr><td><a href="${base}/${x.id}">${x.id}</a></td><td>${esc(pBy(x.by).n)}</td><td>${esc(x.ti)}</td>${cols.group ? `<td>${esc(L(gBy(x.g).n))}</td>` : ""}<td class="num">${money(x.amt)}</td><td>${fds(x.d)}</td>${cols.board ? `<td>${x.board ? esc(pBy(x.board).n) : "—"}</td>` : ""}<td>${stPill(x.st, true)}${x.st === "board" && x.bd && !x.bd.pos ? `<br><span class="meta">${lang === "pt" ? "Board: desfavorável, falta justificação" : "Board: rejected, justification pending"}</span>` : ""}</td></tr>`).join("")}</tbody></table></div>` : `<p class="empty">${t("no_results")}</p>`;
+const padTable = (all, base, cols) => { const pg = paginate(all, PER.priv), list = pg.items; return all.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th scope="col">${t("pa_request")}</th><th scope="col">${t("bo_requester")}</th><th scope="col">${t("pad_title")}</th>${cols.group ? `<th scope="col">${t("group")}</th>` : ""}<th scope="col" class="num">${t("pa_amount")}</th><th scope="col">${t("pa_submitted")}</th>${cols.board ? `<th scope="col">${t("bo_assigned")}</th>` : ""}<th scope="col">${t("pa_status")}</th></tr></thead>
+  <tbody>${list.map(x => `<tr><td><a href="${base}/${x.id}">${x.id}</a></td><td>${esc(pBy(x.by).n)}</td><td>${esc(x.ti)}</td>${cols.group ? `<td>${esc(L(gBy(x.g).n))}</td>` : ""}<td class="num">${money(x.amt)}</td><td>${fds(x.d)}</td>${cols.board ? `<td>${x.board ? esc(pBy(x.board).n) : "—"}</td>` : ""}<td>${stPill(x.st, true)}${x.st === "board" && x.bd && !x.bd.pos ? `<br><span class="meta">${lang === "pt" ? "Board: desfavorável, falta justificação" : "Board: rejected, justification pending"}</span>` : ""}</td></tr>`).join("")}</tbody></table></div>${pagerNav(pg, true)}` : `<p class="empty">${t("no_results")}</p>`; };
 const padFilters = base => `${lang === "en" ? ce("3.4","EN state labels are a proposal; the spec defines them in PT only. To be validated by FEP RC") : ""}<form class="filters" data-filters="${base}" onsubmit="return false" style="margin:0">${fSearch(t("search"))}${fSelect("st", t("pa_status"), ["analise","correcao","board","deferido","indeferido"].map(s => [s, t("sti_" + s)]), t("pa_all_status"))}</form>`;
 const filterPads = list => list.filter(x => match(x.id + " " + x.ti + " " + pBy(x.by).n, qv("q")) && (!qv("st") || x.st === qv("st"))).sort((a, b) => b.d.localeCompare(a.d));
 const logTable = rows => `<div class="tbl-wrap"><table class="tbl"><thead><tr><th scope="col">${t("bo_when")}</th><th scope="col">${t("bo_who")}</th><th scope="col">${t("bo_action")}</th><th scope="col">${t("bo_change")}</th><th scope="col">${t("bo_ip")}</th></tr></thead><tbody>${rows.map((l, i) => `<tr><td style="white-space:nowrap">${esc(l[0])}</td><td>${esc(pBy(l[1]).n)}<br><span class="meta">${uid(l[1])}</span></td><td>${esc(actLabel(l[2]))}${l.pad ? `<br><span class="meta">${l.pad}</span>` : ""}</td><td>${l[3] === "—" ? "—" : esc(t("sti_" + l[3]))} → <b>${esc(t("sti_" + l[4]))}</b></td><td>${fakeIp(i + l[0].length)}</td></tr>`).join("")}</tbody></table></div>`;
@@ -2004,16 +2014,17 @@ V.boAdmin = () => cpShell("#/backoffice/admin", `<div class="pa-h"><div>${ce("7.
   <section class="box"><div style="display:flex;justify-content:space-between;align-items:center"><h2>${t("bo_inprogress")}</h2>${more("#/backoffice/admin/pads", t("view_all"))}</div>${padTable(PADS.filter(x => ["analise","board","correcao"].includes(x.st)).sort((a, b) => b.d.localeCompare(a.d)), "#/backoffice/admin/pads", { group:true, board:true })}</section>
   <section class="box"><div style="display:flex;justify-content:space-between;align-items:center"><h2>${t("bo_latest")}</h2>${more("#/backoffice/admin/audit", t("bo_audit"))}</div>${logTable(allLogs().slice(0, 6))}</section>`);
 V.boUsers = () => {
+  let pgU;
   const roleOf = p => p.s === "rita-lopes" ? "admin" : (p.fn || []).includes("board") ? "board" : (p.fn || []).includes("pi") ? "pi" : "researcher";
   const list = PEOPLE.filter(p => (["int","ext","phd"].includes(p.t) || p.s === "rita-lopes") && !DELETED_USERS.has(p.s)).filter(p => match(p.n, qv("q")) && (!qv("role") || roleOf(p) === qv("role")));
   return cpShell("#/backoffice/admin/users", `<div class="pa-h"><div>${ce("7.5","Gestão de Utilizadores: criar, editar e eliminar; atribuição de perfis; associação a Grupos")}<h1 data-focus>${t("bo_users")}</h1></div><button class="btn" type="button" data-toast="${esc(lang === "pt" ? "Formulário de novo utilizador (convite por e-mail)." : "New user form (email invitation).")}">${I.plus} ${t("bo_new_user")}</button></div>
   <form class="filters" data-filters="#/backoffice/admin/users" onsubmit="return false" style="margin:0">${fSearch(t("search_name"))}${fSelect("role", t("bo_role"), ["researcher","pi","board","admin"].map(r => [r, roleLabel(r)]))}${countLine(list.length)}</form>
   <div class="tbl-wrap"><table class="tbl"><thead><tr><th scope="col">ID</th><th scope="col">${t("pa_name")}</th><th scope="col">${t("d_email")}</th><th scope="col">${t("bo_role")}</th><th scope="col">${t("group")}</th><th scope="col">${t("bo_last")}</th><th scope="col"></th></tr></thead>
-  <tbody>${list.map((p, i) => `<tr><td class="meta">${uid(p.s)}</td><td><b>${esc(p.n)}</b></td><td>[${p.s.split("-")[0]}]@fep.up.pt</td>
+  <tbody>${(pgU = paginate(list, PER.priv)).items.map((p, i) => `<tr><td class="meta">${uid(p.s)}</td><td><b>${esc(p.n)}</b></td><td>[${p.s.split("-")[0]}]@fep.up.pt</td>
     <td><label class="sr-only" for="ur-${p.s}">${t("bo_role")}</label><select id="ur-${p.s}" data-urole="${p.s}" style="min-height:34px;border:1px solid var(--border-2);border-radius:8px;padding:0 6px;background:var(--surface)">${["researcher","pi","board","admin"].map(r => `<option value="${r}" ${roleOf(p) === r ? "selected" : ""}>${esc(roleLabel(r))}</option>`).join("")}</select></td>
     <td><label class="sr-only" for="ug-${p.s}">${t("group")}</label><select id="ug-${p.s}" data-ugroup="${p.s}" style="min-height:34px;border:1px solid var(--border-2);border-radius:8px;padding:0 6px;background:var(--surface);max-width:220px"><option value="">—</option>${GROUPS.map(g => `<option value="${g.s}" ${p.g === g.s ? "selected" : ""}>${esc(L(g.n))}</option>`).join("")}</select></td>
     <td>${fds(["2026-10-19","2026-10-16","2026-10-12","2026-09-30"][i % 4])}</td>
-    <td class="num" style="white-space:nowrap"><button class="btn btn-line btn-sm" type="button" data-toast="${esc(t("pa_edit"))}: ${esc(p.n)}">${t("pa_edit")}</button> <button class="btn btn-line btn-sm" type="button" data-udel="${p.s}">${t("bo_delete")}</button></td></tr>`).join("")}</tbody></table></div>`);
+    <td class="num" style="white-space:nowrap"><button class="btn btn-line btn-sm" type="button" data-toast="${esc(t("pa_edit"))}: ${esc(p.n)}">${t("pa_edit")}</button> <button class="btn btn-line btn-sm" type="button" data-udel="${p.s}">${t("bo_delete")}</button></td></tr>`).join("")}</tbody></table></div>${pagerNav(pgU, true)}`);
 };
 V.boGroups = () => cpShell("#/backoffice/admin/groups", `<div class="pa-h"><div>${ce("7.5","Gestão de Grupos: criar e editar; definir o PI responsável; associar investigadores")}<h1 data-focus>${t("bo_groups")}</h1></div><button class="btn" type="button" data-toast="${esc(t("bo_new_group"))}">${I.plus} ${t("bo_new_group")}</button></div>
   <div class="tbl-wrap"><table class="tbl"><thead><tr><th scope="col">${t("group")}</th><th scope="col">${t("bo_pi")}</th><th scope="col" class="num">${t("members")}</th><th scope="col"></th></tr></thead>
@@ -2027,13 +2038,14 @@ V.boGroup = s => {
   <div><button class="btn" type="submit">${t("pa_save")}</button></div></form>`);
 };
 V.boPeople = () => {
+  let pgA;
   const tab = qv("tab") === "q" ? "q" : "p";
   const list = PEOPLE.filter(p => ["int","ext","phd"].includes(p.t)).filter(p => match(p.n, qv("q")));
   return cpShell("#/backoffice/admin/people", `<div class="pa-h"><div>${ce("7.5","People: ORCID iD, estado e data da última importação; Quarentena")}<h1 data-focus>${t("bo_people")}</h1></div></div>
   ${tabs([["People","#/backoffice/admin/people"],[t("bo_quar_t") + " (" + QUARANTINE.length + ")","#/backoffice/admin/people?tab=q"]], tab === "q" ? "#/backoffice/admin/people?tab=q" : "#/backoffice/admin/people")}
   ${tab === "p" ? `<form class="filters" data-filters="#/backoffice/admin/people" onsubmit="return false" style="margin:0">${fSearch(t("search_name"))}${countLine(list.length)}</form>
   <div class="tbl-wrap"><table class="tbl"><thead><tr><th scope="col">${t("pa_name")}</th><th scope="col">${t("type_people")}</th><th scope="col">${t("group")}</th><th scope="col">ORCID iD</th><th scope="col">${t("bo_orcid_st")}</th><th scope="col"></th></tr></thead>
-  <tbody>${list.map(p => `<tr><td><b>${esc(p.n)}</b></td><td>${esc(peopleType(p))}</td><td>${esc(L(gOf(p.g).n))}</td><td>${p.o ? esc(p.o) : "—"}</td><td><span class="st" data-s="${p.orcidSt === "ok" ? "ok" : p.orcidSt === "err" ? "erro" : "x"}"><i aria-hidden="true"></i>${t("or_" + (p.orcidSt || "ok"))}</span>${p.orcidSt === "ok" ? `<br><span class="meta">${fds("2026-10-12")}</span>` : ""}</td><td class="num"><button class="btn btn-line btn-sm" type="button" data-orcid="${p.s}" ${p.o ? "" : "disabled"}>${lang === "pt" ? "Guardar e importar" : "Save and import"}</button></td></tr>`).join("")}</tbody></table></div>`
+  <tbody>${(pgA = paginate(list, PER.priv)).items.map(p => `<tr><td><b>${esc(p.n)}</b></td><td>${esc(peopleType(p))}</td><td>${esc(L(gOf(p.g).n))}</td><td>${p.o ? esc(p.o) : "—"}</td><td><span class="st" data-s="${p.orcidSt === "ok" ? "ok" : p.orcidSt === "err" ? "erro" : "x"}"><i aria-hidden="true"></i>${t("or_" + (p.orcidSt || "ok"))}</span>${p.orcidSt === "ok" ? `<br><span class="meta">${fds("2026-10-12")}</span>` : ""}</td><td class="num"><button class="btn btn-line btn-sm" type="button" data-orcid="${p.s}" ${p.o ? "" : "disabled"}>${lang === "pt" ? "Guardar e importar" : "Save and import"}</button></td></tr>`).join("")}</tbody></table></div>${pagerNav(pgA, true)}`
   : `<p class="muted">${t("bo_quar_p")}</p>${QUARANTINE.length ? `<div class="tbl-wrap"><table class="tbl"><thead><tr><th scope="col">${t("pa_title")}</th><th scope="col">${t("year")}</th><th scope="col">${lang === "pt" ? "Perfil" : "Profile"}</th><th scope="col">${lang === "pt" ? "Motivo" : "Reason"}</th><th scope="col"></th></tr></thead>
   <tbody>${QUARANTINE.map((q, i) => `<tr><td><span class="qbadge">Q</span> <b>${esc(q.ti)}</b></td><td>${q.y}</td><td>${esc(pBy(q.who).n)}</td><td>${esc(L(q.why))}</td><td class="num" style="white-space:nowrap"><button class="btn btn-sm" type="button" data-quar="${i}" data-act="merge">${t("bo_merge")}</button> <button class="btn btn-line btn-sm" type="button" data-quar="${i}" data-act="publish">${t("bo_publish")}</button> <button class="btn btn-line btn-sm" type="button" data-quar="${i}" data-act="discard">${t("bo_discard")}</button></td></tr>`).join("")}</tbody></table></div>` : `<p class="empty">${lang === "pt" ? "Quarentena vazia." : "Quarantine is empty."}</p>`}`}`);
 };
@@ -2061,10 +2073,10 @@ V.boAudit = () => {
   if (tab === "users"){
     const rows = USER_LOG.filter(l => match(pBy(l[1]).n + " " + pBy(l[3]).n, qv("q")) && (!qv("act") || l[2] === qv("act"))).sort((a, b) => b[0].localeCompare(a[0]));
     return cpShell(base, `${head}<form class="filters" data-filters="${base}" onsubmit="return false" style="margin:0"><input type="hidden" data-f="tab" value="users">${fSearch(t("search"))}${fSelect("act", t("bo_action"), ["u_create","u_role","u_group","u_orcid","u_delete","u_login"].map(a => [a, t("act_" + a)]), t("all_f"))}${countLine(rows.length)}</form>
-    <div class="tbl-wrap"><table class="tbl"><thead><tr><th scope="col">${t("bo_when")}</th><th scope="col">${t("bo_who")}</th><th scope="col">${t("bo_action")}</th><th scope="col">${t("bo_target")}</th><th scope="col">${t("bo_change")}</th><th scope="col">${t("bo_ip")}</th></tr></thead><tbody>${rows.map((l, i) => `<tr><td style="white-space:nowrap">${esc(l[0])}</td><td>${esc(pBy(l[1]).n)}<br><span class="meta">${uid(l[1])}</span></td><td>${esc(t("act_" + l[2]))}</td><td>${esc(pBy(l[3]).n)}<br><span class="meta">${uid(l[3])}</span></td><td>${esc(L(l[4]))}</td><td>${fakeIp(i + 3)}</td></tr>`).join("")}</tbody></table></div>`);
+    ${(pg => `<div class="tbl-wrap"><table class="tbl"><thead><tr><th scope="col">${t("bo_when")}</th><th scope="col">${t("bo_who")}</th><th scope="col">${t("bo_action")}</th><th scope="col">${t("bo_target")}</th><th scope="col">${t("bo_change")}</th><th scope="col">${t("bo_ip")}</th></tr></thead><tbody>${pg.items.map((l, i) => `<tr><td style="white-space:nowrap">${esc(l[0])}</td><td>${esc(pBy(l[1]).n)}<br><span class="meta">${uid(l[1])}</span></td><td>${esc(t("act_" + l[2]))}</td><td>${esc(pBy(l[3]).n)}<br><span class="meta">${uid(l[3])}</span></td><td>${esc(L(l[4]))}</td><td>${fakeIp(i + 3)}</td></tr>`).join("")}</tbody></table></div>${pagerNav(pg, true)}`)(paginate(rows, PER.priv))}`);
   }
   const rows = allLogs().filter(l => match(l.pad + " " + pBy(l[1]).n, qv("q")) && (!qv("act") || l[2] === qv("act")));
-  return cpShell(base, `${head}<form class="filters" data-filters="${base}" onsubmit="return false" style="margin:0">${fSearch(t("search"))}${fSelect("act", t("bo_action"), ["submit","reopen","opinion","decision","state"].map(a => [a, actLabel(a)]), t("all_f"))}${countLine(rows.length)}</form>${logTable(rows)}`);
+  return cpShell(base, `${head}<form class="filters" data-filters="${base}" onsubmit="return false" style="margin:0">${fSearch(t("search"))}${fSelect("act", t("bo_action"), ["submit","reopen","opinion","decision","state"].map(a => [a, actLabel(a)]), t("all_f"))}${countLine(rows.length)}</form>${(pg => logTable(pg.items) + pagerNav(pg, true))(paginate(rows, PER.priv))}`);
 };
 /* ================= chrome: header, menu, footer, toolbar ================= */
 const NAV = () => [
